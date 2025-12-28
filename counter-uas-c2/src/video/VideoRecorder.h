@@ -8,6 +8,7 @@
 #include <QMutex>
 #include <QQueue>
 #include <QWaitCondition>
+#include <QVariant>
 
 namespace CounterUAS {
 

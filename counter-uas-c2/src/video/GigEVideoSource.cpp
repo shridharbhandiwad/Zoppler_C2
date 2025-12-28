@@ -2,13 +2,15 @@
 #include "utils/Logger.h"
 #include <QImage>
 #include <QRandomGenerator>
+#include <QPainter>
+#include <QFont>
 
 namespace CounterUAS {
 
 GigEVideoSource::GigEVideoSource(const QString& sourceId, QObject* parent)
     : VideoSource(sourceId, parent)
 {
-    connect(m_frameTimer, &QTimer::timeout, this, &GigEVideoSource::processFrame);
+    QObject::connect(m_frameTimer, &QTimer::timeout, this, &GigEVideoSource::processFrame);
 }
 
 GigEVideoSource::~GigEVideoSource() {

@@ -48,13 +48,13 @@ RadarSensor::RadarSensor(const QString& sensorId, QObject* parent)
     , m_socket(new QTcpSocket(this))
     , m_reconnectTimer(new QTimer(this))
 {
-    connect(m_socket, &QTcpSocket::connected, this, &RadarSensor::onConnected);
-    connect(m_socket, &QTcpSocket::disconnected, this, &RadarSensor::onDisconnected);
-    connect(m_socket, &QTcpSocket::readyRead, this, &RadarSensor::onReadyRead);
-    connect(m_socket, &QTcpSocket::errorOccurred, this, &RadarSensor::onError);
+    QObject::connect(m_socket, &QTcpSocket::connected, this, &RadarSensor::onConnected);
+    QObject::connect(m_socket, &QTcpSocket::disconnected, this, &RadarSensor::onDisconnected);
+    QObject::connect(m_socket, &QTcpSocket::readyRead, this, &RadarSensor::onReadyRead);
+    QObject::connect(m_socket, &QAbstractSocket::errorOccurred, this, &RadarSensor::onError);
     
     m_reconnectTimer->setSingleShot(true);
-    connect(m_reconnectTimer, &QTimer::timeout, this, &RadarSensor::attemptReconnect);
+    QObject::connect(m_reconnectTimer, &QTimer::timeout, this, &RadarSensor::attemptReconnect);
 }
 
 RadarSensor::~RadarSensor() {
@@ -281,23 +281,23 @@ void RadarSensor::parseTrackReport(QDataStream& stream) {
     }
     
     // Convert to detection
-    SensorDetection detection;
-    detection.sensorId = m_sensorId;
-    detection.position = report.toGeoPosition(m_position);
-    detection.velocity = report.toVelocityVector(m_position);
-    detection.signalStrength = report.rcs;
-    detection.confidence = report.quality / 100.0;
-    detection.timestamp = report.timestamp;
-    detection.sourceType = DetectionSource::Radar;
-    detection.metadata["trackNumber"] = report.trackNumber;
-    detection.metadata["rangeM"] = report.rangeM;
-    detection.metadata["azimuthDeg"] = report.azimuthDeg;
-    detection.metadata["elevationDeg"] = report.elevationDeg;
+    SensorDetection sensorDet;
+    sensorDet.sensorId = m_sensorId;
+    sensorDet.position = report.toGeoPosition(m_position);
+    sensorDet.velocity = report.toVelocityVector(m_position);
+    sensorDet.signalStrength = report.rcs;
+    sensorDet.confidence = report.quality / 100.0;
+    sensorDet.timestamp = report.timestamp;
+    sensorDet.sourceType = DetectionSource::Radar;
+    sensorDet.metadata["trackNumber"] = report.trackNumber;
+    sensorDet.metadata["rangeM"] = report.rangeM;
+    sensorDet.metadata["azimuthDeg"] = report.azimuthDeg;
+    sensorDet.metadata["elevationDeg"] = report.elevationDeg;
     
     recordDetection();
     
     emit trackReportReceived(report);
-    emit detection(detection);
+    emit detection(sensorDet);
 }
 
 void RadarSensor::parseStatusReport(QDataStream& stream) {

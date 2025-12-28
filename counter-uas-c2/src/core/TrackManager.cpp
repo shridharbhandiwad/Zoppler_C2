@@ -3,6 +3,7 @@
 #include <QReadLocker>
 #include <QWriteLocker>
 #include <algorithm>
+#include <cmath>
 
 namespace CounterUAS {
 
@@ -148,8 +149,9 @@ QString TrackManager::createTrack(const GeoPosition& pos, DetectionSource source
     
     // Create Kalman filter for this track
     if (m_config.enableKalmanFilter) {
-        m_kalmanFilters[trackId] = std::make_unique<KalmanFilter2D>();
-        m_kalmanFilters[trackId]->initialize(pos.latitude, pos.longitude);
+        auto filter = std::make_unique<KalmanFilter2D>();
+        filter->initialize(pos.latitude, pos.longitude);
+        m_kalmanFilters.insert(trackId, std::move(filter));
     }
     
     m_stats.totalTracksCreated++;
@@ -174,10 +176,12 @@ void TrackManager::updateTrack(const QString& trackId, const GeoPosition& pos) {
     
     // Apply Kalman filter if enabled
     if (m_config.enableKalmanFilter && m_kalmanFilters.contains(trackId)) {
-        auto& filter = m_kalmanFilters[trackId];
-        filter->update(pos.latitude, pos.longitude);
-        filteredPos.latitude = filter->stateX();
-        filteredPos.longitude = filter->stateY();
+        auto it = m_kalmanFilters.find(trackId);
+        if (it != m_kalmanFilters.end()) {
+            it.value()->update(pos.latitude, pos.longitude);
+            filteredPos.latitude = it.value()->stateX();
+            filteredPos.longitude = it.value()->stateY();
+        }
     }
     
     t->setPosition(filteredPos);
@@ -549,13 +553,16 @@ void TrackManager::applyKalmanFilter(Track* track, const GeoPosition& measuremen
     
     QString trackId = track->trackId();
     if (!m_kalmanFilters.contains(trackId)) {
-        m_kalmanFilters[trackId] = std::make_unique<KalmanFilter2D>();
-        m_kalmanFilters[trackId]->initialize(measurement.latitude, measurement.longitude);
+        auto filter = std::make_unique<KalmanFilter2D>();
+        filter->initialize(measurement.latitude, measurement.longitude);
+        m_kalmanFilters.insert(trackId, std::move(filter));
         return;
     }
     
-    auto& filter = m_kalmanFilters[trackId];
-    filter->update(measurement.latitude, measurement.longitude);
+    auto it = m_kalmanFilters.find(trackId);
+    if (it != m_kalmanFilters.end()) {
+        it.value()->update(measurement.latitude, measurement.longitude);
+    }
 }
 
 QString TrackManager::generateTrackId() {

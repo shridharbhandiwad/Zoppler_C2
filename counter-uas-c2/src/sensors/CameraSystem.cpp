@@ -9,7 +9,7 @@ CameraSystem::CameraSystem(const QString& sensorId, QObject* parent)
     , m_slewTimer(new QTimer(this))
 {
     m_slewTimer->setInterval(50);  // Update slew every 50ms
-    connect(m_slewTimer, &QTimer::timeout, this, &CameraSystem::updateSlewProgress);
+    QObject::connect(m_slewTimer, &QTimer::timeout, this, &CameraSystem::updateSlewProgress);
 }
 
 CameraSystem::~CameraSystem() {

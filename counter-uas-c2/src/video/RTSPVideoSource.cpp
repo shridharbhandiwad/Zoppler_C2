@@ -2,26 +2,89 @@
 #include "utils/Logger.h"
 #include <QUrlQuery>
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+#include <QMediaContent>
+#endif
+
 namespace CounterUAS {
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+// Qt5 VideoFrameGrabber implementation
+VideoFrameGrabber::VideoFrameGrabber(QObject* parent)
+    : QAbstractVideoSurface(parent)
+{
+}
+
+QList<QVideoFrame::PixelFormat> VideoFrameGrabber::supportedPixelFormats(
+    QAbstractVideoBuffer::HandleType type) const
+{
+    Q_UNUSED(type)
+    return QList<QVideoFrame::PixelFormat>()
+        << QVideoFrame::Format_ARGB32
+        << QVideoFrame::Format_ARGB32_Premultiplied
+        << QVideoFrame::Format_RGB32
+        << QVideoFrame::Format_RGB24
+        << QVideoFrame::Format_RGB565
+        << QVideoFrame::Format_RGB555
+        << QVideoFrame::Format_BGRA32
+        << QVideoFrame::Format_BGRA32_Premultiplied
+        << QVideoFrame::Format_BGR32
+        << QVideoFrame::Format_BGR24
+        << QVideoFrame::Format_BGR565
+        << QVideoFrame::Format_BGR555
+        << QVideoFrame::Format_YUV420P
+        << QVideoFrame::Format_YV12
+        << QVideoFrame::Format_UYVY
+        << QVideoFrame::Format_YUYV
+        << QVideoFrame::Format_NV12
+        << QVideoFrame::Format_NV21;
+}
+
+bool VideoFrameGrabber::present(const QVideoFrame& frame)
+{
+    if (frame.isValid()) {
+        emit frameAvailable(frame);
+        return true;
+    }
+    return false;
+}
+#endif
 
 RTSPVideoSource::RTSPVideoSource(const QString& sourceId, QObject* parent)
     : VideoSource(sourceId, parent)
     , m_player(new QMediaPlayer(this))
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     , m_videoSink(new QVideoSink(this))
+#else
+    , m_videoSurface(new VideoFrameGrabber(this))
+#endif
 {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     m_player->setVideoSink(m_videoSink);
     
-    connect(m_player, &QMediaPlayer::mediaStatusChanged,
+    QObject::connect(m_player, &QMediaPlayer::mediaStatusChanged,
             this, &RTSPVideoSource::onMediaStatusChanged);
-    connect(m_player, &QMediaPlayer::playbackStateChanged,
+    QObject::connect(m_player, &QMediaPlayer::playbackStateChanged,
             this, &RTSPVideoSource::onPlaybackStateChanged);
-    connect(m_player, &QMediaPlayer::errorOccurred,
+    QObject::connect(m_player, &QMediaPlayer::errorOccurred,
             this, &RTSPVideoSource::onErrorOccurred);
-    connect(m_videoSink, &QVideoSink::videoFrameChanged,
+    QObject::connect(m_videoSink, &QVideoSink::videoFrameChanged,
             this, &RTSPVideoSource::onVideoFrameChanged);
+#else
+    m_player->setVideoOutput(m_videoSurface);
+    
+    QObject::connect(m_player, &QMediaPlayer::mediaStatusChanged,
+            this, &RTSPVideoSource::onMediaStatusChanged);
+    QObject::connect(m_player, &QMediaPlayer::stateChanged,
+            this, &RTSPVideoSource::onStateChanged);
+    QObject::connect(m_player, QOverload<QMediaPlayer::Error>::of(&QMediaPlayer::error),
+            this, &RTSPVideoSource::onError);
+    QObject::connect(m_videoSurface, &VideoFrameGrabber::frameAvailable,
+            this, &RTSPVideoSource::onFrameAvailable);
+#endif
     
     // Connect frame timer
-    connect(m_frameTimer, &QTimer::timeout, this, &RTSPVideoSource::processFrame);
+    QObject::connect(m_frameTimer, &QTimer::timeout, this, &RTSPVideoSource::processFrame);
 }
 
 RTSPVideoSource::~RTSPVideoSource() {
@@ -42,7 +105,11 @@ bool RTSPVideoSource::open(const QUrl& url) {
     
     setStatus(VideoSourceStatus::Connecting);
     
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     m_player->setSource(streamUrl);
+#else
+    m_player->setMedia(QMediaContent(streamUrl));
+#endif
     m_isOpen = true;
     
     Logger::instance().info("RTSPVideoSource",
@@ -58,7 +125,11 @@ void RTSPVideoSource::close() {
     
     stop();
     m_player->stop();
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     m_player->setSource(QUrl());
+#else
+    m_player->setMedia(QMediaContent());
+#endif
     m_isOpen = false;
     
     setStatus(VideoSourceStatus::Disconnected);
@@ -80,7 +151,7 @@ QString RTSPVideoSource::codecName() const {
 }
 
 void RTSPVideoSource::processFrame() {
-    // Frame processing is handled by onVideoFrameChanged
+    // Frame processing is handled by onVideoFrameChanged/onFrameAvailable
     // This timer just ensures we don't exceed target FPS
 }
 
@@ -121,6 +192,7 @@ void RTSPVideoSource::onMediaStatusChanged(QMediaPlayer::MediaStatus status) {
     }
 }
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 void RTSPVideoSource::onPlaybackStateChanged(QMediaPlayer::PlaybackState state) {
     switch (state) {
         case QMediaPlayer::PlayingState:
@@ -165,6 +237,55 @@ void RTSPVideoSource::onVideoFrameChanged(const QVideoFrame& frame) {
         emitFrame(image);
     }
 }
+#else
+void RTSPVideoSource::onStateChanged(QMediaPlayer::State state) {
+    switch (state) {
+        case QMediaPlayer::PlayingState:
+            if (m_streaming) {
+                setStatus(VideoSourceStatus::Streaming);
+            }
+            break;
+            
+        case QMediaPlayer::PausedState:
+            setStatus(VideoSourceStatus::Paused);
+            break;
+            
+        case QMediaPlayer::StoppedState:
+            if (m_isOpen && m_streaming) {
+                // Unexpected stop - may need reconnection
+                Logger::instance().warning("RTSPVideoSource",
+                                          m_sourceId + " playback stopped unexpectedly");
+            }
+            break;
+    }
+}
+
+void RTSPVideoSource::onError(QMediaPlayer::Error error) {
+    Q_UNUSED(error)
+    setError(m_player->errorString());
+}
+
+void RTSPVideoSource::onFrameAvailable(const QVideoFrame& frame) {
+    if (!frame.isValid()) return;
+    
+    m_lastFrame = frame;
+    
+    // Convert to QImage
+    QVideoFrame f = frame;
+    if (f.map(QAbstractVideoBuffer::ReadOnly)) {
+        QImage image(f.bits(),
+                     f.width(),
+                     f.height(),
+                     f.bytesPerLine(),
+                     QVideoFrame::imageFormatFromPixelFormat(f.pixelFormat()));
+        
+        if (!image.isNull()) {
+            emitFrame(image.copy());  // copy() because original data will be unmapped
+        }
+        f.unmap();
+    }
+}
+#endif
 
 QUrl RTSPVideoSource::buildStreamUrl(const QUrl& baseUrl) {
     QUrl url = baseUrl;

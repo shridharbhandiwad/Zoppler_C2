@@ -3,6 +3,7 @@
 #include <QDateTime>
 #include <QFileInfo>
 #include <QDir>
+#include <QBuffer>
 
 namespace CounterUAS {
 

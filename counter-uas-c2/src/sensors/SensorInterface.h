@@ -5,6 +5,7 @@
 #include <QString>
 #include <QTimer>
 #include <QDateTime>
+#include <QVariant>
 #include "core/Track.h"
 
 namespace CounterUAS {

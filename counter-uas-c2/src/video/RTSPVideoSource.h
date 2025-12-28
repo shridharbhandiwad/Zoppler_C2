@@ -3,8 +3,15 @@
 
 #include "video/VideoSource.h"
 #include <QMediaPlayer>
+#include <QtGlobal>
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 #include <QVideoSink>
 #include <QVideoFrame>
+#else
+#include <QAbstractVideoSurface>
+#include <QVideoFrame>
+#endif
 
 namespace CounterUAS {
 
@@ -20,6 +27,11 @@ struct RTSPConfig {
     bool lowLatencyMode = true;
     QString userAgent = "CounterUAS-C2/1.0";
 };
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+// Forward declaration for Qt5 video surface
+class VideoFrameGrabber;
+#endif
 
 /**
  * @brief RTSP video source implementation using Qt Multimedia
@@ -50,21 +62,51 @@ protected slots:
     void processFrame() override;
     
 private slots:
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     void onMediaStatusChanged(QMediaPlayer::MediaStatus status);
     void onPlaybackStateChanged(QMediaPlayer::PlaybackState state);
     void onErrorOccurred(QMediaPlayer::Error error, const QString& errorString);
     void onVideoFrameChanged(const QVideoFrame& frame);
+#else
+    void onMediaStatusChanged(QMediaPlayer::MediaStatus status);
+    void onStateChanged(QMediaPlayer::State state);
+    void onError(QMediaPlayer::Error error);
+    void onFrameAvailable(const QVideoFrame& frame);
+#endif
     
 private:
     QUrl buildStreamUrl(const QUrl& baseUrl);
     
     QMediaPlayer* m_player;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     QVideoSink* m_videoSink;
+#else
+    VideoFrameGrabber* m_videoSurface;
+#endif
     RTSPConfig m_config;
     
     bool m_isOpen = false;
     QVideoFrame m_lastFrame;
 };
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+/**
+ * @brief Video surface to capture frames in Qt5
+ */
+class VideoFrameGrabber : public QAbstractVideoSurface {
+    Q_OBJECT
+public:
+    explicit VideoFrameGrabber(QObject* parent = nullptr);
+    
+    QList<QVideoFrame::PixelFormat> supportedPixelFormats(
+        QAbstractVideoBuffer::HandleType type = QAbstractVideoBuffer::NoHandle) const override;
+    
+    bool present(const QVideoFrame& frame) override;
+    
+signals:
+    void frameAvailable(const QVideoFrame& frame);
+};
+#endif
 
 } // namespace CounterUAS
 

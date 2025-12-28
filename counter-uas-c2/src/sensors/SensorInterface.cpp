@@ -10,8 +10,8 @@ SensorInterface::SensorInterface(const QString& sensorId, QObject* parent)
     , m_updateTimer(new QTimer(this))
     , m_healthTimer(new QTimer(this))
 {
-    connect(m_updateTimer, &QTimer::timeout, this, &SensorInterface::processData);
-    connect(m_healthTimer, &QTimer::timeout, this, &SensorInterface::updateHealth);
+    QObject::connect(m_updateTimer, &QTimer::timeout, this, &SensorInterface::processData);
+    QObject::connect(m_healthTimer, &QTimer::timeout, this, &SensorInterface::updateHealth);
     
     m_healthTimer->setInterval(1000);  // Health check every second
 }
