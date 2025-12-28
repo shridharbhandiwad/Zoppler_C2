@@ -1,7 +1,6 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
-    <qresource prefix="/icons">
-    </qresource>
-    <qresource prefix="/config">
-    </qresource>
+    <!-- Resource file for Counter-UAS C2 application -->
+    <!-- Add icon and config resources here as needed -->
+    <!-- Example: <file>icons/app.png</file> -->
 </RCC>
