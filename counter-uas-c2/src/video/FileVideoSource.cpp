@@ -1,25 +1,41 @@
 #include "video/FileVideoSource.h"
+#include "video/RTSPVideoSource.h"  // For VideoFrameGrabber in Qt5
 #include "utils/Logger.h"
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+#include <QMediaContent>
+#endif
 
 namespace CounterUAS {
 
 FileVideoSource::FileVideoSource(const QString& sourceId, QObject* parent)
     : VideoSource(sourceId, parent)
     , m_player(new QMediaPlayer(this))
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     , m_videoSink(new QVideoSink(this))
+#else
+    , m_videoSurface(new VideoFrameGrabber(this))
+#endif
 {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     m_player->setVideoSink(m_videoSink);
     
-    connect(m_videoSink, &QVideoSink::videoFrameChanged,
+    QObject::connect(m_videoSink, &QVideoSink::videoFrameChanged,
             this, &FileVideoSource::onVideoFrameChanged);
-    connect(m_player, &QMediaPlayer::mediaStatusChanged,
+#else
+    m_player->setVideoOutput(m_videoSurface);
+    
+    QObject::connect(m_videoSurface, &VideoFrameGrabber::frameAvailable,
+            this, &FileVideoSource::onFrameAvailable);
+#endif
+    QObject::connect(m_player, &QMediaPlayer::mediaStatusChanged,
             this, &FileVideoSource::onMediaStatusChanged);
-    connect(m_player, &QMediaPlayer::positionChanged,
+    QObject::connect(m_player, &QMediaPlayer::positionChanged,
             this, &FileVideoSource::onPositionChanged);
-    connect(m_player, &QMediaPlayer::durationChanged,
+    QObject::connect(m_player, &QMediaPlayer::durationChanged,
             this, &FileVideoSource::onDurationChanged);
     
-    connect(m_frameTimer, &QTimer::timeout, this, &FileVideoSource::processFrame);
+    QObject::connect(m_frameTimer, &QTimer::timeout, this, &FileVideoSource::processFrame);
 }
 
 FileVideoSource::~FileVideoSource() {
@@ -35,7 +51,11 @@ bool FileVideoSource::open(const QUrl& url) {
     
     setStatus(VideoSourceStatus::Connecting);
     
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     m_player->setSource(url);
+#else
+    m_player->setMedia(QMediaContent(url));
+#endif
     m_isOpen = true;
     
     Logger::instance().info("FileVideoSource",
@@ -51,7 +71,11 @@ void FileVideoSource::close() {
     
     stop();
     m_player->stop();
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     m_player->setSource(QUrl());
+#else
+    m_player->setMedia(QMediaContent());
+#endif
     m_isOpen = false;
     
     setStatus(VideoSourceStatus::Disconnected);
@@ -81,9 +105,10 @@ qint64 FileVideoSource::duration() const {
 }
 
 void FileVideoSource::processFrame() {
-    // Frame processing handled by onVideoFrameChanged
+    // Frame processing handled by onVideoFrameChanged/onFrameAvailable
 }
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 void FileVideoSource::onVideoFrameChanged(const QVideoFrame& frame) {
     if (!frame.isValid()) return;
     
@@ -98,6 +123,25 @@ void FileVideoSource::onVideoFrameChanged(const QVideoFrame& frame) {
         emitFrame(image);
     }
 }
+#else
+void FileVideoSource::onFrameAvailable(const QVideoFrame& frame) {
+    if (!frame.isValid()) return;
+    
+    QVideoFrame f = frame;
+    if (f.map(QAbstractVideoBuffer::ReadOnly)) {
+        QImage image(f.bits(),
+                     f.width(),
+                     f.height(),
+                     f.bytesPerLine(),
+                     QVideoFrame::imageFormatFromPixelFormat(f.pixelFormat()));
+        
+        if (!image.isNull()) {
+            emitFrame(image.copy());  // copy() because original data will be unmapped
+        }
+        f.unmap();
+    }
+}
+#endif
 
 void FileVideoSource::onMediaStatusChanged(QMediaPlayer::MediaStatus status) {
     switch (status) {

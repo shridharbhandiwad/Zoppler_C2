@@ -58,8 +58,8 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-# Find Qt6 packages
-find_package(Qt6 REQUIRED COMPONENTS
+# Find Qt packages - try Qt6 first, then Qt5
+find_package(Qt6 COMPONENTS
     Core
     Gui
     Widgets
@@ -70,10 +70,36 @@ find_package(Qt6 REQUIRED COMPONENTS
     OpenGLWidgets
     Concurrent
     StateMachine
+    SerialPort
+    QUIET
 )
 
+if(Qt6_FOUND)
+    set(QT_VERSION_MAJOR 6)
+    message(STATUS "Using Qt6")
+else()
+    find_package(Qt5 REQUIRED COMPONENTS
+        Core
+        Gui
+        Widgets
+        Network
+        Sql
+        Multimedia
+        MultimediaWidgets
+        OpenGL
+        Concurrent
+        SerialPort
+    )
+    set(QT_VERSION_MAJOR 5)
+    message(STATUS "Using Qt5")
+endif()
+
 # Optional: Qt Location for map display
-find_package(Qt6 COMPONENTS Positioning Location QUIET)
+if(QT_VERSION_MAJOR EQUAL 6)
+    find_package(Qt6 COMPONENTS Positioning Location QUIET)
+else()
+    find_package(Qt5 COMPONENTS Positioning Location QUIET)
+endif()
 
 # Source files
 set(CORE_SOURCES
@@ -263,24 +289,46 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 )
 
 # Link Qt libraries
-target_link_libraries(${PROJECT_NAME} PRIVATE
-    Qt6::Core
-    Qt6::Gui
-    Qt6::Widgets
-    Qt6::Network
-    Qt6::Sql
-    Qt6::Multimedia
-    Qt6::MultimediaWidgets
-    Qt6::OpenGLWidgets
-    Qt6::Concurrent
-    Qt6::StateMachine
-)
+if(QT_VERSION_MAJOR EQUAL 6)
+    target_link_libraries(${PROJECT_NAME} PRIVATE
+        Qt6::Core
+        Qt6::Gui
+        Qt6::Widgets
+        Qt6::Network
+        Qt6::Sql
+        Qt6::Multimedia
+        Qt6::MultimediaWidgets
+        Qt6::OpenGLWidgets
+        Qt6::Concurrent
+        Qt6::StateMachine
+        Qt6::SerialPort
+    )
+else()
+    target_link_libraries(${PROJECT_NAME} PRIVATE
+        Qt5::Core
+        Qt5::Gui
+        Qt5::Widgets
+        Qt5::Network
+        Qt5::Sql
+        Qt5::Multimedia
+        Qt5::MultimediaWidgets
+        Qt5::OpenGL
+        Qt5::Concurrent
+        Qt5::SerialPort
+    )
+endif()
 
 # Optional Qt Location linking
-if(Qt6Location_FOUND)
+if(QT_VERSION_MAJOR EQUAL 6 AND Qt6Location_FOUND)
     target_link_libraries(${PROJECT_NAME} PRIVATE
         Qt6::Positioning
         Qt6::Location
+    )
+    target_compile_definitions(${PROJECT_NAME} PRIVATE HAS_QT_LOCATION)
+elseif(QT_VERSION_MAJOR EQUAL 5 AND Qt5Location_FOUND)
+    target_link_libraries(${PROJECT_NAME} PRIVATE
+        Qt5::Positioning
+        Qt5::Location
     )
     target_compile_definitions(${PROJECT_NAME} PRIVATE HAS_QT_LOCATION)
 endif()
@@ -302,7 +350,11 @@ install(DIRECTORY resources/ DESTINATION resources)
 option(BUILD_TESTS "Build unit tests" ON)
 if(BUILD_TESTS)
     enable_testing()
-    find_package(Qt6 COMPONENTS Test REQUIRED)
+    if(QT_VERSION_MAJOR EQUAL 6)
+        find_package(Qt6 COMPONENTS Test REQUIRED)
+    else()
+        find_package(Qt5 COMPONENTS Test REQUIRED)
+    endif()
     
     # Helper function to apply platform-specific compile options to test targets
     function(apply_test_compile_options target_name)
@@ -319,10 +371,11 @@ if(BUILD_TESTS)
         ${UTILS_SOURCES}
     )
     target_include_directories(test_track_manager PRIVATE ${CMAKE_SOURCE_DIR}/src)
-    target_link_libraries(test_track_manager PRIVATE
-        Qt6::Core
-        Qt6::Test
-    )
+    if(QT_VERSION_MAJOR EQUAL 6)
+        target_link_libraries(test_track_manager PRIVATE Qt6::Core Qt6::Test)
+    else()
+        target_link_libraries(test_track_manager PRIVATE Qt5::Core Qt5::Test)
+    endif()
     apply_test_compile_options(test_track_manager)
     add_test(NAME TrackManagerTest COMMAND test_track_manager)
     
@@ -332,10 +385,11 @@ if(BUILD_TESTS)
         ${UTILS_SOURCES}
     )
     target_include_directories(test_threat_assessor PRIVATE ${CMAKE_SOURCE_DIR}/src)
-    target_link_libraries(test_threat_assessor PRIVATE
-        Qt6::Core
-        Qt6::Test
-    )
+    if(QT_VERSION_MAJOR EQUAL 6)
+        target_link_libraries(test_threat_assessor PRIVATE Qt6::Core Qt6::Test)
+    else()
+        target_link_libraries(test_threat_assessor PRIVATE Qt5::Core Qt5::Test)
+    endif()
     apply_test_compile_options(test_threat_assessor)
     add_test(NAME ThreatAssessorTest COMMAND test_threat_assessor)
     
@@ -345,12 +399,11 @@ if(BUILD_TESTS)
         ${UTILS_SOURCES}
     )
     target_include_directories(test_video_pipeline PRIVATE ${CMAKE_SOURCE_DIR}/src)
-    target_link_libraries(test_video_pipeline PRIVATE
-        Qt6::Core
-        Qt6::Gui
-        Qt6::Multimedia
-        Qt6::Test
-    )
+    if(QT_VERSION_MAJOR EQUAL 6)
+        target_link_libraries(test_video_pipeline PRIVATE Qt6::Core Qt6::Gui Qt6::Multimedia Qt6::Test)
+    else()
+        target_link_libraries(test_video_pipeline PRIVATE Qt5::Core Qt5::Gui Qt5::Multimedia Qt5::Test)
+    endif()
     apply_test_compile_options(test_video_pipeline)
     add_test(NAME VideoPipelineTest COMMAND test_video_pipeline)
 endif()
@@ -377,6 +430,11 @@ else()
     )
 endif()
 
-message(STATUS "Qt6 Version: ${Qt6_VERSION}")
+if(QT_VERSION_MAJOR EQUAL 6)
+    message(STATUS "Qt Version: ${Qt6_VERSION}")
+    message(STATUS "Qt Location Available: ${Qt6Location_FOUND}")
+else()
+    message(STATUS "Qt Version: ${Qt5_VERSION}")
+    message(STATUS "Qt Location Available: ${Qt5Location_FOUND}")
+endif()
 message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
-message(STATUS "Qt Location Available: ${Qt6Location_FOUND}")

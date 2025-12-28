@@ -10,11 +10,11 @@ RFDetector::RFDetector(const QString& sensorId, QObject* parent)
     , m_udpSocket(new QUdpSocket(this))
     , m_serialPort(new QSerialPort(this))
 {
-    connect(m_udpSocket, &QUdpSocket::readyRead, 
+    QObject::connect(m_udpSocket, &QUdpSocket::readyRead, 
             this, &RFDetector::onUdpReadyRead);
-    connect(m_serialPort, &QSerialPort::readyRead,
+    QObject::connect(m_serialPort, &QSerialPort::readyRead,
             this, &RFDetector::onSerialReadyRead);
-    connect(m_serialPort, &QSerialPort::errorOccurred,
+    QObject::connect(m_serialPort, &QSerialPort::errorOccurred,
             this, &RFDetector::onSerialError);
     
     // Add known drone protocols

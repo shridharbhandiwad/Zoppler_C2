@@ -5,7 +5,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui widgets network sql multimedia multimediawidgets concurrent
+QT       += core gui widgets network sql multimedia multimediawidgets concurrent serialport
 
 # Qt 5.15.2 specific modules
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets

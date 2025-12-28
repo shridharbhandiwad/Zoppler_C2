@@ -3,9 +3,22 @@
 
 #include "video/VideoSource.h"
 #include <QMediaPlayer>
+#include <QtGlobal>
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 #include <QVideoSink>
+#include <QVideoFrame>
+#else
+#include <QAbstractVideoSurface>
+#include <QVideoFrame>
+#endif
 
 namespace CounterUAS {
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+// Forward declaration - use the same VideoFrameGrabber from RTSPVideoSource
+class VideoFrameGrabber;
+#endif
 
 /**
  * @brief File-based video source for simulation and replay
@@ -39,14 +52,22 @@ protected slots:
     void processFrame() override;
     
 private slots:
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     void onVideoFrameChanged(const QVideoFrame& frame);
+#else
+    void onFrameAvailable(const QVideoFrame& frame);
+#endif
     void onMediaStatusChanged(QMediaPlayer::MediaStatus status);
     void onPositionChanged(qint64 position);
     void onDurationChanged(qint64 duration);
     
 private:
     QMediaPlayer* m_player;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     QVideoSink* m_videoSink;
+#else
+    VideoFrameGrabber* m_videoSurface;
+#endif
     
     bool m_isOpen = false;
     bool m_looping = true;
