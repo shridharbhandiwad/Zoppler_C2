@@ -1,119 +1,89 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'SensorInterface.h'
 **
-** Created by: The Qt Meta Object Compiler version 68 (Qt 6.4.2)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.15.13)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
 #include <memory>
 #include "../../../src/sensors/SensorInterface.h"
+#include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'SensorInterface.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 68
-#error "This file was generated using the moc from 6.4.2. It"
+#elif Q_MOC_OUTPUT_REVISION != 67
+#error "This file was generated using the moc from 5.15.13. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
-#endif
-
-#ifndef Q_CONSTINIT
-#define Q_CONSTINIT
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-namespace {
 struct qt_meta_stringdata_CounterUAS__SensorInterface_t {
-    uint offsetsAndSizes[36];
-    char stringdata0[28];
-    char stringdata1[10];
-    char stringdata2[1];
-    char stringdata3[16];
-    char stringdata4[14];
-    char stringdata5[13];
-    char stringdata6[7];
-    char stringdata7[17];
-    char stringdata8[10];
-    char stringdata9[14];
-    char stringdata10[13];
-    char stringdata11[7];
-    char stringdata12[6];
-    char stringdata13[8];
-    char stringdata14[12];
-    char stringdata15[13];
-    char stringdata16[9];
-    char stringdata17[11];
+    QByteArrayData data[18];
+    char stringdata0[209];
 };
-#define QT_MOC_LITERAL(ofs, len) \
-    uint(sizeof(qt_meta_stringdata_CounterUAS__SensorInterface_t::offsetsAndSizes) + ofs), len 
-Q_CONSTINIT static const qt_meta_stringdata_CounterUAS__SensorInterface_t qt_meta_stringdata_CounterUAS__SensorInterface = {
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_CounterUAS__SensorInterface_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_CounterUAS__SensorInterface_t qt_meta_stringdata_CounterUAS__SensorInterface = {
     {
-        QT_MOC_LITERAL(0, 27),  // "CounterUAS::SensorInterface"
-        QT_MOC_LITERAL(28, 9),  // "detection"
-        QT_MOC_LITERAL(38, 0),  // ""
-        QT_MOC_LITERAL(39, 15),  // "SensorDetection"
-        QT_MOC_LITERAL(55, 13),  // "statusChanged"
-        QT_MOC_LITERAL(69, 12),  // "SensorStatus"
-        QT_MOC_LITERAL(82, 6),  // "status"
-        QT_MOC_LITERAL(89, 16),  // "connectedChanged"
-        QT_MOC_LITERAL(106, 9),  // "connected"
-        QT_MOC_LITERAL(116, 13),  // "healthUpdated"
-        QT_MOC_LITERAL(130, 12),  // "SensorHealth"
-        QT_MOC_LITERAL(143, 6),  // "health"
-        QT_MOC_LITERAL(150, 5),  // "error"
-        QT_MOC_LITERAL(156, 7),  // "message"
-        QT_MOC_LITERAL(164, 11),  // "processData"
-        QT_MOC_LITERAL(176, 12),  // "updateHealth"
-        QT_MOC_LITERAL(189, 8),  // "sensorId"
-        QT_MOC_LITERAL(198, 10)   // "sensorType"
+QT_MOC_LITERAL(0, 0, 27), // "CounterUAS::SensorInterface"
+QT_MOC_LITERAL(1, 28, 9), // "detection"
+QT_MOC_LITERAL(2, 38, 0), // ""
+QT_MOC_LITERAL(3, 39, 15), // "SensorDetection"
+QT_MOC_LITERAL(4, 55, 13), // "statusChanged"
+QT_MOC_LITERAL(5, 69, 12), // "SensorStatus"
+QT_MOC_LITERAL(6, 82, 6), // "status"
+QT_MOC_LITERAL(7, 89, 16), // "connectedChanged"
+QT_MOC_LITERAL(8, 106, 9), // "connected"
+QT_MOC_LITERAL(9, 116, 13), // "healthUpdated"
+QT_MOC_LITERAL(10, 130, 12), // "SensorHealth"
+QT_MOC_LITERAL(11, 143, 6), // "health"
+QT_MOC_LITERAL(12, 150, 5), // "error"
+QT_MOC_LITERAL(13, 156, 7), // "message"
+QT_MOC_LITERAL(14, 164, 11), // "processData"
+QT_MOC_LITERAL(15, 176, 12), // "updateHealth"
+QT_MOC_LITERAL(16, 189, 8), // "sensorId"
+QT_MOC_LITERAL(17, 198, 10) // "sensorType"
+
     },
-    "CounterUAS::SensorInterface",
-    "detection",
-    "",
-    "SensorDetection",
-    "statusChanged",
-    "SensorStatus",
-    "status",
-    "connectedChanged",
-    "connected",
-    "healthUpdated",
-    "SensorHealth",
-    "health",
-    "error",
-    "message",
-    "processData",
-    "updateHealth",
-    "sensorId",
-    "sensorType"
+    "CounterUAS::SensorInterface\0detection\0"
+    "\0SensorDetection\0statusChanged\0"
+    "SensorStatus\0status\0connectedChanged\0"
+    "connected\0healthUpdated\0SensorHealth\0"
+    "health\0error\0message\0processData\0"
+    "updateHealth\0sensorId\0sensorType"
 };
 #undef QT_MOC_LITERAL
-} // unnamed namespace
 
-Q_CONSTINIT static const uint qt_meta_data_CounterUAS__SensorInterface[] = {
+static const uint qt_meta_data_CounterUAS__SensorInterface[] = {
 
  // content:
-      10,       // revision
+       8,       // revision
        0,       // classname
        0,    0, // classinfo
        7,   14, // methods
-       4,   73, // properties
+       4,   66, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
        5,       // signalCount
 
- // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   56,    2, 0x06,    5 /* Public */,
-       4,    1,   59,    2, 0x06,    7 /* Public */,
-       7,    1,   62,    2, 0x06,    9 /* Public */,
-       9,    1,   65,    2, 0x06,   11 /* Public */,
-      12,    1,   68,    2, 0x06,   13 /* Public */,
+ // signals: name, argc, parameters, tag, flags
+       1,    1,   49,    2, 0x06 /* Public */,
+       4,    1,   52,    2, 0x06 /* Public */,
+       7,    1,   55,    2, 0x06 /* Public */,
+       9,    1,   58,    2, 0x06 /* Public */,
+      12,    1,   61,    2, 0x06 /* Public */,
 
- // slots: name, argc, parameters, tag, flags, initial metatype offsets
-      14,    0,   71,    2, 0x09,   15 /* Protected */,
-      15,    0,   72,    2, 0x09,   16 /* Protected */,
+ // slots: name, argc, parameters, tag, flags
+      14,    0,   64,    2, 0x09 /* Protected */,
+      15,    0,   65,    2, 0x09 /* Protected */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    1,
@@ -127,53 +97,19 @@ Q_CONSTINIT static const uint qt_meta_data_CounterUAS__SensorInterface[] = {
     QMetaType::Void,
 
  // properties: name, type, flags
-      16, QMetaType::QString, 0x00015401, uint(-1), 0,
-      17, QMetaType::QString, 0x00015401, uint(-1), 0,
-       6, 0x80000000 | 5, 0x00015009, uint(1), 0,
-       8, QMetaType::Bool, 0x00015001, uint(2), 0,
+      16, QMetaType::QString, 0x00095401,
+      17, QMetaType::QString, 0x00095401,
+       6, 0x80000000 | 5, 0x00495009,
+       8, QMetaType::Bool, 0x00495001,
+
+ // properties: notify_signal_id
+       0,
+       0,
+       1,
+       2,
 
        0        // eod
 };
-
-Q_CONSTINIT const QMetaObject CounterUAS::SensorInterface::staticMetaObject = { {
-    QMetaObject::SuperData::link<QObject::staticMetaObject>(),
-    qt_meta_stringdata_CounterUAS__SensorInterface.offsetsAndSizes,
-    qt_meta_data_CounterUAS__SensorInterface,
-    qt_static_metacall,
-    nullptr,
-    qt_incomplete_metaTypeArray<qt_meta_stringdata_CounterUAS__SensorInterface_t,
-        // property 'sensorId'
-        QtPrivate::TypeAndForceComplete<QString, std::true_type>,
-        // property 'sensorType'
-        QtPrivate::TypeAndForceComplete<QString, std::true_type>,
-        // property 'status'
-        QtPrivate::TypeAndForceComplete<SensorStatus, std::true_type>,
-        // property 'connected'
-        QtPrivate::TypeAndForceComplete<bool, std::true_type>,
-        // Q_OBJECT / Q_GADGET
-        QtPrivate::TypeAndForceComplete<SensorInterface, std::true_type>,
-        // method 'detection'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const SensorDetection &, std::false_type>,
-        // method 'statusChanged'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<SensorStatus, std::false_type>,
-        // method 'connectedChanged'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<bool, std::false_type>,
-        // method 'healthUpdated'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const SensorHealth &, std::false_type>,
-        // method 'error'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
-        // method 'processData'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'updateHealth'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>
-    >,
-    nullptr
-} };
 
 void CounterUAS::SensorInterface::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
@@ -181,11 +117,11 @@ void CounterUAS::SensorInterface::qt_static_metacall(QObject *_o, QMetaObject::C
         auto *_t = static_cast<SensorInterface *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->detection((*reinterpret_cast< std::add_pointer_t<SensorDetection>>(_a[1]))); break;
-        case 1: _t->statusChanged((*reinterpret_cast< std::add_pointer_t<SensorStatus>>(_a[1]))); break;
-        case 2: _t->connectedChanged((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
-        case 3: _t->healthUpdated((*reinterpret_cast< std::add_pointer_t<SensorHealth>>(_a[1]))); break;
-        case 4: _t->error((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 0: _t->detection((*reinterpret_cast< const SensorDetection(*)>(_a[1]))); break;
+        case 1: _t->statusChanged((*reinterpret_cast< SensorStatus(*)>(_a[1]))); break;
+        case 2: _t->connectedChanged((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 3: _t->healthUpdated((*reinterpret_cast< const SensorHealth(*)>(_a[1]))); break;
+        case 4: _t->error((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         case 5: _t->processData(); break;
         case 6: _t->updateHealth(); break;
         default: ;
@@ -194,40 +130,42 @@ void CounterUAS::SensorInterface::qt_static_metacall(QObject *_o, QMetaObject::C
         int *result = reinterpret_cast<int *>(_a[0]);
         {
             using _t = void (SensorInterface::*)(const SensorDetection & );
-            if (_t _q_method = &SensorInterface::detection; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&SensorInterface::detection)) {
                 *result = 0;
                 return;
             }
         }
         {
             using _t = void (SensorInterface::*)(SensorStatus );
-            if (_t _q_method = &SensorInterface::statusChanged; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&SensorInterface::statusChanged)) {
                 *result = 1;
                 return;
             }
         }
         {
             using _t = void (SensorInterface::*)(bool );
-            if (_t _q_method = &SensorInterface::connectedChanged; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&SensorInterface::connectedChanged)) {
                 *result = 2;
                 return;
             }
         }
         {
             using _t = void (SensorInterface::*)(const SensorHealth & );
-            if (_t _q_method = &SensorInterface::healthUpdated; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&SensorInterface::healthUpdated)) {
                 *result = 3;
                 return;
             }
         }
         {
             using _t = void (SensorInterface::*)(const QString & );
-            if (_t _q_method = &SensorInterface::error; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&SensorInterface::error)) {
                 *result = 4;
                 return;
             }
         }
-    }else if (_c == QMetaObject::ReadProperty) {
+    }
+#ifndef QT_NO_PROPERTIES
+    else if (_c == QMetaObject::ReadProperty) {
         auto *_t = static_cast<SensorInterface *>(_o);
         (void)_t;
         void *_v = _a[0];
@@ -240,9 +178,19 @@ void CounterUAS::SensorInterface::qt_static_metacall(QObject *_o, QMetaObject::C
         }
     } else if (_c == QMetaObject::WriteProperty) {
     } else if (_c == QMetaObject::ResetProperty) {
-    } else if (_c == QMetaObject::BindableProperty) {
     }
+#endif // QT_NO_PROPERTIES
 }
+
+QT_INIT_METAOBJECT const QMetaObject CounterUAS::SensorInterface::staticMetaObject = { {
+    QMetaObject::SuperData::link<QObject::staticMetaObject>(),
+    qt_meta_stringdata_CounterUAS__SensorInterface.data,
+    qt_meta_data_CounterUAS__SensorInterface,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
+
 
 const QMetaObject *CounterUAS::SensorInterface::metaObject() const
 {
@@ -268,14 +216,26 @@ int CounterUAS::SensorInterface::qt_metacall(QMetaObject::Call _c, int _id, void
         _id -= 7;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         if (_id < 7)
-            *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
+            *reinterpret_cast<int*>(_a[0]) = -1;
         _id -= 7;
-    }else if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
-            || _c == QMetaObject::ResetProperty || _c == QMetaObject::BindableProperty
-            || _c == QMetaObject::RegisterPropertyMetaType) {
+    }
+#ifndef QT_NO_PROPERTIES
+    else if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
+            || _c == QMetaObject::ResetProperty || _c == QMetaObject::RegisterPropertyMetaType) {
         qt_static_metacall(this, _c, _id, _a);
         _id -= 4;
+    } else if (_c == QMetaObject::QueryPropertyDesignable) {
+        _id -= 4;
+    } else if (_c == QMetaObject::QueryPropertyScriptable) {
+        _id -= 4;
+    } else if (_c == QMetaObject::QueryPropertyStored) {
+        _id -= 4;
+    } else if (_c == QMetaObject::QueryPropertyEditable) {
+        _id -= 4;
+    } else if (_c == QMetaObject::QueryPropertyUser) {
+        _id -= 4;
     }
+#endif // QT_NO_PROPERTIES
     return _id;
 }
 

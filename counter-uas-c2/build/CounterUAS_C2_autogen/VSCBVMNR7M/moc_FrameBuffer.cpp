@@ -1,58 +1,52 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'FrameBuffer.h'
 **
-** Created by: The Qt Meta Object Compiler version 68 (Qt 6.4.2)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.15.13)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
 #include <memory>
 #include "../../../src/utils/FrameBuffer.h"
+#include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'FrameBuffer.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 68
-#error "This file was generated using the moc from 6.4.2. It"
+#elif Q_MOC_OUTPUT_REVISION != 67
+#error "This file was generated using the moc from 5.15.13. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
-#endif
-
-#ifndef Q_CONSTINIT
-#define Q_CONSTINIT
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-namespace {
 struct qt_meta_stringdata_CounterUAS__FrameBuffer_t {
-    uint offsetsAndSizes[8];
-    char stringdata0[24];
-    char stringdata1[15];
-    char stringdata2[1];
-    char stringdata3[11];
+    QByteArrayData data[4];
+    char stringdata0[51];
 };
-#define QT_MOC_LITERAL(ofs, len) \
-    uint(sizeof(qt_meta_stringdata_CounterUAS__FrameBuffer_t::offsetsAndSizes) + ofs), len 
-Q_CONSTINIT static const qt_meta_stringdata_CounterUAS__FrameBuffer_t qt_meta_stringdata_CounterUAS__FrameBuffer = {
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_CounterUAS__FrameBuffer_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_CounterUAS__FrameBuffer_t qt_meta_stringdata_CounterUAS__FrameBuffer = {
     {
-        QT_MOC_LITERAL(0, 23),  // "CounterUAS::FrameBuffer"
-        QT_MOC_LITERAL(24, 14),  // "frameAvailable"
-        QT_MOC_LITERAL(39, 0),  // ""
-        QT_MOC_LITERAL(40, 10)   // "bufferFull"
+QT_MOC_LITERAL(0, 0, 23), // "CounterUAS::FrameBuffer"
+QT_MOC_LITERAL(1, 24, 14), // "frameAvailable"
+QT_MOC_LITERAL(2, 39, 0), // ""
+QT_MOC_LITERAL(3, 40, 10) // "bufferFull"
+
     },
-    "CounterUAS::FrameBuffer",
-    "frameAvailable",
-    "",
-    "bufferFull"
+    "CounterUAS::FrameBuffer\0frameAvailable\0"
+    "\0bufferFull"
 };
 #undef QT_MOC_LITERAL
-} // unnamed namespace
 
-Q_CONSTINIT static const uint qt_meta_data_CounterUAS__FrameBuffer[] = {
+static const uint qt_meta_data_CounterUAS__FrameBuffer[] = {
 
  // content:
-      10,       // revision
+       8,       // revision
        0,       // classname
        0,    0, // classinfo
        2,   14, // methods
@@ -62,9 +56,9 @@ Q_CONSTINIT static const uint qt_meta_data_CounterUAS__FrameBuffer[] = {
        0,       // flags
        2,       // signalCount
 
- // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   26,    2, 0x06,    1 /* Public */,
-       3,    0,   27,    2, 0x06,    2 /* Public */,
+ // signals: name, argc, parameters, tag, flags
+       1,    0,   24,    2, 0x06 /* Public */,
+       3,    0,   25,    2, 0x06 /* Public */,
 
  // signals: parameters
     QMetaType::Void,
@@ -72,23 +66,6 @@ Q_CONSTINIT static const uint qt_meta_data_CounterUAS__FrameBuffer[] = {
 
        0        // eod
 };
-
-Q_CONSTINIT const QMetaObject CounterUAS::FrameBuffer::staticMetaObject = { {
-    QMetaObject::SuperData::link<QObject::staticMetaObject>(),
-    qt_meta_stringdata_CounterUAS__FrameBuffer.offsetsAndSizes,
-    qt_meta_data_CounterUAS__FrameBuffer,
-    qt_static_metacall,
-    nullptr,
-    qt_incomplete_metaTypeArray<qt_meta_stringdata_CounterUAS__FrameBuffer_t,
-        // Q_OBJECT / Q_GADGET
-        QtPrivate::TypeAndForceComplete<FrameBuffer, std::true_type>,
-        // method 'frameAvailable'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'bufferFull'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>
-    >,
-    nullptr
-} };
 
 void CounterUAS::FrameBuffer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
@@ -104,14 +81,14 @@ void CounterUAS::FrameBuffer::qt_static_metacall(QObject *_o, QMetaObject::Call 
         int *result = reinterpret_cast<int *>(_a[0]);
         {
             using _t = void (FrameBuffer::*)();
-            if (_t _q_method = &FrameBuffer::frameAvailable; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&FrameBuffer::frameAvailable)) {
                 *result = 0;
                 return;
             }
         }
         {
             using _t = void (FrameBuffer::*)();
-            if (_t _q_method = &FrameBuffer::bufferFull; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&FrameBuffer::bufferFull)) {
                 *result = 1;
                 return;
             }
@@ -119,6 +96,16 @@ void CounterUAS::FrameBuffer::qt_static_metacall(QObject *_o, QMetaObject::Call 
     }
     (void)_a;
 }
+
+QT_INIT_METAOBJECT const QMetaObject CounterUAS::FrameBuffer::staticMetaObject = { {
+    QMetaObject::SuperData::link<QObject::staticMetaObject>(),
+    qt_meta_stringdata_CounterUAS__FrameBuffer.data,
+    qt_meta_data_CounterUAS__FrameBuffer,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
+
 
 const QMetaObject *CounterUAS::FrameBuffer::metaObject() const
 {
@@ -144,7 +131,7 @@ int CounterUAS::FrameBuffer::qt_metacall(QMetaObject::Call _c, int _id, void **_
         _id -= 2;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         if (_id < 2)
-            *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
+            *reinterpret_cast<int*>(_a[0]) = -1;
         _id -= 2;
     }
     return _id;

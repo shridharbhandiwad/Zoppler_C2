@@ -66,14 +66,13 @@ include CMakeFiles/test_track_manager_autogen_timestamp_deps.dir/compiler_depend
 # Include the progress variables for this target.
 include CMakeFiles/test_track_manager_autogen_timestamp_deps.dir/progress.make
 
-CMakeFiles/test_track_manager_autogen_timestamp_deps: /usr/lib/qt6/libexec/uic
-CMakeFiles/test_track_manager_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6Core.so.6.4.2
-CMakeFiles/test_track_manager_autogen_timestamp_deps: /usr/lib/qt6/libexec/moc
-CMakeFiles/test_track_manager_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6Gui.so.6.4.2
-CMakeFiles/test_track_manager_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6Network.so.6.4.2
-CMakeFiles/test_track_manager_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6SerialPort.so.6.4.2
-CMakeFiles/test_track_manager_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6Test.so.6.4.2
-CMakeFiles/test_track_manager_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6StateMachine.so.6.4.2
+CMakeFiles/test_track_manager_autogen_timestamp_deps: /usr/lib/qt5/bin/moc
+CMakeFiles/test_track_manager_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.15.13
+CMakeFiles/test_track_manager_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.15.13
+CMakeFiles/test_track_manager_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt5Network.so.5.15.13
+CMakeFiles/test_track_manager_autogen_timestamp_deps: /usr/lib/qt5/bin/uic
+CMakeFiles/test_track_manager_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt5SerialPort.so.5.15.13
+CMakeFiles/test_track_manager_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt5Test.so.5.15.13
 
 test_track_manager_autogen_timestamp_deps: CMakeFiles/test_track_manager_autogen_timestamp_deps
 test_track_manager_autogen_timestamp_deps: CMakeFiles/test_track_manager_autogen_timestamp_deps.dir/build.make

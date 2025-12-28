@@ -66,19 +66,18 @@ include CMakeFiles/CounterUAS_C2_autogen_timestamp_deps.dir/compiler_depend.make
 # Include the progress variables for this target.
 include CMakeFiles/CounterUAS_C2_autogen_timestamp_deps.dir/progress.make
 
-CMakeFiles/CounterUAS_C2_autogen_timestamp_deps: /usr/lib/qt6/libexec/uic
-CMakeFiles/CounterUAS_C2_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6Core.so.6.4.2
-CMakeFiles/CounterUAS_C2_autogen_timestamp_deps: /usr/lib/qt6/libexec/moc
-CMakeFiles/CounterUAS_C2_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6Gui.so.6.4.2
-CMakeFiles/CounterUAS_C2_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6Widgets.so.6.4.2
-CMakeFiles/CounterUAS_C2_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6Network.so.6.4.2
-CMakeFiles/CounterUAS_C2_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6MultimediaWidgets.so.6.4.2
-CMakeFiles/CounterUAS_C2_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6Sql.so.6.4.2
-CMakeFiles/CounterUAS_C2_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6Concurrent.so.6.4.2
-CMakeFiles/CounterUAS_C2_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6Multimedia.so.6.4.2
-CMakeFiles/CounterUAS_C2_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6OpenGLWidgets.so.6.4.2
-CMakeFiles/CounterUAS_C2_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6SerialPort.so.6.4.2
-CMakeFiles/CounterUAS_C2_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt6StateMachine.so.6.4.2
+CMakeFiles/CounterUAS_C2_autogen_timestamp_deps: /usr/lib/qt5/bin/moc
+CMakeFiles/CounterUAS_C2_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.15.13
+CMakeFiles/CounterUAS_C2_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.15.13
+CMakeFiles/CounterUAS_C2_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.15.13
+CMakeFiles/CounterUAS_C2_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt5Network.so.5.15.13
+CMakeFiles/CounterUAS_C2_autogen_timestamp_deps: /usr/lib/qt5/bin/uic
+CMakeFiles/CounterUAS_C2_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt5Sql.so.5.15.13
+CMakeFiles/CounterUAS_C2_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt5Multimedia.so.5.15.13
+CMakeFiles/CounterUAS_C2_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt5MultimediaWidgets.so.5.15.13
+CMakeFiles/CounterUAS_C2_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt5OpenGL.so.5.15.13
+CMakeFiles/CounterUAS_C2_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt5Concurrent.so.5.15.13
+CMakeFiles/CounterUAS_C2_autogen_timestamp_deps: /usr/lib/x86_64-linux-gnu/libQt5SerialPort.so.5.15.13
 
 CounterUAS_C2_autogen_timestamp_deps: CMakeFiles/CounterUAS_C2_autogen_timestamp_deps
 CounterUAS_C2_autogen_timestamp_deps: CMakeFiles/CounterUAS_C2_autogen_timestamp_deps.dir/build.make

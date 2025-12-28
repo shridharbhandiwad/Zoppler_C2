@@ -69,18 +69,18 @@ include CMakeFiles/CounterUAS_C2.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/CounterUAS_C2.dir/flags.make
 
-CounterUAS_C2_autogen/timestamp: /usr/lib/qt6/libexec/moc
-CounterUAS_C2_autogen/timestamp: /usr/lib/qt6/libexec/uic
+CounterUAS_C2_autogen/timestamp: /usr/lib/qt5/bin/moc
+CounterUAS_C2_autogen/timestamp: /usr/lib/qt5/bin/uic
 CounterUAS_C2_autogen/timestamp: CMakeFiles/CounterUAS_C2.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/workspace/counter-uas-c2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC and UIC for target CounterUAS_C2"
-	/usr/bin/cmake -E cmake_autogen /workspace/counter-uas-c2/build/CMakeFiles/CounterUAS_C2_autogen.dir/AutogenInfo.json Release
+	/usr/bin/cmake -E cmake_autogen /workspace/counter-uas-c2/build/CMakeFiles/CounterUAS_C2_autogen.dir/AutogenInfo.json Debug
 	/usr/bin/cmake -E touch /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/timestamp
 
 CounterUAS_C2_autogen/3YJK5W5UP7/qrc_resources.cpp: /workspace/counter-uas-c2/resources/resources.qrc
 CounterUAS_C2_autogen/3YJK5W5UP7/qrc_resources.cpp: CMakeFiles/CounterUAS_C2_autogen.dir/AutoRcc_resources_3YJK5W5UP7_Info.json
-CounterUAS_C2_autogen/3YJK5W5UP7/qrc_resources.cpp: /usr/lib/qt6/libexec/rcc
+CounterUAS_C2_autogen/3YJK5W5UP7/qrc_resources.cpp: /usr/lib/qt5/bin/rcc
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/workspace/counter-uas-c2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Automatic RCC for resources/resources.qrc"
-	/usr/bin/cmake -E cmake_autorcc /workspace/counter-uas-c2/build/CMakeFiles/CounterUAS_C2_autogen.dir/AutoRcc_resources_3YJK5W5UP7_Info.json Release
+	/usr/bin/cmake -E cmake_autorcc /workspace/counter-uas-c2/build/CMakeFiles/CounterUAS_C2_autogen.dir/AutoRcc_resources_3YJK5W5UP7_Info.json Debug
 
 CMakeFiles/CounterUAS_C2.dir/CounterUAS_C2_autogen/mocs_compilation.cpp.o: CMakeFiles/CounterUAS_C2.dir/flags.make
 CMakeFiles/CounterUAS_C2.dir/CounterUAS_C2_autogen/mocs_compilation.cpp.o: CounterUAS_C2_autogen/mocs_compilation.cpp
@@ -905,20 +905,16 @@ CounterUAS_C2: CMakeFiles/CounterUAS_C2.dir/src/simulators/TrackSimulator.cpp.o
 CounterUAS_C2: CMakeFiles/CounterUAS_C2.dir/src/simulators/VideoSimulator.cpp.o
 CounterUAS_C2: CMakeFiles/CounterUAS_C2.dir/CounterUAS_C2_autogen/3YJK5W5UP7/qrc_resources.cpp.o
 CounterUAS_C2: CMakeFiles/CounterUAS_C2.dir/build.make
-CounterUAS_C2: /usr/lib/x86_64-linux-gnu/libQt6Sql.so.6.4.2
-CounterUAS_C2: /usr/lib/x86_64-linux-gnu/libQt6MultimediaWidgets.so.6.4.2
-CounterUAS_C2: /usr/lib/x86_64-linux-gnu/libQt6OpenGLWidgets.so.6.4.2
-CounterUAS_C2: /usr/lib/x86_64-linux-gnu/libQt6Concurrent.so.6.4.2
-CounterUAS_C2: /usr/lib/x86_64-linux-gnu/libQt6StateMachine.so.6.4.2
-CounterUAS_C2: /usr/lib/x86_64-linux-gnu/libQt6SerialPort.so.6.4.2
-CounterUAS_C2: /usr/lib/x86_64-linux-gnu/libQt6Multimedia.so.6.4.2
-CounterUAS_C2: /usr/lib/x86_64-linux-gnu/libQt6Network.so.6.4.2
-CounterUAS_C2: /usr/lib/x86_64-linux-gnu/libQt6Widgets.so.6.4.2
-CounterUAS_C2: /usr/lib/x86_64-linux-gnu/libQt6OpenGL.so.6.4.2
-CounterUAS_C2: /usr/lib/x86_64-linux-gnu/libQt6Gui.so.6.4.2
-CounterUAS_C2: /usr/lib/x86_64-linux-gnu/libGLX.so
-CounterUAS_C2: /usr/lib/x86_64-linux-gnu/libOpenGL.so
-CounterUAS_C2: /usr/lib/x86_64-linux-gnu/libQt6Core.so.6.4.2
+CounterUAS_C2: /usr/lib/x86_64-linux-gnu/libQt5Sql.so.5.15.13
+CounterUAS_C2: /usr/lib/x86_64-linux-gnu/libQt5MultimediaWidgets.so.5.15.13
+CounterUAS_C2: /usr/lib/x86_64-linux-gnu/libQt5OpenGL.so.5.15.13
+CounterUAS_C2: /usr/lib/x86_64-linux-gnu/libQt5Concurrent.so.5.15.13
+CounterUAS_C2: /usr/lib/x86_64-linux-gnu/libQt5SerialPort.so.5.15.13
+CounterUAS_C2: /usr/lib/x86_64-linux-gnu/libQt5Multimedia.so.5.15.13
+CounterUAS_C2: /usr/lib/x86_64-linux-gnu/libQt5Network.so.5.15.13
+CounterUAS_C2: /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.15.13
+CounterUAS_C2: /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.15.13
+CounterUAS_C2: /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.15.13
 CounterUAS_C2: CMakeFiles/CounterUAS_C2.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/workspace/counter-uas-c2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_54) "Linking CXX executable CounterUAS_C2"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/CounterUAS_C2.dir/link.txt --verbose=$(VERBOSE)

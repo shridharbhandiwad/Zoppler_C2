@@ -1,91 +1,67 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'RadarSensor.h'
 **
-** Created by: The Qt Meta Object Compiler version 68 (Qt 6.4.2)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.15.13)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
 #include <memory>
 #include "../../../src/sensors/RadarSensor.h"
+#include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'RadarSensor.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 68
-#error "This file was generated using the moc from 6.4.2. It"
+#elif Q_MOC_OUTPUT_REVISION != 67
+#error "This file was generated using the moc from 5.15.13. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
-#endif
-
-#ifndef Q_CONSTINIT
-#define Q_CONSTINIT
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-namespace {
 struct qt_meta_stringdata_CounterUAS__RadarSensor_t {
-    uint offsetsAndSizes[30];
-    char stringdata0[24];
-    char stringdata1[20];
-    char stringdata2[1];
-    char stringdata3[17];
-    char stringdata4[7];
-    char stringdata5[15];
-    char stringdata6[7];
-    char stringdata7[12];
-    char stringdata8[12];
-    char stringdata9[15];
-    char stringdata10[12];
-    char stringdata11[8];
-    char stringdata12[29];
-    char stringdata13[6];
-    char stringdata14[17];
+    QByteArrayData data[15];
+    char stringdata0[202];
 };
-#define QT_MOC_LITERAL(ofs, len) \
-    uint(sizeof(qt_meta_stringdata_CounterUAS__RadarSensor_t::offsetsAndSizes) + ofs), len 
-Q_CONSTINIT static const qt_meta_stringdata_CounterUAS__RadarSensor_t qt_meta_stringdata_CounterUAS__RadarSensor = {
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_CounterUAS__RadarSensor_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_CounterUAS__RadarSensor_t qt_meta_stringdata_CounterUAS__RadarSensor = {
     {
-        QT_MOC_LITERAL(0, 23),  // "CounterUAS::RadarSensor"
-        QT_MOC_LITERAL(24, 19),  // "trackReportReceived"
-        QT_MOC_LITERAL(44, 0),  // ""
-        QT_MOC_LITERAL(45, 16),  // "RadarTrackReport"
-        QT_MOC_LITERAL(62, 6),  // "report"
-        QT_MOC_LITERAL(69, 14),  // "statusReceived"
-        QT_MOC_LITERAL(84, 6),  // "status"
-        QT_MOC_LITERAL(91, 11),  // "processData"
-        QT_MOC_LITERAL(103, 11),  // "onConnected"
-        QT_MOC_LITERAL(115, 14),  // "onDisconnected"
-        QT_MOC_LITERAL(130, 11),  // "onReadyRead"
-        QT_MOC_LITERAL(142, 7),  // "onError"
-        QT_MOC_LITERAL(150, 28),  // "QAbstractSocket::SocketError"
-        QT_MOC_LITERAL(179, 5),  // "error"
-        QT_MOC_LITERAL(185, 16)   // "attemptReconnect"
+QT_MOC_LITERAL(0, 0, 23), // "CounterUAS::RadarSensor"
+QT_MOC_LITERAL(1, 24, 19), // "trackReportReceived"
+QT_MOC_LITERAL(2, 44, 0), // ""
+QT_MOC_LITERAL(3, 45, 16), // "RadarTrackReport"
+QT_MOC_LITERAL(4, 62, 6), // "report"
+QT_MOC_LITERAL(5, 69, 14), // "statusReceived"
+QT_MOC_LITERAL(6, 84, 6), // "status"
+QT_MOC_LITERAL(7, 91, 11), // "processData"
+QT_MOC_LITERAL(8, 103, 11), // "onConnected"
+QT_MOC_LITERAL(9, 115, 14), // "onDisconnected"
+QT_MOC_LITERAL(10, 130, 11), // "onReadyRead"
+QT_MOC_LITERAL(11, 142, 7), // "onError"
+QT_MOC_LITERAL(12, 150, 28), // "QAbstractSocket::SocketError"
+QT_MOC_LITERAL(13, 179, 5), // "error"
+QT_MOC_LITERAL(14, 185, 16) // "attemptReconnect"
+
     },
-    "CounterUAS::RadarSensor",
-    "trackReportReceived",
-    "",
-    "RadarTrackReport",
-    "report",
-    "statusReceived",
-    "status",
-    "processData",
-    "onConnected",
-    "onDisconnected",
-    "onReadyRead",
-    "onError",
-    "QAbstractSocket::SocketError",
-    "error",
+    "CounterUAS::RadarSensor\0trackReportReceived\0"
+    "\0RadarTrackReport\0report\0statusReceived\0"
+    "status\0processData\0onConnected\0"
+    "onDisconnected\0onReadyRead\0onError\0"
+    "QAbstractSocket::SocketError\0error\0"
     "attemptReconnect"
 };
 #undef QT_MOC_LITERAL
-} // unnamed namespace
 
-Q_CONSTINIT static const uint qt_meta_data_CounterUAS__RadarSensor[] = {
+static const uint qt_meta_data_CounterUAS__RadarSensor[] = {
 
  // content:
-      10,       // revision
+       8,       // revision
        0,       // classname
        0,    0, // classinfo
        8,   14, // methods
@@ -95,17 +71,17 @@ Q_CONSTINIT static const uint qt_meta_data_CounterUAS__RadarSensor[] = {
        0,       // flags
        2,       // signalCount
 
- // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   62,    2, 0x06,    1 /* Public */,
-       5,    1,   65,    2, 0x06,    3 /* Public */,
+ // signals: name, argc, parameters, tag, flags
+       1,    1,   54,    2, 0x06 /* Public */,
+       5,    1,   57,    2, 0x06 /* Public */,
 
- // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       7,    0,   68,    2, 0x09,    5 /* Protected */,
-       8,    0,   69,    2, 0x08,    6 /* Private */,
-       9,    0,   70,    2, 0x08,    7 /* Private */,
-      10,    0,   71,    2, 0x08,    8 /* Private */,
-      11,    1,   72,    2, 0x08,    9 /* Private */,
-      14,    0,   75,    2, 0x08,   11 /* Private */,
+ // slots: name, argc, parameters, tag, flags
+       7,    0,   60,    2, 0x09 /* Protected */,
+       8,    0,   61,    2, 0x08 /* Private */,
+       9,    0,   62,    2, 0x08 /* Private */,
+      10,    0,   63,    2, 0x08 /* Private */,
+      11,    1,   64,    2, 0x08 /* Private */,
+      14,    0,   67,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -122,62 +98,30 @@ Q_CONSTINIT static const uint qt_meta_data_CounterUAS__RadarSensor[] = {
        0        // eod
 };
 
-Q_CONSTINIT const QMetaObject CounterUAS::RadarSensor::staticMetaObject = { {
-    QMetaObject::SuperData::link<SensorInterface::staticMetaObject>(),
-    qt_meta_stringdata_CounterUAS__RadarSensor.offsetsAndSizes,
-    qt_meta_data_CounterUAS__RadarSensor,
-    qt_static_metacall,
-    nullptr,
-    qt_incomplete_metaTypeArray<qt_meta_stringdata_CounterUAS__RadarSensor_t,
-        // Q_OBJECT / Q_GADGET
-        QtPrivate::TypeAndForceComplete<RadarSensor, std::true_type>,
-        // method 'trackReportReceived'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const RadarTrackReport &, std::false_type>,
-        // method 'statusReceived'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QByteArray &, std::false_type>,
-        // method 'processData'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'onConnected'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'onDisconnected'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'onReadyRead'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'onError'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<QAbstractSocket::SocketError, std::false_type>,
-        // method 'attemptReconnect'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>
-    >,
-    nullptr
-} };
-
 void CounterUAS::RadarSensor::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
         auto *_t = static_cast<RadarSensor *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->trackReportReceived((*reinterpret_cast< std::add_pointer_t<RadarTrackReport>>(_a[1]))); break;
-        case 1: _t->statusReceived((*reinterpret_cast< std::add_pointer_t<QByteArray>>(_a[1]))); break;
+        case 0: _t->trackReportReceived((*reinterpret_cast< const RadarTrackReport(*)>(_a[1]))); break;
+        case 1: _t->statusReceived((*reinterpret_cast< const QByteArray(*)>(_a[1]))); break;
         case 2: _t->processData(); break;
         case 3: _t->onConnected(); break;
         case 4: _t->onDisconnected(); break;
         case 5: _t->onReadyRead(); break;
-        case 6: _t->onError((*reinterpret_cast< std::add_pointer_t<QAbstractSocket::SocketError>>(_a[1]))); break;
+        case 6: _t->onError((*reinterpret_cast< QAbstractSocket::SocketError(*)>(_a[1]))); break;
         case 7: _t->attemptReconnect(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         switch (_id) {
-        default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
+        default: *reinterpret_cast<int*>(_a[0]) = -1; break;
         case 6:
             switch (*reinterpret_cast<int*>(_a[1])) {
-            default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
             case 0:
-                *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< QAbstractSocket::SocketError >(); break;
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< QAbstractSocket::SocketError >(); break;
             }
             break;
         }
@@ -185,20 +129,30 @@ void CounterUAS::RadarSensor::qt_static_metacall(QObject *_o, QMetaObject::Call 
         int *result = reinterpret_cast<int *>(_a[0]);
         {
             using _t = void (RadarSensor::*)(const RadarTrackReport & );
-            if (_t _q_method = &RadarSensor::trackReportReceived; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&RadarSensor::trackReportReceived)) {
                 *result = 0;
                 return;
             }
         }
         {
             using _t = void (RadarSensor::*)(const QByteArray & );
-            if (_t _q_method = &RadarSensor::statusReceived; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&RadarSensor::statusReceived)) {
                 *result = 1;
                 return;
             }
         }
     }
 }
+
+QT_INIT_METAOBJECT const QMetaObject CounterUAS::RadarSensor::staticMetaObject = { {
+    QMetaObject::SuperData::link<SensorInterface::staticMetaObject>(),
+    qt_meta_stringdata_CounterUAS__RadarSensor.data,
+    qt_meta_data_CounterUAS__RadarSensor,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
+
 
 const QMetaObject *CounterUAS::RadarSensor::metaObject() const
 {

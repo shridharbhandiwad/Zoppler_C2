@@ -12,7 +12,7 @@
 	"OPTIONS" : [ "-name", "resources" ],
 	"OUTPUT_CHECKSUM" : "3YJK5W5UP7",
 	"OUTPUT_NAME" : "qrc_resources.cpp",
-	"RCC_EXECUTABLE" : "/usr/lib/qt6/libexec/rcc",
+	"RCC_EXECUTABLE" : "/usr/lib/qt5/bin/rcc",
 	"RCC_LIST_OPTIONS" : [ "--list" ],
 	"SETTINGS_FILE" : "/workspace/counter-uas-c2/build/CMakeFiles/CounterUAS_C2_autogen.dir/AutoRcc_resources_3YJK5W5UP7_Used.txt",
 	"SOURCE" : "/workspace/counter-uas-c2/resources/resources.qrc",

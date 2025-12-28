@@ -1,88 +1,66 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'CameraSlewController.h'
 **
-** Created by: The Qt Meta Object Compiler version 68 (Qt 6.4.2)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.15.13)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
 #include <memory>
 #include "../../../src/video/CameraSlewController.h"
+#include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'CameraSlewController.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 68
-#error "This file was generated using the moc from 6.4.2. It"
+#elif Q_MOC_OUTPUT_REVISION != 67
+#error "This file was generated using the moc from 5.15.13. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
-#endif
-
-#ifndef Q_CONSTINIT
-#define Q_CONSTINIT
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-namespace {
 struct qt_meta_stringdata_CounterUAS__CameraSlewController_t {
-    uint offsetsAndSizes[28];
-    char stringdata0[33];
-    char stringdata1[12];
-    char stringdata2[1];
-    char stringdata3[9];
-    char stringdata4[12];
-    char stringdata5[7];
-    char stringdata6[13];
-    char stringdata7[16];
-    char stringdata8[8];
-    char stringdata9[16];
-    char stringdata10[10];
-    char stringdata11[15];
-    char stringdata12[15];
-    char stringdata13[15];
+    QByteArrayData data[14];
+    char stringdata0[182];
 };
-#define QT_MOC_LITERAL(ofs, len) \
-    uint(sizeof(qt_meta_stringdata_CounterUAS__CameraSlewController_t::offsetsAndSizes) + ofs), len 
-Q_CONSTINIT static const qt_meta_stringdata_CounterUAS__CameraSlewController_t qt_meta_stringdata_CounterUAS__CameraSlewController = {
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_CounterUAS__CameraSlewController_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_CounterUAS__CameraSlewController_t qt_meta_stringdata_CounterUAS__CameraSlewController = {
     {
-        QT_MOC_LITERAL(0, 32),  // "CounterUAS::CameraSlewController"
-        QT_MOC_LITERAL(33, 11),  // "slewStarted"
-        QT_MOC_LITERAL(45, 0),  // ""
-        QT_MOC_LITERAL(46, 8),  // "cameraId"
-        QT_MOC_LITERAL(55, 11),  // "GeoPosition"
-        QT_MOC_LITERAL(67, 6),  // "target"
-        QT_MOC_LITERAL(74, 12),  // "slewComplete"
-        QT_MOC_LITERAL(87, 15),  // "trackingStarted"
-        QT_MOC_LITERAL(103, 7),  // "trackId"
-        QT_MOC_LITERAL(111, 15),  // "trackingStopped"
-        QT_MOC_LITERAL(127, 9),  // "trackLost"
-        QT_MOC_LITERAL(137, 14),  // "onTrackUpdated"
-        QT_MOC_LITERAL(152, 14),  // "onTrackDropped"
-        QT_MOC_LITERAL(167, 14)   // "updateTracking"
+QT_MOC_LITERAL(0, 0, 32), // "CounterUAS::CameraSlewController"
+QT_MOC_LITERAL(1, 33, 11), // "slewStarted"
+QT_MOC_LITERAL(2, 45, 0), // ""
+QT_MOC_LITERAL(3, 46, 8), // "cameraId"
+QT_MOC_LITERAL(4, 55, 11), // "GeoPosition"
+QT_MOC_LITERAL(5, 67, 6), // "target"
+QT_MOC_LITERAL(6, 74, 12), // "slewComplete"
+QT_MOC_LITERAL(7, 87, 15), // "trackingStarted"
+QT_MOC_LITERAL(8, 103, 7), // "trackId"
+QT_MOC_LITERAL(9, 111, 15), // "trackingStopped"
+QT_MOC_LITERAL(10, 127, 9), // "trackLost"
+QT_MOC_LITERAL(11, 137, 14), // "onTrackUpdated"
+QT_MOC_LITERAL(12, 152, 14), // "onTrackDropped"
+QT_MOC_LITERAL(13, 167, 14) // "updateTracking"
+
     },
-    "CounterUAS::CameraSlewController",
-    "slewStarted",
-    "",
-    "cameraId",
-    "GeoPosition",
-    "target",
-    "slewComplete",
-    "trackingStarted",
-    "trackId",
-    "trackingStopped",
-    "trackLost",
-    "onTrackUpdated",
-    "onTrackDropped",
+    "CounterUAS::CameraSlewController\0"
+    "slewStarted\0\0cameraId\0GeoPosition\0"
+    "target\0slewComplete\0trackingStarted\0"
+    "trackId\0trackingStopped\0trackLost\0"
+    "onTrackUpdated\0onTrackDropped\0"
     "updateTracking"
 };
 #undef QT_MOC_LITERAL
-} // unnamed namespace
 
-Q_CONSTINIT static const uint qt_meta_data_CounterUAS__CameraSlewController[] = {
+static const uint qt_meta_data_CounterUAS__CameraSlewController[] = {
 
  // content:
-      10,       // revision
+       8,       // revision
        0,       // classname
        0,    0, // classinfo
        8,   14, // methods
@@ -92,17 +70,17 @@ Q_CONSTINIT static const uint qt_meta_data_CounterUAS__CameraSlewController[] = 
        0,       // flags
        5,       // signalCount
 
- // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    2,   62,    2, 0x06,    1 /* Public */,
-       6,    1,   67,    2, 0x06,    4 /* Public */,
-       7,    2,   70,    2, 0x06,    6 /* Public */,
-       9,    1,   75,    2, 0x06,    9 /* Public */,
-      10,    2,   78,    2, 0x06,   11 /* Public */,
+ // signals: name, argc, parameters, tag, flags
+       1,    2,   54,    2, 0x06 /* Public */,
+       6,    1,   59,    2, 0x06 /* Public */,
+       7,    2,   62,    2, 0x06 /* Public */,
+       9,    1,   67,    2, 0x06 /* Public */,
+      10,    2,   70,    2, 0x06 /* Public */,
 
- // slots: name, argc, parameters, tag, flags, initial metatype offsets
-      11,    1,   83,    2, 0x08,   14 /* Private */,
-      12,    1,   86,    2, 0x08,   16 /* Private */,
-      13,    0,   89,    2, 0x08,   18 /* Private */,
+ // slots: name, argc, parameters, tag, flags
+      11,    1,   75,    2, 0x08 /* Private */,
+      12,    1,   78,    2, 0x08 /* Private */,
+      13,    0,   81,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString, 0x80000000 | 4,    3,    5,
@@ -119,58 +97,19 @@ Q_CONSTINIT static const uint qt_meta_data_CounterUAS__CameraSlewController[] = 
        0        // eod
 };
 
-Q_CONSTINIT const QMetaObject CounterUAS::CameraSlewController::staticMetaObject = { {
-    QMetaObject::SuperData::link<QObject::staticMetaObject>(),
-    qt_meta_stringdata_CounterUAS__CameraSlewController.offsetsAndSizes,
-    qt_meta_data_CounterUAS__CameraSlewController,
-    qt_static_metacall,
-    nullptr,
-    qt_incomplete_metaTypeArray<qt_meta_stringdata_CounterUAS__CameraSlewController_t,
-        // Q_OBJECT / Q_GADGET
-        QtPrivate::TypeAndForceComplete<CameraSlewController, std::true_type>,
-        // method 'slewStarted'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const GeoPosition &, std::false_type>,
-        // method 'slewComplete'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
-        // method 'trackingStarted'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
-        // method 'trackingStopped'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
-        // method 'trackLost'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
-        // method 'onTrackUpdated'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
-        // method 'onTrackDropped'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
-        // method 'updateTracking'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>
-    >,
-    nullptr
-} };
-
 void CounterUAS::CameraSlewController::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
         auto *_t = static_cast<CameraSlewController *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->slewStarted((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<GeoPosition>>(_a[2]))); break;
-        case 1: _t->slewComplete((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
-        case 2: _t->trackingStarted((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2]))); break;
-        case 3: _t->trackingStopped((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
-        case 4: _t->trackLost((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2]))); break;
-        case 5: _t->onTrackUpdated((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
-        case 6: _t->onTrackDropped((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 0: _t->slewStarted((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const GeoPosition(*)>(_a[2]))); break;
+        case 1: _t->slewComplete((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 2: _t->trackingStarted((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2]))); break;
+        case 3: _t->trackingStopped((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 4: _t->trackLost((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2]))); break;
+        case 5: _t->onTrackUpdated((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 6: _t->onTrackDropped((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         case 7: _t->updateTracking(); break;
         default: ;
         }
@@ -178,41 +117,51 @@ void CounterUAS::CameraSlewController::qt_static_metacall(QObject *_o, QMetaObje
         int *result = reinterpret_cast<int *>(_a[0]);
         {
             using _t = void (CameraSlewController::*)(const QString & , const GeoPosition & );
-            if (_t _q_method = &CameraSlewController::slewStarted; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&CameraSlewController::slewStarted)) {
                 *result = 0;
                 return;
             }
         }
         {
             using _t = void (CameraSlewController::*)(const QString & );
-            if (_t _q_method = &CameraSlewController::slewComplete; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&CameraSlewController::slewComplete)) {
                 *result = 1;
                 return;
             }
         }
         {
             using _t = void (CameraSlewController::*)(const QString & , const QString & );
-            if (_t _q_method = &CameraSlewController::trackingStarted; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&CameraSlewController::trackingStarted)) {
                 *result = 2;
                 return;
             }
         }
         {
             using _t = void (CameraSlewController::*)(const QString & );
-            if (_t _q_method = &CameraSlewController::trackingStopped; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&CameraSlewController::trackingStopped)) {
                 *result = 3;
                 return;
             }
         }
         {
             using _t = void (CameraSlewController::*)(const QString & , const QString & );
-            if (_t _q_method = &CameraSlewController::trackLost; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&CameraSlewController::trackLost)) {
                 *result = 4;
                 return;
             }
         }
     }
 }
+
+QT_INIT_METAOBJECT const QMetaObject CounterUAS::CameraSlewController::staticMetaObject = { {
+    QMetaObject::SuperData::link<QObject::staticMetaObject>(),
+    qt_meta_stringdata_CounterUAS__CameraSlewController.data,
+    qt_meta_data_CounterUAS__CameraSlewController,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
+
 
 const QMetaObject *CounterUAS::CameraSlewController::metaObject() const
 {
@@ -238,7 +187,7 @@ int CounterUAS::CameraSlewController::qt_metacall(QMetaObject::Call _c, int _id,
         _id -= 8;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         if (_id < 8)
-            *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
+            *reinterpret_cast<int*>(_a[0]) = -1;
         _id -= 8;
     }
     return _id;
