@@ -8,13 +8,14 @@ PTZController::PTZController(QObject* parent)
     , m_socket(new QTcpSocket(this))
     , m_positionTimer(new QTimer(this))
 {
-    connect(m_socket, &QTcpSocket::connected, this, &PTZController::onSocketConnected);
-    connect(m_socket, &QTcpSocket::disconnected, this, &PTZController::onSocketDisconnected);
-    connect(m_socket, &QTcpSocket::readyRead, this, &PTZController::onSocketReadyRead);
-    connect(m_socket, &QTcpSocket::errorOccurred, this, &PTZController::onSocketError);
+    QObject::connect(m_socket, &QTcpSocket::connected, this, &PTZController::onSocketConnected);
+    QObject::connect(m_socket, &QTcpSocket::disconnected, this, &PTZController::onSocketDisconnected);
+    QObject::connect(m_socket, &QTcpSocket::readyRead, this, &PTZController::onSocketReadyRead);
+    QObject::connect(m_socket, QOverload<QAbstractSocket::SocketError>::of(&QAbstractSocket::error),
+                     this, &PTZController::onSocketError);
     
     m_positionTimer->setInterval(100);
-    connect(m_positionTimer, &QTimer::timeout, this, &PTZController::updatePosition);
+    QObject::connect(m_positionTimer, &QTimer::timeout, this, &PTZController::updatePosition);
 }
 
 PTZController::~PTZController() {
