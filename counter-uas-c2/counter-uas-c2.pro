@@ -29,7 +29,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # Windows specific settings - create GUI application (not console)
 win32 {
     CONFIG += windows
-    RC_ICONS = resources/app.ico
+    # Note: Uncomment RC_ICONS when app.ico is added to resources/
+    # RC_ICONS = resources/app.ico
 }
 
 # Include directories
