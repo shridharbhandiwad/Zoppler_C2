@@ -32,8 +32,8 @@ void SensorSimulator::generateDetection() {
     auto* gen = QRandomGenerator::global();
     
     // Random position within 2km of base
-    double range = gen->bounded(500.0, 2000.0);
-    double bearing = gen->bounded(360.0);
+    double range = 500.0 + gen->generateDouble() * 1500.0;
+    double bearing = gen->generateDouble() * 360.0;
     
     double bearingRad = qDegreesToRadians(bearing);
     double latOffset = (range * std::cos(bearingRad)) / 111000.0;
@@ -42,20 +42,20 @@ void SensorSimulator::generateDetection() {
     GeoPosition pos;
     pos.latitude = m_basePosition.latitude + latOffset;
     pos.longitude = m_basePosition.longitude + lonOffset;
-    pos.altitude = m_basePosition.altitude + gen->bounded(50.0, 200.0);
+    pos.altitude = m_basePosition.altitude + 50.0 + gen->generateDouble() * 150.0;
     
     // Random velocity toward base
-    double speed = gen->bounded(5.0, 25.0);
-    double velBearing = bearing + 180.0 + gen->bounded(-30.0, 30.0);
+    double speed = 5.0 + gen->generateDouble() * 20.0;
+    double velBearing = bearing + 180.0 + (gen->generateDouble() * 60.0 - 30.0);
     if (velBearing >= 360.0) velBearing -= 360.0;
     if (velBearing < 0.0) velBearing += 360.0;
     
     VelocityVector vel;
     vel.north = speed * std::cos(qDegreesToRadians(velBearing));
     vel.east = speed * std::sin(qDegreesToRadians(velBearing));
-    vel.down = gen->bounded(-2.0, 2.0);
+    vel.down = gen->generateDouble() * 4.0 - 2.0;
     
-    m_trackManager->processRadarDetection(pos, vel, gen->bounded(0.6, 1.0), 
+    m_trackManager->processRadarDetection(pos, vel, 0.6 + gen->generateDouble() * 0.4, 
                                           QDateTime::currentMSecsSinceEpoch());
 }
 

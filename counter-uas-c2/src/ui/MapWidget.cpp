@@ -92,7 +92,7 @@ void MapWidget::paintEvent(QPaintEvent* event) {
 
 void MapWidget::mousePressEvent(QMouseEvent* event) {
     if (event->button() == Qt::LeftButton) {
-        GeoPosition clickPos = screenToGeo(event->position());
+        GeoPosition clickPos = screenToGeo(event->pos());
         emit mapClicked(clickPos);
     }
 }
