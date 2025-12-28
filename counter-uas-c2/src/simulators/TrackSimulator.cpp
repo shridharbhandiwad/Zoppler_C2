@@ -51,8 +51,8 @@ void TrackSimulator::updateTargets() {
         
         // Add some noise
         auto* gen = QRandomGenerator::global();
-        target.position.latitude += gen->bounded(-0.00001, 0.00001);
-        target.position.longitude += gen->bounded(-0.00001, 0.00001);
+        target.position.latitude += gen->generateDouble() * 0.00002 - 0.00001;
+        target.position.longitude += gen->generateDouble() * 0.00002 - 0.00001;
         
         // Report to track manager
         m_trackManager->processRadarDetection(target.position, target.velocity, 
@@ -82,23 +82,23 @@ void TrackSimulator::spawnTarget() {
     target.id = QString("SIM-%1").arg(gen->bounded(10000));
     
     // Spawn at edge of range
-    double range = gen->bounded(2000.0, 3000.0);
-    double bearing = gen->bounded(360.0);
+    double range = 2000.0 + gen->generateDouble() * 1000.0;
+    double bearing = gen->generateDouble() * 360.0;
     double bearingRad = qDegreesToRadians(bearing);
     
     target.position.latitude = m_basePosition.latitude + (range * std::cos(bearingRad)) / 111000.0;
     target.position.longitude = m_basePosition.longitude + 
                                  (range * std::sin(bearingRad)) / 
                                  (111000.0 * std::cos(qDegreesToRadians(m_basePosition.latitude)));
-    target.position.altitude = m_basePosition.altitude + gen->bounded(50.0, 300.0);
+    target.position.altitude = m_basePosition.altitude + 50.0 + gen->generateDouble() * 250.0;
     
     // Velocity toward base
-    double speed = gen->bounded(8.0, 20.0);
-    double velBearing = bearing + 180.0 + gen->bounded(-20.0, 20.0);
+    double speed = 8.0 + gen->generateDouble() * 12.0;
+    double velBearing = bearing + 180.0 + (gen->generateDouble() * 40.0 - 20.0);
     
     target.velocity.north = speed * std::cos(qDegreesToRadians(velBearing));
     target.velocity.east = speed * std::sin(qDegreesToRadians(velBearing));
-    target.velocity.down = gen->bounded(-1.0, 1.0);
+    target.velocity.down = gen->generateDouble() * 2.0 - 1.0;
     
     target.classification = gen->bounded(100) < 70 ? 
                             TrackClassification::Hostile : TrackClassification::Pending;

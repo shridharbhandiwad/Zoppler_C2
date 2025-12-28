@@ -2,6 +2,8 @@
 #include "utils/Logger.h"
 #include <QSqlError>
 #include <QDir>
+#include <QJsonDocument>
+#include <QJsonObject>
 
 namespace CounterUAS {
 

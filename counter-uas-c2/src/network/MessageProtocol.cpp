@@ -22,8 +22,8 @@ QJsonObject Message::toJson() const {
 Message Message::fromJson(const QJsonObject& json) {
     Message msg;
     msg.type = static_cast<MessageType>(json["type"].toInt());
-    msg.sequenceNumber = static_cast<quint32>(json["sequenceNumber"].toInteger());
-    msg.timestamp = json["timestamp"].toInteger();
+    msg.sequenceNumber = static_cast<quint32>(json["sequenceNumber"].toDouble());
+    msg.timestamp = static_cast<qint64>(json["timestamp"].toDouble());
     msg.sourceId = json["sourceId"].toString();
     msg.payload = json["payload"].toObject().toVariantMap();
     return msg;

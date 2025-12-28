@@ -1,5 +1,6 @@
 #include "utils/CoordinateUtils.h"
 #include <QtMath>
+#include <QSize>
 
 namespace CounterUAS {
 
