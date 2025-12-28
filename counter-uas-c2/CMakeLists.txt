@@ -1,5 +1,56 @@
 cmake_minimum_required(VERSION 3.16)
+
+# Early compiler check before project() to provide better error messages
+if(NOT DEFINED CMAKE_CXX_COMPILER)
+    # Try to find a C++ compiler
+    if(WIN32)
+        find_program(CXX_COMPILER_PATH
+            NAMES cl.exe g++.exe clang++.exe
+            PATHS
+                "$ENV{ProgramFiles}/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/*/bin/Hostx64/x64"
+                "$ENV{ProgramFiles}/Microsoft Visual Studio/2022/Professional/VC/Tools/MSVC/*/bin/Hostx64/x64"
+                "$ENV{ProgramFiles}/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/*/bin/Hostx64/x64"
+                "$ENV{ProgramFiles\(x86\)}/Microsoft Visual Studio/2019/*/VC/Tools/MSVC/*/bin/Hostx64/x64"
+        )
+    else()
+        find_program(CXX_COMPILER_PATH NAMES g++ clang++ c++)
+    endif()
+endif()
+
 project(CounterUAS_C2 VERSION 1.0.0 LANGUAGES CXX)
+
+# Verify compiler was found and provide helpful error message
+if(NOT CMAKE_CXX_COMPILER)
+    if(WIN32)
+        message(FATAL_ERROR
+            "No C++ compiler found!\n"
+            "Please install one of the following:\n"
+            "  1. Visual Studio 2022 with 'Desktop development with C++' workload:\n"
+            "     - Run Visual Studio Installer\n"
+            "     - Select 'Modify' on your Visual Studio installation\n"
+            "     - Check 'Desktop development with C++' workload\n"
+            "     - Click 'Modify' to install\n"
+            "  2. Or install Build Tools for Visual Studio 2022:\n"
+            "     https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022\n"
+            "  3. Or use MinGW-w64/MSYS2:\n"
+            "     https://www.msys2.org/\n"
+            "\n"
+            "After installation, restart your terminal/IDE and try again."
+        )
+    else()
+        message(FATAL_ERROR
+            "No C++ compiler found!\n"
+            "Please install a C++ compiler:\n"
+            "  Ubuntu/Debian: sudo apt install build-essential\n"
+            "  Fedora/RHEL:   sudo dnf install gcc-c++\n"
+            "  macOS:         xcode-select --install\n"
+        )
+    endif()
+endif()
+
+message(STATUS "C++ Compiler: ${CMAKE_CXX_COMPILER}")
+message(STATUS "C++ Compiler ID: ${CMAKE_CXX_COMPILER_ID}")
+message(STATUS "C++ Compiler Version: ${CMAKE_CXX_COMPILER_VERSION}")
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -253,6 +304,15 @@ if(BUILD_TESTS)
     enable_testing()
     find_package(Qt6 COMPONENTS Test REQUIRED)
     
+    # Helper function to apply platform-specific compile options to test targets
+    function(apply_test_compile_options target_name)
+        if(MSVC)
+            target_compile_options(${target_name} PRIVATE /W3)
+        else()
+            target_compile_options(${target_name} PRIVATE -Wall -Wextra)
+        endif()
+    endfunction()
+    
     add_executable(test_track_manager
         tests/test_track_manager.cpp
         ${CORE_SOURCES}
@@ -263,6 +323,7 @@ if(BUILD_TESTS)
         Qt6::Core
         Qt6::Test
     )
+    apply_test_compile_options(test_track_manager)
     add_test(NAME TrackManagerTest COMMAND test_track_manager)
     
     add_executable(test_threat_assessor
@@ -275,6 +336,7 @@ if(BUILD_TESTS)
         Qt6::Core
         Qt6::Test
     )
+    apply_test_compile_options(test_threat_assessor)
     add_test(NAME ThreatAssessorTest COMMAND test_threat_assessor)
     
     add_executable(test_video_pipeline
@@ -289,12 +351,31 @@ if(BUILD_TESTS)
         Qt6::Multimedia
         Qt6::Test
     )
+    apply_test_compile_options(test_video_pipeline)
     add_test(NAME VideoPipelineTest COMMAND test_video_pipeline)
 endif()
 
-# Debug/Release configurations
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG")
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
+# Debug/Release configurations - platform-specific compiler flags
+if(MSVC)
+    # Microsoft Visual C++ compiler flags
+    target_compile_definitions(${PROJECT_NAME} PRIVATE
+        $<$<CONFIG:Debug>:DEBUG>
+    )
+    target_compile_options(${PROJECT_NAME} PRIVATE
+        $<$<CONFIG:Release>:/O2>
+        /W3
+    )
+else()
+    # GCC/Clang compiler flags
+    target_compile_definitions(${PROJECT_NAME} PRIVATE
+        $<$<CONFIG:Debug>:DEBUG>
+    )
+    target_compile_options(${PROJECT_NAME} PRIVATE
+        $<$<CONFIG:Release>:-O3>
+        -Wall
+        -Wextra
+    )
+endif()
 
 message(STATUS "Qt6 Version: ${Qt6_VERSION}")
 message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
