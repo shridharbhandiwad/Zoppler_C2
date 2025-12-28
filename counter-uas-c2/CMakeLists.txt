@@ -1,0 +1,301 @@
+cmake_minimum_required(VERSION 3.16)
+project(CounterUAS_C2 VERSION 1.0.0 LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+
+# Find Qt6 packages
+find_package(Qt6 REQUIRED COMPONENTS
+    Core
+    Gui
+    Widgets
+    Network
+    Sql
+    Multimedia
+    MultimediaWidgets
+    OpenGLWidgets
+    Concurrent
+    StateMachine
+)
+
+# Optional: Qt Location for map display
+find_package(Qt6 COMPONENTS Positioning Location QUIET)
+
+# Source files
+set(CORE_SOURCES
+    src/core/Track.cpp
+    src/core/TrackManager.cpp
+    src/core/ThreatAssessor.cpp
+    src/core/EngagementManager.cpp
+)
+
+set(SENSOR_SOURCES
+    src/sensors/SensorInterface.cpp
+    src/sensors/RadarSensor.cpp
+    src/sensors/RFDetector.cpp
+    src/sensors/CameraSystem.cpp
+)
+
+set(VIDEO_SOURCES
+    src/video/VideoStreamManager.cpp
+    src/video/VideoSource.cpp
+    src/video/RTSPVideoSource.cpp
+    src/video/GigEVideoSource.cpp
+    src/video/FileVideoSource.cpp
+    src/video/VideoDecoder.cpp
+    src/video/VideoOverlayRenderer.cpp
+    src/video/VideoRecorder.cpp
+    src/video/PTZController.cpp
+    src/video/CameraSlewController.cpp
+)
+
+set(EFFECTOR_SOURCES
+    src/effectors/EffectorInterface.cpp
+    src/effectors/RFJammer.cpp
+    src/effectors/KineticInterceptor.cpp
+    src/effectors/DirectedEnergySystem.cpp
+)
+
+set(NETWORK_SOURCES
+    src/network/NetworkManager.cpp
+    src/network/MessageProtocol.cpp
+)
+
+set(UI_SOURCES
+    src/ui/MainWindow.cpp
+    src/ui/MapWidget.cpp
+    src/ui/VideoDisplayWidget.cpp
+    src/ui/VideoGridWidget.cpp
+    src/ui/VideoControlBar.cpp
+    src/ui/PTZControlWidget.cpp
+    src/ui/TrackListWidget.cpp
+    src/ui/TrackDetailPanel.cpp
+    src/ui/SensorStatusPanel.cpp
+    src/ui/CameraStatusPanel.cpp
+    src/ui/EffectorControlPanel.cpp
+    src/ui/AlertQueue.cpp
+    src/ui/EngagementDialog.cpp
+)
+
+set(CONFIG_SOURCES
+    src/config/ConfigManager.cpp
+    src/config/CameraConfig.cpp
+    src/config/DatabaseManager.cpp
+)
+
+set(UTILS_SOURCES
+    src/utils/CoordinateUtils.cpp
+    src/utils/TimeUtils.cpp
+    src/utils/FrameBuffer.cpp
+    src/utils/Logger.cpp
+    src/utils/KalmanFilter.cpp
+)
+
+set(SIMULATOR_SOURCES
+    src/simulators/SensorSimulator.cpp
+    src/simulators/TrackSimulator.cpp
+    src/simulators/VideoSimulator.cpp
+)
+
+# Header files
+set(CORE_HEADERS
+    src/core/Track.h
+    src/core/TrackManager.h
+    src/core/ThreatAssessor.h
+    src/core/EngagementManager.h
+)
+
+set(SENSOR_HEADERS
+    src/sensors/SensorInterface.h
+    src/sensors/RadarSensor.h
+    src/sensors/RFDetector.h
+    src/sensors/CameraSystem.h
+)
+
+set(VIDEO_HEADERS
+    src/video/VideoStreamManager.h
+    src/video/VideoSource.h
+    src/video/RTSPVideoSource.h
+    src/video/GigEVideoSource.h
+    src/video/FileVideoSource.h
+    src/video/VideoDecoder.h
+    src/video/VideoOverlayRenderer.h
+    src/video/VideoRecorder.h
+    src/video/PTZController.h
+    src/video/CameraSlewController.h
+)
+
+set(EFFECTOR_HEADERS
+    src/effectors/EffectorInterface.h
+    src/effectors/RFJammer.h
+    src/effectors/KineticInterceptor.h
+    src/effectors/DirectedEnergySystem.h
+)
+
+set(NETWORK_HEADERS
+    src/network/NetworkManager.h
+    src/network/MessageProtocol.h
+)
+
+set(UI_HEADERS
+    src/ui/MainWindow.h
+    src/ui/MapWidget.h
+    src/ui/VideoDisplayWidget.h
+    src/ui/VideoGridWidget.h
+    src/ui/VideoControlBar.h
+    src/ui/PTZControlWidget.h
+    src/ui/TrackListWidget.h
+    src/ui/TrackDetailPanel.h
+    src/ui/SensorStatusPanel.h
+    src/ui/CameraStatusPanel.h
+    src/ui/EffectorControlPanel.h
+    src/ui/AlertQueue.h
+    src/ui/EngagementDialog.h
+)
+
+set(CONFIG_HEADERS
+    src/config/ConfigManager.h
+    src/config/CameraConfig.h
+    src/config/DatabaseManager.h
+)
+
+set(UTILS_HEADERS
+    src/utils/CoordinateUtils.h
+    src/utils/TimeUtils.h
+    src/utils/FrameBuffer.h
+    src/utils/Logger.h
+    src/utils/KalmanFilter.h
+)
+
+set(SIMULATOR_HEADERS
+    src/simulators/SensorSimulator.h
+    src/simulators/TrackSimulator.h
+    src/simulators/VideoSimulator.h
+)
+
+# Resources
+set(RESOURCES
+    resources/resources.qrc
+)
+
+# Create executable
+add_executable(${PROJECT_NAME}
+    src/main.cpp
+    ${CORE_SOURCES}
+    ${SENSOR_SOURCES}
+    ${VIDEO_SOURCES}
+    ${EFFECTOR_SOURCES}
+    ${NETWORK_SOURCES}
+    ${UI_SOURCES}
+    ${CONFIG_SOURCES}
+    ${UTILS_SOURCES}
+    ${SIMULATOR_SOURCES}
+    ${CORE_HEADERS}
+    ${SENSOR_HEADERS}
+    ${VIDEO_HEADERS}
+    ${EFFECTOR_HEADERS}
+    ${NETWORK_HEADERS}
+    ${UI_HEADERS}
+    ${CONFIG_HEADERS}
+    ${UTILS_HEADERS}
+    ${SIMULATOR_HEADERS}
+    ${RESOURCES}
+)
+
+# Include directories
+target_include_directories(${PROJECT_NAME} PRIVATE
+    ${CMAKE_SOURCE_DIR}/src
+    ${CMAKE_SOURCE_DIR}/include
+)
+
+# Link Qt libraries
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    Qt6::Core
+    Qt6::Gui
+    Qt6::Widgets
+    Qt6::Network
+    Qt6::Sql
+    Qt6::Multimedia
+    Qt6::MultimediaWidgets
+    Qt6::OpenGLWidgets
+    Qt6::Concurrent
+    Qt6::StateMachine
+)
+
+# Optional Qt Location linking
+if(Qt6Location_FOUND)
+    target_link_libraries(${PROJECT_NAME} PRIVATE
+        Qt6::Positioning
+        Qt6::Location
+    )
+    target_compile_definitions(${PROJECT_NAME} PRIVATE HAS_QT_LOCATION)
+endif()
+
+# Platform-specific settings
+if(WIN32)
+    set_target_properties(${PROJECT_NAME} PROPERTIES WIN32_EXECUTABLE TRUE)
+endif()
+
+# Copy config files to build directory
+file(COPY ${CMAKE_SOURCE_DIR}/config/ DESTINATION ${CMAKE_BINARY_DIR}/config)
+
+# Install rules
+install(TARGETS ${PROJECT_NAME} DESTINATION bin)
+install(DIRECTORY config/ DESTINATION config)
+install(DIRECTORY resources/ DESTINATION resources)
+
+# Unit tests
+option(BUILD_TESTS "Build unit tests" ON)
+if(BUILD_TESTS)
+    enable_testing()
+    find_package(Qt6 COMPONENTS Test REQUIRED)
+    
+    add_executable(test_track_manager
+        tests/test_track_manager.cpp
+        ${CORE_SOURCES}
+        ${UTILS_SOURCES}
+    )
+    target_include_directories(test_track_manager PRIVATE ${CMAKE_SOURCE_DIR}/src)
+    target_link_libraries(test_track_manager PRIVATE
+        Qt6::Core
+        Qt6::Test
+    )
+    add_test(NAME TrackManagerTest COMMAND test_track_manager)
+    
+    add_executable(test_threat_assessor
+        tests/test_threat_assessor.cpp
+        ${CORE_SOURCES}
+        ${UTILS_SOURCES}
+    )
+    target_include_directories(test_threat_assessor PRIVATE ${CMAKE_SOURCE_DIR}/src)
+    target_link_libraries(test_threat_assessor PRIVATE
+        Qt6::Core
+        Qt6::Test
+    )
+    add_test(NAME ThreatAssessorTest COMMAND test_threat_assessor)
+    
+    add_executable(test_video_pipeline
+        tests/test_video_pipeline.cpp
+        ${VIDEO_SOURCES}
+        ${UTILS_SOURCES}
+    )
+    target_include_directories(test_video_pipeline PRIVATE ${CMAKE_SOURCE_DIR}/src)
+    target_link_libraries(test_video_pipeline PRIVATE
+        Qt6::Core
+        Qt6::Gui
+        Qt6::Multimedia
+        Qt6::Test
+    )
+    add_test(NAME VideoPipelineTest COMMAND test_video_pipeline)
+endif()
+
+# Debug/Release configurations
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
+
+message(STATUS "Qt6 Version: ${Qt6_VERSION}")
+message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
+message(STATUS "Qt Location Available: ${Qt6Location_FOUND}")
