@@ -11,8 +11,12 @@ PTZController::PTZController(QObject* parent)
     QObject::connect(m_socket, &QTcpSocket::connected, this, &PTZController::onSocketConnected);
     QObject::connect(m_socket, &QTcpSocket::disconnected, this, &PTZController::onSocketDisconnected);
     QObject::connect(m_socket, &QTcpSocket::readyRead, this, &PTZController::onSocketReadyRead);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    QObject::connect(m_socket, &QAbstractSocket::errorOccurred, this, &PTZController::onSocketError);
+#else
     QObject::connect(m_socket, QOverload<QAbstractSocket::SocketError>::of(&QAbstractSocket::error),
                      this, &PTZController::onSocketError);
+#endif
     
     m_positionTimer->setInterval(100);
     QObject::connect(m_positionTimer, &QTimer::timeout, this, &PTZController::updatePosition);

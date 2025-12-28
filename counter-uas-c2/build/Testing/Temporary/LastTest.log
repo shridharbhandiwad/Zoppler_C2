@@ -1,0 +1,96 @@
+Start testing: Dec 28 08:55 UTC
+----------------------------------------------------------
+1/3 Testing: TrackManagerTest
+1/3 Test: TrackManagerTest
+Command: "/workspace/counter-uas-c2/build/test_track_manager"
+Directory: /workspace/counter-uas-c2/build
+"TrackManagerTest" start time: Dec 28 08:55 UTC
+Output:
+----------------------------------------------------------
+QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-ubuntu'
+********* Start testing of TestTrackManager *********
+Config: Using QtTest library 6.4.2, Qt 6.4.2 (x86_64-little_endian-lp64 shared (dynamic) release build; by GCC 13.2.0), ubuntu 24.04
+PASS   : TestTrackManager::initTestCase()
+[2025-12-28 08:55:51.290] [INFO    ] [TrackManager        ] Created track: TRK-0001
+PASS   : TestTrackManager::testTrackCreation()
+[2025-12-28 08:55:51.290] [INFO    ] [TrackManager        ] Created track: TRK-0002
+PASS   : TestTrackManager::testTrackUpdate()
+[2025-12-28 08:55:51.290] [INFO    ] [TrackManager        ] Created track: TRK-0003
+PASS   : TestTrackManager::testTrackCorrelation()
+[2025-12-28 08:55:51.290] [INFO    ] [TrackManager        ] Created track: TRK-0004
+[2025-12-28 08:55:51.290] [INFO    ] [TrackManager        ] Dropped track: TRK-0004
+PASS   : TestTrackManager::testTrackLifecycle()
+[2025-12-28 08:55:51.290] [INFO    ] [TrackManager        ] Created track: TRK-0005
+PASS   : TestTrackManager::testThreatLevel()
+PASS   : TestTrackManager::cleanupTestCase()
+Totals: 7 passed, 0 failed, 0 skipped, 0 blacklisted, 1ms
+********* Finished testing of TestTrackManager *********
+<end of output>
+Test time =   2.01 sec
+----------------------------------------------------------
+Test Passed.
+"TrackManagerTest" end time: Dec 28 08:55 UTC
+"TrackManagerTest" time elapsed: 00:00:02
+----------------------------------------------------------
+
+2/3 Testing: ThreatAssessorTest
+2/3 Test: ThreatAssessorTest
+Command: "/workspace/counter-uas-c2/build/test_threat_assessor"
+Directory: /workspace/counter-uas-c2/build
+"ThreatAssessorTest" start time: Dec 28 08:55 UTC
+Output:
+----------------------------------------------------------
+QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-ubuntu'
+********* Start testing of TestThreatAssessor *********
+Config: Using QtTest library 6.4.2, Qt 6.4.2 (x86_64-little_endian-lp64 shared (dynamic) release build; by GCC 13.2.0), ubuntu 24.04
+[2025-12-28 08:55:53.300] [INFO    ] [ThreatAssessor      ] Loaded 5 default rules
+PASS   : TestThreatAssessor::initTestCase()
+[2025-12-28 08:55:53.300] [INFO    ] [ThreatAssessor      ] Added defended asset: Test Asset
+PASS   : TestThreatAssessor::testDefendedAssets()
+[2025-12-28 08:55:53.300] [INFO    ] [ThreatAssessor      ] Loaded 5 default rules
+PASS   : TestThreatAssessor::testThreatRules()
+[2025-12-28 08:55:53.300] [INFO    ] [ThreatAssessor      ] Loaded 5 default rules
+[2025-12-28 08:55:53.300] [INFO    ] [ThreatAssessor      ] Added defended asset: 
+[2025-12-28 08:55:53.300] [INFO    ] [TrackManager        ] Created track: TRK-0001
+[2025-12-28 08:55:53.300] [WARNING ] [ThreatAssessor      ] Alert: CRITICAL: Track TRK-0001 within critical radius!
+PASS   : TestThreatAssessor::testThreatAssessment()
+PASS   : TestThreatAssessor::testAlerts()
+PASS   : TestThreatAssessor::cleanupTestCase()
+Totals: 6 passed, 0 failed, 0 skipped, 0 blacklisted, 1ms
+********* Finished testing of TestThreatAssessor *********
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"ThreatAssessorTest" end time: Dec 28 08:55 UTC
+"ThreatAssessorTest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/3 Testing: VideoPipelineTest
+3/3 Test: VideoPipelineTest
+Command: "/workspace/counter-uas-c2/build/test_video_pipeline"
+Directory: /workspace/counter-uas-c2/build
+"VideoPipelineTest" start time: Dec 28 08:55 UTC
+Output:
+----------------------------------------------------------
+QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-ubuntu'
+********* Start testing of TestVideoPipeline *********
+Config: Using QtTest library 6.4.2, Qt 6.4.2 (x86_64-little_endian-lp64 shared (dynamic) release build; by GCC 13.2.0), ubuntu 24.04
+PASS   : TestVideoPipeline::initTestCase()
+[2025-12-28 08:55:53.415] [INFO    ] [VideoStreamManager  ] Added stream: TEST-CAM-01
+[2025-12-28 08:55:53.415] [INFO    ] [VideoStreamManager  ] Removed stream: TEST-CAM-01
+PASS   : TestVideoPipeline::testStreamManager()
+PASS   : TestVideoPipeline::testVideoOverlay()
+PASS   : TestVideoPipeline::testCameraDefinition()
+PASS   : TestVideoPipeline::cleanupTestCase()
+Totals: 5 passed, 0 failed, 0 skipped, 0 blacklisted, 151ms
+********* Finished testing of TestVideoPipeline *********
+<end of output>
+Test time =   0.17 sec
+----------------------------------------------------------
+Test Passed.
+"VideoPipelineTest" end time: Dec 28 08:55 UTC
+"VideoPipelineTest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Dec 28 08:55 UTC

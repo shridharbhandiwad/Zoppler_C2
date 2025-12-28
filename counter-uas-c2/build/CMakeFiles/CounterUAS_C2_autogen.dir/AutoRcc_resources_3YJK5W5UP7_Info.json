@@ -1,0 +1,20 @@
+{
+	"BUILD_DIR" : "/workspace/counter-uas-c2/build/CounterUAS_C2_autogen",
+	"CMAKE_BINARY_DIR" : "/workspace/counter-uas-c2/build",
+	"CMAKE_CURRENT_BINARY_DIR" : "/workspace/counter-uas-c2/build",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/workspace/counter-uas-c2",
+	"CMAKE_SOURCE_DIR" : "/workspace/counter-uas-c2",
+	"GENERATOR" : "Unix Makefiles",
+	"INCLUDE_DIR" : "/workspace/counter-uas-c2/build/CounterUAS_C2_autogen/include",
+	"INPUTS" : [],
+	"LOCK_FILE" : "/workspace/counter-uas-c2/build/CMakeFiles/CounterUAS_C2_autogen.dir/AutoRcc_resources_3YJK5W5UP7_Lock.lock",
+	"MULTI_CONFIG" : false,
+	"OPTIONS" : [ "-name", "resources" ],
+	"OUTPUT_CHECKSUM" : "3YJK5W5UP7",
+	"OUTPUT_NAME" : "qrc_resources.cpp",
+	"RCC_EXECUTABLE" : "/usr/lib/qt6/libexec/rcc",
+	"RCC_LIST_OPTIONS" : [ "--list" ],
+	"SETTINGS_FILE" : "/workspace/counter-uas-c2/build/CMakeFiles/CounterUAS_C2_autogen.dir/AutoRcc_resources_3YJK5W5UP7_Used.txt",
+	"SOURCE" : "/workspace/counter-uas-c2/resources/resources.qrc",
+	"VERBOSITY" : 0
+}

@@ -1,5 +1,6 @@
 #include "network/MessageProtocol.h"
 #include <QDataStream>
+#include <QIODevice>
 #include <QJsonDocument>
 #include <QDateTime>
 
