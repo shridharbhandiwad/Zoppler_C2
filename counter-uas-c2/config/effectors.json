@@ -1,0 +1,79 @@
+{
+    "effectors": [
+        {
+            "effectorId": "JAMMER-001",
+            "name": "RF Jammer Alpha",
+            "type": "RF_JAMMER",
+            "host": "192.168.1.60",
+            "port": 5010,
+            "position": {
+                "latitude": 34.0522,
+                "longitude": -118.2437,
+                "altitude": 110.0
+            },
+            "config": {
+                "minFrequencyMHz": 2400.0,
+                "maxFrequencyMHz": 5800.0,
+                "maxPowerW": 100.0,
+                "effectiveRangeM": 2000.0,
+                "engagementTimeMs": 30000,
+                "cooldownTimeMs": 5000
+            }
+        },
+        {
+            "effectorId": "JAMMER-002",
+            "name": "RF Jammer Bravo",
+            "type": "RF_JAMMER",
+            "host": "192.168.1.61",
+            "port": 5010,
+            "position": {
+                "latitude": 34.0532,
+                "longitude": -118.2447,
+                "altitude": 110.0
+            },
+            "config": {
+                "minFrequencyMHz": 2400.0,
+                "maxFrequencyMHz": 5800.0,
+                "maxPowerW": 100.0,
+                "effectiveRangeM": 2000.0
+            }
+        },
+        {
+            "effectorId": "KINETIC-001",
+            "name": "Interceptor Launcher",
+            "type": "KINETIC",
+            "host": "192.168.1.62",
+            "port": 5011,
+            "position": {
+                "latitude": 34.0520,
+                "longitude": -118.2440,
+                "altitude": 100.0
+            },
+            "config": {
+                "magazineCapacity": 10,
+                "minRangeM": 100.0,
+                "maxRangeM": 1500.0,
+                "maxAltitudeM": 500.0,
+                "interceptProbability": 0.85
+            }
+        },
+        {
+            "effectorId": "DE-001",
+            "name": "Directed Energy System",
+            "type": "DIRECTED_ENERGY",
+            "host": "192.168.1.63",
+            "port": 5012,
+            "position": {
+                "latitude": 34.0524,
+                "longitude": -118.2434,
+                "altitude": 105.0
+            },
+            "config": {
+                "maxPowerKW": 30.0,
+                "minRangeM": 100.0,
+                "maxRangeM": 1000.0,
+                "dwellTimeRequiredS": 2.0
+            }
+        }
+    ]
+}

@@ -1,0 +1,61 @@
+{
+    "cameras": [
+        {
+            "cameraId": "CAM-001",
+            "name": "North Tower PTZ",
+            "streamUrl": "rtsp://192.168.1.101/stream1",
+            "sourceType": "RTSP",
+            "position": {
+                "latitude": 34.0532,
+                "longitude": -118.2437,
+                "altitude": 120.0
+            },
+            "hasPTZ": true,
+            "ptzProtocol": "ONVIF",
+            "ptzAddress": "192.168.1.101",
+            "ptzPort": 80
+        },
+        {
+            "cameraId": "CAM-002",
+            "name": "South Gate Fixed",
+            "streamUrl": "rtsp://192.168.1.102/stream1",
+            "sourceType": "RTSP",
+            "position": {
+                "latitude": 34.0512,
+                "longitude": -118.2437,
+                "altitude": 105.0
+            },
+            "hasPTZ": false
+        },
+        {
+            "cameraId": "CAM-003",
+            "name": "East Perimeter PTZ",
+            "streamUrl": "rtsp://192.168.1.103/stream1",
+            "sourceType": "RTSP",
+            "position": {
+                "latitude": 34.0522,
+                "longitude": -118.2417,
+                "altitude": 110.0
+            },
+            "hasPTZ": true,
+            "ptzProtocol": "Pelco-D",
+            "ptzAddress": "192.168.1.103",
+            "ptzPort": 5000
+        },
+        {
+            "cameraId": "CAM-004",
+            "name": "West Perimeter PTZ",
+            "streamUrl": "rtsp://192.168.1.104/stream1",
+            "sourceType": "RTSP",
+            "position": {
+                "latitude": 34.0522,
+                "longitude": -118.2457,
+                "altitude": 110.0
+            },
+            "hasPTZ": true,
+            "ptzProtocol": "ONVIF",
+            "ptzAddress": "192.168.1.104",
+            "ptzPort": 80
+        }
+    ]
+}
