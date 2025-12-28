@@ -149,9 +149,9 @@ QString TrackManager::createTrack(const GeoPosition& pos, DetectionSource source
     
     // Create Kalman filter for this track
     if (m_config.enableKalmanFilter) {
-        auto filter = std::make_unique<KalmanFilter2D>();
+        auto filter = std::make_shared<KalmanFilter2D>();
         filter->initialize(pos.latitude, pos.longitude);
-        m_kalmanFilters.insert(trackId, std::move(filter));
+        m_kalmanFilters.insert(trackId, filter);
     }
     
     m_stats.totalTracksCreated++;
@@ -553,9 +553,9 @@ void TrackManager::applyKalmanFilter(Track* track, const GeoPosition& measuremen
     
     QString trackId = track->trackId();
     if (!m_kalmanFilters.contains(trackId)) {
-        auto filter = std::make_unique<KalmanFilter2D>();
+        auto filter = std::make_shared<KalmanFilter2D>();
         filter->initialize(measurement.latitude, measurement.longitude);
-        m_kalmanFilters.insert(trackId, std::move(filter));
+        m_kalmanFilters.insert(trackId, filter);
         return;
     }
     

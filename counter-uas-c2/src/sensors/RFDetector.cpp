@@ -160,7 +160,7 @@ void RFDetector::parseRFData(const QByteArray& data) {
     stream.setByteOrder(QDataStream::LittleEndian);
     stream.setFloatingPointPrecision(QDataStream::SinglePrecision);
     
-    RFDetection detection;
+    RFDetection rfDet;
     
     float freqMHz, signalDbm, azDeg, elDeg, bw;
     quint64 timestamp;
@@ -168,50 +168,50 @@ void RFDetector::parseRFData(const QByteArray& data) {
     
     stream >> freqMHz >> signalDbm >> azDeg >> elDeg >> bw >> timestamp >> sigLen;
     
-    detection.frequencyMHz = freqMHz;
-    detection.signalStrengthDbm = signalDbm;
-    detection.azimuthDeg = azDeg;
-    detection.elevationDeg = elDeg;
-    detection.bandwidth = bw;
-    detection.timestamp = timestamp;
+    rfDet.frequencyMHz = freqMHz;
+    rfDet.signalStrengthDbm = signalDbm;
+    rfDet.azimuthDeg = azDeg;
+    rfDet.elevationDeg = elDeg;
+    rfDet.bandwidth = bw;
+    rfDet.timestamp = timestamp;
     
     if (sigLen > 0 && sigLen <= 256) {
-        detection.signature.resize(sigLen);
-        stream.readRawData(detection.signature.data(), sigLen);
+        rfDet.signature.resize(sigLen);
+        stream.readRawData(rfDet.signature.data(), sigLen);
     }
     
     // Apply filters
-    if (detection.frequencyMHz < m_config.minFrequencyMHz ||
-        detection.frequencyMHz > m_config.maxFrequencyMHz) {
+    if (rfDet.frequencyMHz < m_config.minFrequencyMHz ||
+        rfDet.frequencyMHz > m_config.maxFrequencyMHz) {
         return;
     }
     
-    if (detection.signalStrengthDbm < m_config.signalThresholdDbm) {
+    if (rfDet.signalStrengthDbm < m_config.signalThresholdDbm) {
         return;
     }
     
     // Identify protocol
-    detection.protocol = identifyProtocol(detection.signature);
+    rfDet.protocol = identifyProtocol(rfDet.signature);
     
     // Estimate position
-    GeoPosition estimatedPos = estimatePosition(detection);
+    GeoPosition estimatedPos = estimatePosition(rfDet);
     
     // Create sensor detection
     SensorDetection sensorDetection;
     sensorDetection.sensorId = m_sensorId;
     sensorDetection.position = estimatedPos;
-    sensorDetection.signalStrength = (detection.signalStrengthDbm + 100) / 100.0;  // Normalize
+    sensorDetection.signalStrength = (rfDet.signalStrengthDbm + 100) / 100.0;  // Normalize
     sensorDetection.confidence = m_config.enableDirectionFinding ? 0.7 : 0.4;
-    sensorDetection.timestamp = detection.timestamp;
+    sensorDetection.timestamp = rfDet.timestamp;
     sensorDetection.sourceType = DetectionSource::RFDetector;
-    sensorDetection.metadata["frequencyMHz"] = detection.frequencyMHz;
-    sensorDetection.metadata["signalStrengthDbm"] = detection.signalStrengthDbm;
-    sensorDetection.metadata["protocol"] = detection.protocol;
-    sensorDetection.metadata["azimuthDeg"] = detection.azimuthDeg;
+    sensorDetection.metadata["frequencyMHz"] = rfDet.frequencyMHz;
+    sensorDetection.metadata["signalStrengthDbm"] = rfDet.signalStrengthDbm;
+    sensorDetection.metadata["protocol"] = rfDet.protocol;
+    sensorDetection.metadata["azimuthDeg"] = rfDet.azimuthDeg;
     
     recordDetection();
     
-    emit rfDetection(detection);
+    emit rfDetection(rfDet);
     emit detection(sensorDetection);
 }
 

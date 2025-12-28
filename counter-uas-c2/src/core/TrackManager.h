@@ -130,7 +130,7 @@ private:
     
     mutable QReadWriteLock m_lock;
     QHash<QString, Track*> m_tracks;
-    QHash<QString, std::unique_ptr<KalmanFilter2D>> m_kalmanFilters;
+    QHash<QString, std::shared_ptr<KalmanFilter2D>> m_kalmanFilters;
     
     TrackManagerConfig m_config;
     QTimer* m_updateTimer;
