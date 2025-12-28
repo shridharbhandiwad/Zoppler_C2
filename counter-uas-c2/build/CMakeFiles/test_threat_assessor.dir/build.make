@@ -69,11 +69,11 @@ include CMakeFiles/test_threat_assessor.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/test_threat_assessor.dir/flags.make
 
-test_threat_assessor_autogen/timestamp: /usr/lib/qt6/libexec/moc
-test_threat_assessor_autogen/timestamp: /usr/lib/qt6/libexec/uic
+test_threat_assessor_autogen/timestamp: /usr/lib/qt5/bin/moc
+test_threat_assessor_autogen/timestamp: /usr/lib/qt5/bin/uic
 test_threat_assessor_autogen/timestamp: CMakeFiles/test_threat_assessor.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/workspace/counter-uas-c2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC and UIC for target test_threat_assessor"
-	/usr/bin/cmake -E cmake_autogen /workspace/counter-uas-c2/build/CMakeFiles/test_threat_assessor_autogen.dir/AutogenInfo.json Release
+	/usr/bin/cmake -E cmake_autogen /workspace/counter-uas-c2/build/CMakeFiles/test_threat_assessor_autogen.dir/AutogenInfo.json Debug
 	/usr/bin/cmake -E touch /workspace/counter-uas-c2/build/test_threat_assessor_autogen/timestamp
 
 CMakeFiles/test_threat_assessor.dir/test_threat_assessor_autogen/mocs_compilation.cpp.o: CMakeFiles/test_threat_assessor.dir/flags.make
@@ -323,14 +323,11 @@ test_threat_assessor: CMakeFiles/test_threat_assessor.dir/src/effectors/RFJammer
 test_threat_assessor: CMakeFiles/test_threat_assessor.dir/src/effectors/KineticInterceptor.cpp.o
 test_threat_assessor: CMakeFiles/test_threat_assessor.dir/src/effectors/DirectedEnergySystem.cpp.o
 test_threat_assessor: CMakeFiles/test_threat_assessor.dir/build.make
-test_threat_assessor: /usr/lib/x86_64-linux-gnu/libQt6StateMachine.so.6.4.2
-test_threat_assessor: /usr/lib/x86_64-linux-gnu/libQt6Network.so.6.4.2
-test_threat_assessor: /usr/lib/x86_64-linux-gnu/libQt6SerialPort.so.6.4.2
-test_threat_assessor: /usr/lib/x86_64-linux-gnu/libQt6Test.so.6.4.2
-test_threat_assessor: /usr/lib/x86_64-linux-gnu/libQt6Gui.so.6.4.2
-test_threat_assessor: /usr/lib/x86_64-linux-gnu/libGLX.so
-test_threat_assessor: /usr/lib/x86_64-linux-gnu/libOpenGL.so
-test_threat_assessor: /usr/lib/x86_64-linux-gnu/libQt6Core.so.6.4.2
+test_threat_assessor: /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.15.13
+test_threat_assessor: /usr/lib/x86_64-linux-gnu/libQt5Network.so.5.15.13
+test_threat_assessor: /usr/lib/x86_64-linux-gnu/libQt5SerialPort.so.5.15.13
+test_threat_assessor: /usr/lib/x86_64-linux-gnu/libQt5Test.so.5.15.13
+test_threat_assessor: /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.15.13
 test_threat_assessor: CMakeFiles/test_threat_assessor.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/workspace/counter-uas-c2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Linking CXX executable test_threat_assessor"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/test_threat_assessor.dir/link.txt --verbose=$(VERBOSE)

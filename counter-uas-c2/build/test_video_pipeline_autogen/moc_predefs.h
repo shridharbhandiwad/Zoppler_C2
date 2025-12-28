@@ -11,7 +11,6 @@
 #define __UINT_LEAST8_TYPE__ unsigned char
 #define __SIZEOF_FLOAT80__ 16
 #define __BFLT16_DENORM_MIN__ 9.18354961579912115600575419704879436e-41BF16
-#define QT_STATEMACHINE_LIB 1
 #define __INTMAX_C(c) c ## L
 #define __CHAR_BIT__ 8
 #define __UINT8_MAX__ 0xff
@@ -63,7 +62,6 @@
 #define __BFLT16_MAX_10_EXP__ 38
 #define __BFLT16_MAX_EXP__ 128
 #define __LDBL_IS_IEC_60559__ 1
-#define QT_NO_DEBUG 1
 #define __FLT64X_HAS_QUIET_NAN__ 1
 #define QT_TESTLIB_LIB 1
 #define __UINT_LEAST8_MAX__ 0xff
@@ -181,7 +179,6 @@
 #define __SIZEOF_WINT_T__ 4
 #define __FLT32X_DIG__ 15
 #define __LONG_LONG_WIDTH__ 64
-#define QT_TESTCASE_SOURCEDIR "/workspace/counter-uas-c2"
 #define __cpp_initializer_lists 200806L
 #define __FLT32_MAX_EXP__ 128
 #define ABI_ID "ELF"

@@ -1,131 +1,96 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'VideoSource.h'
 **
-** Created by: The Qt Meta Object Compiler version 68 (Qt 6.4.2)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.15.13)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
 #include <memory>
 #include "../../../src/video/VideoSource.h"
+#include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'VideoSource.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 68
-#error "This file was generated using the moc from 6.4.2. It"
+#elif Q_MOC_OUTPUT_REVISION != 67
+#error "This file was generated using the moc from 5.15.13. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
-#endif
-
-#ifndef Q_CONSTINIT
-#define Q_CONSTINIT
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-namespace {
 struct qt_meta_stringdata_CounterUAS__VideoSource_t {
-    uint offsetsAndSizes[42];
-    char stringdata0[24];
-    char stringdata1[11];
-    char stringdata2[1];
-    char stringdata3[6];
-    char stringdata4[10];
-    char stringdata5[14];
-    char stringdata6[18];
-    char stringdata7[7];
-    char stringdata8[17];
-    char stringdata9[10];
-    char stringdata10[6];
-    char stringdata11[8];
-    char stringdata12[13];
-    char stringdata13[17];
-    char stringdata14[6];
-    char stringdata15[10];
-    char stringdata16[13];
-    char stringdata17[13];
-    char stringdata18[12];
-    char stringdata19[17];
-    char stringdata20[9];
+    QByteArrayData data[21];
+    char stringdata0[242];
 };
-#define QT_MOC_LITERAL(ofs, len) \
-    uint(sizeof(qt_meta_stringdata_CounterUAS__VideoSource_t::offsetsAndSizes) + ofs), len 
-Q_CONSTINIT static const qt_meta_stringdata_CounterUAS__VideoSource_t qt_meta_stringdata_CounterUAS__VideoSource = {
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_CounterUAS__VideoSource_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_CounterUAS__VideoSource_t qt_meta_stringdata_CounterUAS__VideoSource = {
     {
-        QT_MOC_LITERAL(0, 23),  // "CounterUAS::VideoSource"
-        QT_MOC_LITERAL(24, 10),  // "frameReady"
-        QT_MOC_LITERAL(35, 0),  // ""
-        QT_MOC_LITERAL(36, 5),  // "frame"
-        QT_MOC_LITERAL(42, 9),  // "timestamp"
-        QT_MOC_LITERAL(52, 13),  // "statusChanged"
-        QT_MOC_LITERAL(66, 17),  // "VideoSourceStatus"
-        QT_MOC_LITERAL(84, 6),  // "status"
-        QT_MOC_LITERAL(91, 16),  // "streamingChanged"
-        QT_MOC_LITERAL(108, 9),  // "streaming"
-        QT_MOC_LITERAL(118, 5),  // "error"
-        QT_MOC_LITERAL(124, 7),  // "message"
-        QT_MOC_LITERAL(132, 12),  // "statsUpdated"
-        QT_MOC_LITERAL(145, 16),  // "VideoSourceStats"
-        QT_MOC_LITERAL(162, 5),  // "stats"
-        QT_MOC_LITERAL(168, 9),  // "connected"
-        QT_MOC_LITERAL(178, 12),  // "disconnected"
-        QT_MOC_LITERAL(191, 12),  // "processFrame"
-        QT_MOC_LITERAL(204, 11),  // "updateStats"
-        QT_MOC_LITERAL(216, 16),  // "attemptReconnect"
-        QT_MOC_LITERAL(233, 8)   // "sourceId"
+QT_MOC_LITERAL(0, 0, 23), // "CounterUAS::VideoSource"
+QT_MOC_LITERAL(1, 24, 10), // "frameReady"
+QT_MOC_LITERAL(2, 35, 0), // ""
+QT_MOC_LITERAL(3, 36, 5), // "frame"
+QT_MOC_LITERAL(4, 42, 9), // "timestamp"
+QT_MOC_LITERAL(5, 52, 13), // "statusChanged"
+QT_MOC_LITERAL(6, 66, 17), // "VideoSourceStatus"
+QT_MOC_LITERAL(7, 84, 6), // "status"
+QT_MOC_LITERAL(8, 91, 16), // "streamingChanged"
+QT_MOC_LITERAL(9, 108, 9), // "streaming"
+QT_MOC_LITERAL(10, 118, 5), // "error"
+QT_MOC_LITERAL(11, 124, 7), // "message"
+QT_MOC_LITERAL(12, 132, 12), // "statsUpdated"
+QT_MOC_LITERAL(13, 145, 16), // "VideoSourceStats"
+QT_MOC_LITERAL(14, 162, 5), // "stats"
+QT_MOC_LITERAL(15, 168, 9), // "connected"
+QT_MOC_LITERAL(16, 178, 12), // "disconnected"
+QT_MOC_LITERAL(17, 191, 12), // "processFrame"
+QT_MOC_LITERAL(18, 204, 11), // "updateStats"
+QT_MOC_LITERAL(19, 216, 16), // "attemptReconnect"
+QT_MOC_LITERAL(20, 233, 8) // "sourceId"
+
     },
-    "CounterUAS::VideoSource",
-    "frameReady",
-    "",
-    "frame",
-    "timestamp",
-    "statusChanged",
-    "VideoSourceStatus",
-    "status",
-    "streamingChanged",
-    "streaming",
-    "error",
-    "message",
-    "statsUpdated",
-    "VideoSourceStats",
-    "stats",
-    "connected",
-    "disconnected",
-    "processFrame",
-    "updateStats",
-    "attemptReconnect",
-    "sourceId"
+    "CounterUAS::VideoSource\0frameReady\0\0"
+    "frame\0timestamp\0statusChanged\0"
+    "VideoSourceStatus\0status\0streamingChanged\0"
+    "streaming\0error\0message\0statsUpdated\0"
+    "VideoSourceStats\0stats\0connected\0"
+    "disconnected\0processFrame\0updateStats\0"
+    "attemptReconnect\0sourceId"
 };
 #undef QT_MOC_LITERAL
-} // unnamed namespace
 
-Q_CONSTINIT static const uint qt_meta_data_CounterUAS__VideoSource[] = {
+static const uint qt_meta_data_CounterUAS__VideoSource[] = {
 
  // content:
-      10,       // revision
+       8,       // revision
        0,       // classname
        0,    0, // classinfo
       10,   14, // methods
-       3,   96, // properties
+       3,   86, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
        7,       // signalCount
 
- // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    2,   74,    2, 0x06,    4 /* Public */,
-       5,    1,   79,    2, 0x06,    7 /* Public */,
-       8,    1,   82,    2, 0x06,    9 /* Public */,
-      10,    1,   85,    2, 0x06,   11 /* Public */,
-      12,    1,   88,    2, 0x06,   13 /* Public */,
-      15,    0,   91,    2, 0x06,   15 /* Public */,
-      16,    0,   92,    2, 0x06,   16 /* Public */,
+ // signals: name, argc, parameters, tag, flags
+       1,    2,   64,    2, 0x06 /* Public */,
+       5,    1,   69,    2, 0x06 /* Public */,
+       8,    1,   72,    2, 0x06 /* Public */,
+      10,    1,   75,    2, 0x06 /* Public */,
+      12,    1,   78,    2, 0x06 /* Public */,
+      15,    0,   81,    2, 0x06 /* Public */,
+      16,    0,   82,    2, 0x06 /* Public */,
 
- // slots: name, argc, parameters, tag, flags, initial metatype offsets
-      17,    0,   93,    2, 0x09,   17 /* Protected */,
-      18,    0,   94,    2, 0x09,   18 /* Protected */,
-      19,    0,   95,    2, 0x09,   19 /* Protected */,
+ // slots: name, argc, parameters, tag, flags
+      17,    0,   83,    2, 0x09 /* Protected */,
+      18,    0,   84,    2, 0x09 /* Protected */,
+      19,    0,   85,    2, 0x09 /* Protected */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QImage, QMetaType::LongLong,    3,    4,
@@ -142,57 +107,17 @@ Q_CONSTINIT static const uint qt_meta_data_CounterUAS__VideoSource[] = {
     QMetaType::Void,
 
  // properties: name, type, flags
-      20, QMetaType::QString, 0x00015401, uint(-1), 0,
-       7, 0x80000000 | 6, 0x00015009, uint(1), 0,
-       9, QMetaType::Bool, 0x00015001, uint(2), 0,
+      20, QMetaType::QString, 0x00095401,
+       7, 0x80000000 | 6, 0x00495009,
+       9, QMetaType::Bool, 0x00495001,
+
+ // properties: notify_signal_id
+       0,
+       1,
+       2,
 
        0        // eod
 };
-
-Q_CONSTINIT const QMetaObject CounterUAS::VideoSource::staticMetaObject = { {
-    QMetaObject::SuperData::link<QObject::staticMetaObject>(),
-    qt_meta_stringdata_CounterUAS__VideoSource.offsetsAndSizes,
-    qt_meta_data_CounterUAS__VideoSource,
-    qt_static_metacall,
-    nullptr,
-    qt_incomplete_metaTypeArray<qt_meta_stringdata_CounterUAS__VideoSource_t,
-        // property 'sourceId'
-        QtPrivate::TypeAndForceComplete<QString, std::true_type>,
-        // property 'status'
-        QtPrivate::TypeAndForceComplete<VideoSourceStatus, std::true_type>,
-        // property 'streaming'
-        QtPrivate::TypeAndForceComplete<bool, std::true_type>,
-        // Q_OBJECT / Q_GADGET
-        QtPrivate::TypeAndForceComplete<VideoSource, std::true_type>,
-        // method 'frameReady'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QImage &, std::false_type>,
-        QtPrivate::TypeAndForceComplete<qint64, std::false_type>,
-        // method 'statusChanged'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<VideoSourceStatus, std::false_type>,
-        // method 'streamingChanged'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<bool, std::false_type>,
-        // method 'error'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
-        // method 'statsUpdated'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const VideoSourceStats &, std::false_type>,
-        // method 'connected'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'disconnected'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'processFrame'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'updateStats'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'attemptReconnect'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>
-    >,
-    nullptr
-} };
 
 void CounterUAS::VideoSource::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
@@ -200,11 +125,11 @@ void CounterUAS::VideoSource::qt_static_metacall(QObject *_o, QMetaObject::Call 
         auto *_t = static_cast<VideoSource *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->frameReady((*reinterpret_cast< std::add_pointer_t<QImage>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<qint64>>(_a[2]))); break;
-        case 1: _t->statusChanged((*reinterpret_cast< std::add_pointer_t<VideoSourceStatus>>(_a[1]))); break;
-        case 2: _t->streamingChanged((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
-        case 3: _t->error((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
-        case 4: _t->statsUpdated((*reinterpret_cast< std::add_pointer_t<VideoSourceStats>>(_a[1]))); break;
+        case 0: _t->frameReady((*reinterpret_cast< const QImage(*)>(_a[1])),(*reinterpret_cast< qint64(*)>(_a[2]))); break;
+        case 1: _t->statusChanged((*reinterpret_cast< VideoSourceStatus(*)>(_a[1]))); break;
+        case 2: _t->streamingChanged((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 3: _t->error((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 4: _t->statsUpdated((*reinterpret_cast< const VideoSourceStats(*)>(_a[1]))); break;
         case 5: _t->connected(); break;
         case 6: _t->disconnected(); break;
         case 7: _t->processFrame(); break;
@@ -216,54 +141,56 @@ void CounterUAS::VideoSource::qt_static_metacall(QObject *_o, QMetaObject::Call 
         int *result = reinterpret_cast<int *>(_a[0]);
         {
             using _t = void (VideoSource::*)(const QImage & , qint64 );
-            if (_t _q_method = &VideoSource::frameReady; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&VideoSource::frameReady)) {
                 *result = 0;
                 return;
             }
         }
         {
             using _t = void (VideoSource::*)(VideoSourceStatus );
-            if (_t _q_method = &VideoSource::statusChanged; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&VideoSource::statusChanged)) {
                 *result = 1;
                 return;
             }
         }
         {
             using _t = void (VideoSource::*)(bool );
-            if (_t _q_method = &VideoSource::streamingChanged; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&VideoSource::streamingChanged)) {
                 *result = 2;
                 return;
             }
         }
         {
             using _t = void (VideoSource::*)(const QString & );
-            if (_t _q_method = &VideoSource::error; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&VideoSource::error)) {
                 *result = 3;
                 return;
             }
         }
         {
             using _t = void (VideoSource::*)(const VideoSourceStats & );
-            if (_t _q_method = &VideoSource::statsUpdated; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&VideoSource::statsUpdated)) {
                 *result = 4;
                 return;
             }
         }
         {
             using _t = void (VideoSource::*)();
-            if (_t _q_method = &VideoSource::connected; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&VideoSource::connected)) {
                 *result = 5;
                 return;
             }
         }
         {
             using _t = void (VideoSource::*)();
-            if (_t _q_method = &VideoSource::disconnected; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&VideoSource::disconnected)) {
                 *result = 6;
                 return;
             }
         }
-    }else if (_c == QMetaObject::ReadProperty) {
+    }
+#ifndef QT_NO_PROPERTIES
+    else if (_c == QMetaObject::ReadProperty) {
         auto *_t = static_cast<VideoSource *>(_o);
         (void)_t;
         void *_v = _a[0];
@@ -275,9 +202,19 @@ void CounterUAS::VideoSource::qt_static_metacall(QObject *_o, QMetaObject::Call 
         }
     } else if (_c == QMetaObject::WriteProperty) {
     } else if (_c == QMetaObject::ResetProperty) {
-    } else if (_c == QMetaObject::BindableProperty) {
     }
+#endif // QT_NO_PROPERTIES
 }
+
+QT_INIT_METAOBJECT const QMetaObject CounterUAS::VideoSource::staticMetaObject = { {
+    QMetaObject::SuperData::link<QObject::staticMetaObject>(),
+    qt_meta_stringdata_CounterUAS__VideoSource.data,
+    qt_meta_data_CounterUAS__VideoSource,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
+
 
 const QMetaObject *CounterUAS::VideoSource::metaObject() const
 {
@@ -303,14 +240,26 @@ int CounterUAS::VideoSource::qt_metacall(QMetaObject::Call _c, int _id, void **_
         _id -= 10;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         if (_id < 10)
-            *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
+            *reinterpret_cast<int*>(_a[0]) = -1;
         _id -= 10;
-    }else if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
-            || _c == QMetaObject::ResetProperty || _c == QMetaObject::BindableProperty
-            || _c == QMetaObject::RegisterPropertyMetaType) {
+    }
+#ifndef QT_NO_PROPERTIES
+    else if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
+            || _c == QMetaObject::ResetProperty || _c == QMetaObject::RegisterPropertyMetaType) {
         qt_static_metacall(this, _c, _id, _a);
         _id -= 3;
+    } else if (_c == QMetaObject::QueryPropertyDesignable) {
+        _id -= 3;
+    } else if (_c == QMetaObject::QueryPropertyScriptable) {
+        _id -= 3;
+    } else if (_c == QMetaObject::QueryPropertyStored) {
+        _id -= 3;
+    } else if (_c == QMetaObject::QueryPropertyEditable) {
+        _id -= 3;
+    } else if (_c == QMetaObject::QueryPropertyUser) {
+        _id -= 3;
     }
+#endif // QT_NO_PROPERTIES
     return _id;
 }
 

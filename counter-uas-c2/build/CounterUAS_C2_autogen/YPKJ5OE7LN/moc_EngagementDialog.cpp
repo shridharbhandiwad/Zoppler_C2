@@ -1,65 +1,54 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'EngagementDialog.h'
 **
-** Created by: The Qt Meta Object Compiler version 68 (Qt 6.4.2)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.15.13)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
 #include <memory>
 #include "../../../src/ui/EngagementDialog.h"
-#include <QtGui/qtextcursor.h>
+#include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'EngagementDialog.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 68
-#error "This file was generated using the moc from 6.4.2. It"
+#elif Q_MOC_OUTPUT_REVISION != 67
+#error "This file was generated using the moc from 5.15.13. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
-#endif
-
-#ifndef Q_CONSTINIT
-#define Q_CONSTINIT
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-namespace {
 struct qt_meta_stringdata_CounterUAS__EngagementDialog_t {
-    uint offsetsAndSizes[12];
-    char stringdata0[29];
-    char stringdata1[11];
-    char stringdata2[1];
-    char stringdata3[11];
-    char stringdata4[7];
-    char stringdata5[7];
+    QByteArrayData data[6];
+    char stringdata0[66];
 };
-#define QT_MOC_LITERAL(ofs, len) \
-    uint(sizeof(qt_meta_stringdata_CounterUAS__EngagementDialog_t::offsetsAndSizes) + ofs), len 
-Q_CONSTINIT static const qt_meta_stringdata_CounterUAS__EngagementDialog_t qt_meta_stringdata_CounterUAS__EngagementDialog = {
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_CounterUAS__EngagementDialog_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_CounterUAS__EngagementDialog_t qt_meta_stringdata_CounterUAS__EngagementDialog = {
     {
-        QT_MOC_LITERAL(0, 28),  // "CounterUAS::EngagementDialog"
-        QT_MOC_LITERAL(29, 10),  // "authorized"
-        QT_MOC_LITERAL(40, 0),  // ""
-        QT_MOC_LITERAL(41, 10),  // "operatorId"
-        QT_MOC_LITERAL(52, 6),  // "denied"
-        QT_MOC_LITERAL(59, 6)   // "reason"
+QT_MOC_LITERAL(0, 0, 28), // "CounterUAS::EngagementDialog"
+QT_MOC_LITERAL(1, 29, 10), // "authorized"
+QT_MOC_LITERAL(2, 40, 0), // ""
+QT_MOC_LITERAL(3, 41, 10), // "operatorId"
+QT_MOC_LITERAL(4, 52, 6), // "denied"
+QT_MOC_LITERAL(5, 59, 6) // "reason"
+
     },
-    "CounterUAS::EngagementDialog",
-    "authorized",
-    "",
-    "operatorId",
-    "denied",
-    "reason"
+    "CounterUAS::EngagementDialog\0authorized\0"
+    "\0operatorId\0denied\0reason"
 };
 #undef QT_MOC_LITERAL
-} // unnamed namespace
 
-Q_CONSTINIT static const uint qt_meta_data_CounterUAS__EngagementDialog[] = {
+static const uint qt_meta_data_CounterUAS__EngagementDialog[] = {
 
  // content:
-      10,       // revision
+       8,       // revision
        0,       // classname
        0,    0, // classinfo
        2,   14, // methods
@@ -69,9 +58,9 @@ Q_CONSTINIT static const uint qt_meta_data_CounterUAS__EngagementDialog[] = {
        0,       // flags
        2,       // signalCount
 
- // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   26,    2, 0x06,    1 /* Public */,
-       4,    1,   29,    2, 0x06,    3 /* Public */,
+ // signals: name, argc, parameters, tag, flags
+       1,    1,   24,    2, 0x06 /* Public */,
+       4,    1,   27,    2, 0x06 /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString,    3,
@@ -80,53 +69,44 @@ Q_CONSTINIT static const uint qt_meta_data_CounterUAS__EngagementDialog[] = {
        0        // eod
 };
 
-Q_CONSTINIT const QMetaObject CounterUAS::EngagementDialog::staticMetaObject = { {
-    QMetaObject::SuperData::link<QDialog::staticMetaObject>(),
-    qt_meta_stringdata_CounterUAS__EngagementDialog.offsetsAndSizes,
-    qt_meta_data_CounterUAS__EngagementDialog,
-    qt_static_metacall,
-    nullptr,
-    qt_incomplete_metaTypeArray<qt_meta_stringdata_CounterUAS__EngagementDialog_t,
-        // Q_OBJECT / Q_GADGET
-        QtPrivate::TypeAndForceComplete<EngagementDialog, std::true_type>,
-        // method 'authorized'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
-        // method 'denied'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>
-    >,
-    nullptr
-} };
-
 void CounterUAS::EngagementDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
         auto *_t = static_cast<EngagementDialog *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->authorized((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
-        case 1: _t->denied((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 0: _t->authorized((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 1: _t->denied((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         {
             using _t = void (EngagementDialog::*)(const QString & );
-            if (_t _q_method = &EngagementDialog::authorized; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&EngagementDialog::authorized)) {
                 *result = 0;
                 return;
             }
         }
         {
             using _t = void (EngagementDialog::*)(const QString & );
-            if (_t _q_method = &EngagementDialog::denied; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&EngagementDialog::denied)) {
                 *result = 1;
                 return;
             }
         }
     }
 }
+
+QT_INIT_METAOBJECT const QMetaObject CounterUAS::EngagementDialog::staticMetaObject = { {
+    QMetaObject::SuperData::link<QDialog::staticMetaObject>(),
+    qt_meta_stringdata_CounterUAS__EngagementDialog.data,
+    qt_meta_data_CounterUAS__EngagementDialog,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
+
 
 const QMetaObject *CounterUAS::EngagementDialog::metaObject() const
 {
@@ -152,7 +132,7 @@ int CounterUAS::EngagementDialog::qt_metacall(QMetaObject::Call _c, int _id, voi
         _id -= 2;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         if (_id < 2)
-            *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
+            *reinterpret_cast<int*>(_a[0]) = -1;
         _id -= 2;
     }
     return _id;

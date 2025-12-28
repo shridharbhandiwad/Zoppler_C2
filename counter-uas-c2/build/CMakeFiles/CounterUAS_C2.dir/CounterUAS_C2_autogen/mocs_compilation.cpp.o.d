@@ -71,8 +71,6 @@ CMakeFiles/CounterUAS_C2.dir/CounterUAS_C2_autogen/mocs_compilation.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
- /usr/include/x86_64-linux-gnu/bits/wchar2-decl.h \
- /usr/include/x86_64-linux-gnu/bits/wchar2.h \
  /usr/include/c++/13/bits/shared_ptr_base.h /usr/include/c++/13/typeinfo \
  /usr/include/c++/13/bits/allocated_ptr.h \
  /usr/include/c++/13/bits/refwrap.h \
@@ -119,51 +117,24 @@ CMakeFiles/CounterUAS_C2.dir/CounterUAS_C2_autogen/mocs_compilation.cpp.o: \
  /usr/include/c++/13/pstl/glue_memory_defs.h \
  /usr/include/c++/13/pstl/execution_defs.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/6DQYUKT47J/../../../src/config/CameraConfig.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QObject \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qobject.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qobjectdefs.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qnamespace.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qglobal.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QObject \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qobject.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qobjectdefs.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qnamespace.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qglobal.h \
  /usr/include/c++/13/cstddef /usr/include/c++/13/utility \
  /usr/include/c++/13/bits/stl_relops.h \
- /usr/include/c++/13/initializer_list /usr/include/c++/13/cstdint \
- /usr/include/assert.h /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qconfig.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qtcore-config.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qtconfigmacros.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qtcoreexports.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qsystemdetection.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qprocessordetection.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qcompilerdetection.h \
- /usr/include/c++/13/version \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qtypeinfo.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qcontainerfwd.h \
- /usr/include/c++/13/variant \
- /usr/include/c++/13/bits/enable_special_members.h \
- /usr/include/c++/13/bits/parse_numbers.h /usr/include/c++/13/optional \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qsysinfo.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qlogging.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qflags.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qcompare_impl.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qatomic.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qbasicatomic.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qatomic_cxx11.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qgenericatomic.h \
- /usr/include/c++/13/atomic \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qglobalstatic.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qnumeric.h \
- /usr/include/c++/13/cmath /usr/include/math.h \
- /usr/include/x86_64-linux-gnu/bits/math-vector.h \
- /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
- /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
- /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
- /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
- /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
- /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
- /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
- /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
- /usr/include/c++/13/bits/std_abs.h /usr/include/stdlib.h \
- /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/c++/13/initializer_list /usr/include/assert.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qconfig.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qtcore-config.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qsystemdetection.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qprocessordetection.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qcompilerdetection.h \
+ /usr/include/c++/13/algorithm /usr/include/c++/13/bits/stl_algo.h \
+ /usr/include/c++/13/bits/algorithmfwd.h \
+ /usr/include/c++/13/bits/stl_heap.h \
+ /usr/include/c++/13/bits/uniform_int_dist.h /usr/include/c++/13/cstdlib \
+ /usr/include/stdlib.h /usr/include/x86_64-linux-gnu/bits/waitflags.h \
  /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
  /usr/include/x86_64-linux-gnu/sys/types.h /usr/include/endian.h \
  /usr/include/x86_64-linux-gnu/bits/byteswap.h \
@@ -171,70 +142,37 @@ CMakeFiles/CounterUAS_C2.dir/CounterUAS_C2_autogen/mocs_compilation.cpp.o: \
  /usr/include/x86_64-linux-gnu/sys/select.h \
  /usr/include/x86_64-linux-gnu/bits/select.h \
  /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
- /usr/include/x86_64-linux-gnu/bits/select2.h \
- /usr/include/x86_64-linux-gnu/bits/select-decl.h /usr/include/alloca.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib.h \
- /usr/include/c++/13/bits/specfun.h /usr/include/c++/13/limits \
- /usr/include/c++/13/tr1/gamma.tcc \
- /usr/include/c++/13/tr1/special_function_util.h \
- /usr/include/c++/13/tr1/bessel_function.tcc \
- /usr/include/c++/13/tr1/beta_function.tcc \
- /usr/include/c++/13/tr1/ell_integral.tcc \
- /usr/include/c++/13/tr1/exp_integral.tcc \
- /usr/include/c++/13/tr1/hypergeometric.tcc \
- /usr/include/c++/13/tr1/legendre_function.tcc \
- /usr/include/c++/13/tr1/modified_bessel_func.tcc \
- /usr/include/c++/13/tr1/poly_hermite.tcc \
- /usr/include/c++/13/tr1/poly_laguerre.tcc \
- /usr/include/c++/13/tr1/riemann_zeta.tcc \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qversiontagging.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qforeach.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qtmetamacros.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qobjectdefs_impl.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qstring.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qchar.h \
- /usr/include/c++/13/functional /usr/include/c++/13/bits/std_function.h \
- /usr/include/c++/13/unordered_map \
- /usr/include/c++/13/bits/unordered_map.h \
- /usr/include/c++/13/bits/hashtable.h \
- /usr/include/c++/13/bits/hashtable_policy.h \
- /usr/include/c++/13/bits/node_handle.h \
- /usr/include/c++/13/bits/range_access.h \
- /usr/include/c++/13/bits/erase_if.h \
- /usr/include/c++/13/bits/memory_resource.h \
- /usr/include/c++/13/bits/uses_allocator_args.h \
- /usr/include/c++/13/vector /usr/include/c++/13/bits/stl_vector.h \
- /usr/include/c++/13/bits/stl_bvector.h \
- /usr/include/c++/13/bits/vector.tcc /usr/include/c++/13/array \
- /usr/include/c++/13/compare /usr/include/c++/13/bits/stl_algo.h \
- /usr/include/c++/13/bits/algorithmfwd.h \
- /usr/include/c++/13/bits/stl_heap.h \
- /usr/include/c++/13/bits/uniform_int_dist.h /usr/include/c++/13/cstdlib \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qstringview.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qbytearray.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qrefcount.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qarraydata.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qpair.h /usr/include/string.h \
- /usr/include/strings.h \
- /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
- /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qarraydatapointer.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qarraydataops.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qcontainertools_impl.h \
- /usr/include/c++/13/cstring /usr/include/c++/13/iterator \
- /usr/include/c++/13/bits/stream_iterator.h \
- /usr/include/c++/13/bits/streambuf_iterator.h \
- /usr/include/c++/13/streambuf /usr/include/c++/13/bits/localefwd.h \
+ /usr/include/alloca.h /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+ /usr/include/c++/13/bits/std_abs.h \
+ /usr/include/c++/13/pstl/glue_algorithm_defs.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qtypeinfo.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qsysinfo.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qlogging.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qflags.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qatomic.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasicatomic.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qatomic_cxx11.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qgenericatomic.h \
+ /usr/include/c++/13/atomic \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qglobalstatic.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qnumeric.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qversiontagging.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qobjectdefs_impl.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qstring.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qchar.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qbytearray.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qrefcount.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qarraydata.h \
+ /usr/include/string.h /usr/include/strings.h \
+ /usr/include/c++/13/stdlib.h /usr/include/c++/13/string \
+ /usr/include/c++/13/bits/char_traits.h \
+ /usr/include/c++/13/bits/localefwd.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h \
  /usr/include/c++/13/clocale /usr/include/locale.h \
  /usr/include/x86_64-linux-gnu/bits/locale.h /usr/include/c++/13/cctype \
- /usr/include/ctype.h /usr/include/c++/13/bits/ios_base.h \
- /usr/include/c++/13/bits/locale_classes.h /usr/include/c++/13/string \
- /usr/include/c++/13/bits/char_traits.h \
- /usr/include/c++/13/bits/ostream_insert.h \
+ /usr/include/ctype.h /usr/include/c++/13/bits/ostream_insert.h \
  /usr/include/c++/13/bits/cxxabi_forced.h \
+ /usr/include/c++/13/bits/range_access.h \
  /usr/include/c++/13/bits/basic_string.h /usr/include/c++/13/string_view \
  /usr/include/c++/13/bits/string_view.tcc \
  /usr/include/c++/13/ext/string_conversions.h /usr/include/c++/13/cstdio \
@@ -243,73 +181,49 @@ CMakeFiles/CounterUAS_C2.dir/CounterUAS_C2_autogen/mocs_compilation.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
  /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
- /usr/include/x86_64-linux-gnu/bits/stdio2-decl.h \
- /usr/include/x86_64-linux-gnu/bits/stdio.h \
- /usr/include/x86_64-linux-gnu/bits/stdio2.h /usr/include/c++/13/cerrno \
- /usr/include/errno.h /usr/include/x86_64-linux-gnu/bits/errno.h \
- /usr/include/linux/errno.h /usr/include/x86_64-linux-gnu/asm/errno.h \
+ /usr/include/c++/13/cerrno /usr/include/errno.h \
+ /usr/include/x86_64-linux-gnu/bits/errno.h /usr/include/linux/errno.h \
+ /usr/include/x86_64-linux-gnu/asm/errno.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
  /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
  /usr/include/c++/13/bits/charconv.h \
  /usr/include/c++/13/bits/basic_string.tcc \
+ /usr/include/c++/13/bits/memory_resource.h \
+ /usr/include/c++/13/bits/uses_allocator_args.h \
+ /usr/include/c++/13/iterator /usr/include/c++/13/bits/stream_iterator.h \
+ /usr/include/c++/13/bits/streambuf_iterator.h \
+ /usr/include/c++/13/streambuf /usr/include/c++/13/bits/ios_base.h \
+ /usr/include/c++/13/bits/locale_classes.h \
  /usr/include/c++/13/bits/locale_classes.tcc \
  /usr/include/c++/13/system_error \
  /usr/include/x86_64-linux-gnu/c++/13/bits/error_constants.h \
  /usr/include/c++/13/stdexcept /usr/include/c++/13/bits/streambuf.tcc \
- /usr/include/c++/13/algorithm \
- /usr/include/c++/13/pstl/glue_algorithm_defs.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qbytearrayalgorithms.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qbytearrayview.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qstringfwd.h \
- /usr/include/c++/13/stdlib.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qstringliteral.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qstringalgorithms.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qanystringview.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qutf8stringview.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qstringtokenizer.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qlist.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qhashfunctions.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qstringliteral.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qstringalgorithms.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qstringview.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qlist.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qalgorithms.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qiterator.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qhashfunctions.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qpair.h \
  /usr/include/c++/13/numeric /usr/include/c++/13/bits/stl_numeric.h \
  /usr/include/c++/13/pstl/glue_numeric_defs.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qiterator.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qbytearraylist.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qstringlist.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qalgorithms.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qstringmatcher.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qscopedpointer.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qmetatype.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qcompare.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qscopeguard.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qdatastream.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qiodevicebase.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qiterable.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qmetacontainer.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qcontainerinfo.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qtaggedpointer.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qmath.h \
+ /usr/include/c++/13/functional /usr/include/c++/13/bits/std_function.h \
+ /usr/include/c++/13/unordered_map \
+ /usr/include/c++/13/bits/unordered_map.h \
+ /usr/include/c++/13/bits/hashtable.h \
+ /usr/include/c++/13/bits/hashtable_policy.h \
+ /usr/include/c++/13/bits/enable_special_members.h \
+ /usr/include/c++/13/bits/node_handle.h \
+ /usr/include/c++/13/bits/erase_if.h /usr/include/c++/13/vector \
+ /usr/include/c++/13/bits/stl_vector.h \
+ /usr/include/c++/13/bits/stl_bvector.h \
+ /usr/include/c++/13/bits/vector.tcc /usr/include/c++/13/array \
+ /usr/include/c++/13/compare \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qvector.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qcontainertools_impl.h \
  /usr/include/c++/13/list /usr/include/c++/13/bits/stl_list.h \
- /usr/include/c++/13/bits/list.tcc /usr/include/c++/13/map \
- /usr/include/c++/13/bits/stl_tree.h /usr/include/c++/13/bits/stl_map.h \
- /usr/include/c++/13/bits/stl_multimap.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qobject_impl.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qbindingstorage.h \
- /usr/include/c++/13/chrono /usr/include/c++/13/bits/chrono.h \
- /usr/include/c++/13/ratio /usr/include/c++/13/ctime \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QList \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qlist.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QJsonObject \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qjsonobject.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qjsonvalue.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qshareddata.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qcborvalue.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qdatetime.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qcalendar.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qlocale.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qvariant.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qdebug.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qtextstream.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qstringconverter_base.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qcontiguouscache.h \
+ /usr/include/c++/13/bits/list.tcc \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/syslimits.h \
  /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
@@ -318,82 +232,107 @@ CMakeFiles/CounterUAS_C2.dir/CounterUAS_C2_autogen/mocs_compilation.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
  /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
  /usr/include/x86_64-linux-gnu/bits/uio_lim.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qsharedpointer.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qsharedpointer_impl.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qmap.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qshareddata_impl.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qset.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qhash.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qvarlengtharray.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qobject.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qcborcommon.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qregularexpression.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qurl.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/quuid.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qbytearraylist.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qstringlist.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qregexp.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qstringmatcher.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qscopedpointer.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qmetatype.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qvarlengtharray.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qcontainerfwd.h \
+ /usr/include/c++/13/map /usr/include/c++/13/bits/stl_tree.h \
+ /usr/include/c++/13/bits/stl_map.h \
+ /usr/include/c++/13/bits/stl_multimap.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qobject_impl.h \
+ /usr/include/c++/13/chrono /usr/include/c++/13/bits/chrono.h \
+ /usr/include/c++/13/ratio /usr/include/c++/13/cstdint \
+ /usr/include/c++/13/limits /usr/include/c++/13/ctime \
+ /usr/include/c++/13/bits/parse_numbers.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QList \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qlist.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QJsonObject \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonobject.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qjsonvalue.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qshareddata.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qhash.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qcborvalue.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qdatetime.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qcborcommon.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qdebug.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qmap.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qtextstream.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qiodevice.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qobject.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qlocale.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qvariant.h \
+ /usr/include/c++/13/variant \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qset.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qcontiguouscache.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qsharedpointer.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qsharedpointer_impl.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qregularexpression.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qurl.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/quuid.h \
  /workspace/counter-uas-c2/src/video/VideoStreamManager.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QHash \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qhash.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QMutex \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qmutex.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qtsan_impl.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QHash \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qhash.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QMutex \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qmutex.h \
  /workspace/counter-uas-c2/src/video/VideoSource.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/QImage \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qimage.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qtguiglobal.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qtgui-config.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qtguiexports.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qcolor.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qrgb.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qrgba64.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qpaintdevice.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qwindowdefs.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qrect.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qmargins.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qsize.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qpoint.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qpixelformat.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qtransform.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qpolygon.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qregion.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qline.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QTimer \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qtimer.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qbasictimer.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QUrl \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qurl.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/QImage \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qimage.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qtguiglobal.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qtgui-config.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qcolor.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qrgb.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qrgba64.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qpaintdevice.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qwindowdefs.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qrect.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qmargins.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qsize.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qpoint.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qpixelformat.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qtransform.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qmatrix.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qpolygon.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qregion.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qdatastream.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qline.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QUrl \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qurl.h \
  /workspace/counter-uas-c2/src/core/Track.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QString \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qstring.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QDateTime \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qdatetime.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/QVector3D \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qvectornd.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QString \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qstring.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QDateTime \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qdatetime.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/QVector3D \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qvector3d.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/6DQYUKT47J/moc_ConfigManager.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/6DQYUKT47J/../../../src/config/ConfigManager.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QVariant \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qvariant.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QVariant \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qvariant.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/6DQYUKT47J/moc_DatabaseManager.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/6DQYUKT47J/../../../src/config/DatabaseManager.h \
- /usr/include/x86_64-linux-gnu/qt6/QtSql/QSqlDatabase \
- /usr/include/x86_64-linux-gnu/qt6/QtSql/qsqldatabase.h \
- /usr/include/x86_64-linux-gnu/qt6/QtSql/qtsqlglobal.h \
- /usr/include/x86_64-linux-gnu/qt6/QtSql/qtsql-config.h \
- /usr/include/x86_64-linux-gnu/qt6/QtSql/qtsqlexports.h \
- /usr/include/x86_64-linux-gnu/qt6/QtSql/QSqlQuery \
- /usr/include/x86_64-linux-gnu/qt6/QtSql/qsqlquery.h \
- /usr/include/x86_64-linux-gnu/qt6/QtSql/qsqldatabase.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtSql/QSqlDatabase \
+ /usr/include/x86_64-linux-gnu/qt5/QtSql/qsqldatabase.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtSql/qtsqlglobal.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtSql/qtsql-config.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtSql/QSqlQuery \
+ /usr/include/x86_64-linux-gnu/qt5/QtSql/qsqlquery.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtSql/qsqldatabase.h \
  /workspace/counter-uas-c2/src/core/EngagementManager.h \
- /usr/include/x86_64-linux-gnu/qt6/QtStateMachine/QStateMachine \
- /usr/include/x86_64-linux-gnu/qt6/QtStateMachine/qstatemachine.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qcoreevent.h \
- /usr/include/x86_64-linux-gnu/qt6/QtStateMachine/qstate.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qmetaobject.h \
- /usr/include/x86_64-linux-gnu/qt6/QtStateMachine/qabstractstate.h \
- /usr/include/x86_64-linux-gnu/qt6/QtStateMachine/qstatemachineglobal.h \
- /usr/include/x86_64-linux-gnu/qt6/QtStateMachine/qtstatemachine-config.h \
- /usr/include/x86_64-linux-gnu/qt6/QtStateMachine/qtstatemachineexports.h \
- /usr/include/x86_64-linux-gnu/qt6/QtStateMachine/QState \
- /usr/include/x86_64-linux-gnu/qt6/QtStateMachine/qstate.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QStateMachine \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qstatemachine.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qstate.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qabstractstate.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qmetaobject.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qcoreevent.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QState \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qstate.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/PRMOGMWJPH/moc_EngagementManager.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/PRMOGMWJPH/../../../src/core/EngagementManager.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/PRMOGMWJPH/moc_ThreatAssessor.cpp \
@@ -402,8 +341,8 @@ CMakeFiles/CounterUAS_C2.dir/CounterUAS_C2_autogen/mocs_compilation.cpp.o: \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/PRMOGMWJPH/../../../src/core/Track.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/PRMOGMWJPH/moc_TrackManager.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/PRMOGMWJPH/../../../src/core/TrackManager.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QReadWriteLock \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qreadwritelock.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QReadWriteLock \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qreadwritelock.h \
  /workspace/counter-uas-c2/src/utils/KalmanFilter.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/E35XZASW7X/moc_DirectedEnergySystem.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/E35XZASW7X/../../../src/effectors/DirectedEnergySystem.h \
@@ -414,45 +353,37 @@ CMakeFiles/CounterUAS_C2.dir/CounterUAS_C2_autogen/mocs_compilation.cpp.o: \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/E35XZASW7X/../../../src/effectors/KineticInterceptor.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/E35XZASW7X/moc_RFJammer.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/E35XZASW7X/../../../src/effectors/RFJammer.h \
- /usr/include/x86_64-linux-gnu/qt6/QtNetwork/QTcpSocket \
- /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qtcpsocket.h \
- /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qtnetworkglobal.h \
- /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qtnetwork-config.h \
- /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qtnetworkexports.h \
- /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qabstractsocket.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qiodevice.h \
- /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qhostaddress.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QList \
+ /usr/include/x86_64-linux-gnu/qt5/QtNetwork/QTcpSocket \
+ /usr/include/x86_64-linux-gnu/qt5/QtNetwork/qtcpsocket.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtNetwork/qtnetworkglobal.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtNetwork/qtnetwork-config.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtNetwork/qabstractsocket.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QList \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/UFQQIFJZKK/moc_NetworkManager.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/UFQQIFJZKK/../../../src/network/NetworkManager.h \
- /usr/include/x86_64-linux-gnu/qt6/QtNetwork/QUdpSocket \
- /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qudpsocket.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtNetwork/QUdpSocket \
+ /usr/include/x86_64-linux-gnu/qt5/QtNetwork/qudpsocket.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtNetwork/qhostaddress.h \
  /workspace/counter-uas-c2/src/network/MessageProtocol.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QByteArray \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qbytearray.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QVariantMap \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qvariantmap.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QMap \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qmap.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QVariant \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QString \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QByteArray \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qbytearray.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QVariantMap \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/FH7CB5E4ZT/moc_CameraSystem.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/FH7CB5E4ZT/../../../src/sensors/CameraSystem.h \
  /workspace/counter-uas-c2/src/sensors/SensorInterface.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QRectF \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qrect.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QRectF \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qrect.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/FH7CB5E4ZT/moc_RFDetector.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/FH7CB5E4ZT/../../../src/sensors/RFDetector.h \
- /usr/include/x86_64-linux-gnu/qt6/QtSerialPort/QSerialPort \
- /usr/include/x86_64-linux-gnu/qt6/QtSerialPort/qserialport.h \
- /usr/include/x86_64-linux-gnu/qt6/QtSerialPort/qserialportglobal.h \
- /usr/include/x86_64-linux-gnu/qt6/QtSerialPort/qtserialportexports.h \
- /usr/include/x86_64-linux-gnu/qt6/QtNetwork/QHostAddress \
- /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qhostaddress.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtSerialPort/QSerialPort \
+ /usr/include/x86_64-linux-gnu/qt5/QtSerialPort/qserialport.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtSerialPort/qserialportglobal.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtNetwork/QHostAddress \
+ /usr/include/x86_64-linux-gnu/qt5/QtNetwork/qhostaddress.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/FH7CB5E4ZT/moc_RadarSensor.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/FH7CB5E4ZT/../../../src/sensors/RadarSensor.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QDataStream \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qdatastream.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QDataStream \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qdatastream.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/FH7CB5E4ZT/moc_SensorInterface.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/FH7CB5E4ZT/../../../src/sensors/SensorInterface.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/LVIWATC7N2/moc_SensorSimulator.cpp \
@@ -463,163 +394,148 @@ CMakeFiles/CounterUAS_C2.dir/CounterUAS_C2_autogen/mocs_compilation.cpp.o: \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/LVIWATC7N2/../../../src/simulators/VideoSimulator.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/YPKJ5OE7LN/moc_AlertQueue.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/YPKJ5OE7LN/../../../src/ui/AlertQueue.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QWidget \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qwidget.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtwidgetsglobal.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtwidgets-config.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtwidgetsexports.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qaction.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qkeysequence.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qicon.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qpixmap.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qimage.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qpalette.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qbrush.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qfont.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qfontmetrics.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qfontinfo.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qsizepolicy.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qcursor.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qbitmap.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QListWidget \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlistwidget.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlistview.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractitemview.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractscrollarea.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qframe.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qwidget.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qabstractitemmodel.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qitemselectionmodel.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractitemdelegate.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qstyleoption.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractspinbox.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qvalidator.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qslider.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractslider.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qstyle.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtabbar.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtabwidget.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qrubberband.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QWidget \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwidget.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgetsglobal.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgets-config.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qpalette.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qbrush.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qimage.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qpixmap.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qfont.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qfontmetrics.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qfontinfo.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qsizepolicy.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qcursor.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qkeysequence.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QListWidget \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlistwidget.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlistview.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractitemview.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractscrollarea.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qframe.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwidget.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qabstractitemmodel.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qitemselectionmodel.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractitemdelegate.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qstyleoption.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractspinbox.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qvalidator.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qicon.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qslider.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractslider.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qstyle.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtabbar.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtabwidget.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qrubberband.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/YPKJ5OE7LN/moc_CameraStatusPanel.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/YPKJ5OE7LN/../../../src/ui/CameraStatusPanel.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QTableWidget \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtablewidget.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtableview.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QTableWidget \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtablewidget.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtableview.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/YPKJ5OE7LN/moc_EffectorControlPanel.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/YPKJ5OE7LN/../../../src/ui/EffectorControlPanel.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QPushButton \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qpushbutton.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractbutton.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QPushButton \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qpushbutton.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractbutton.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/YPKJ5OE7LN/moc_EngagementDialog.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/YPKJ5OE7LN/../../../src/ui/EngagementDialog.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QDialog \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qdialog.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QLabel \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlabel.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qpicture.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qtextdocument.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qtextcursor.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qtextformat.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qpen.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qtextoption.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QDialog \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qdialog.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLabel \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlabel.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/YPKJ5OE7LN/moc_MainWindow.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/YPKJ5OE7LN/../../../src/ui/MainWindow.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QMainWindow \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qmainwindow.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QDockWidget \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qdockwidget.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QToolBar \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtoolbar.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QStatusBar \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qstatusbar.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMainWindow \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmainwindow.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QDockWidget \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qdockwidget.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QToolBar \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtoolbar.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qaction.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qactiongroup.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QStatusBar \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qstatusbar.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/YPKJ5OE7LN/moc_MapWidget.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/YPKJ5OE7LN/../../../src/ui/MapWidget.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/QPainter \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qpainter.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/QPainter \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qpainter.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qtextoption.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qpen.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/YPKJ5OE7LN/moc_PTZControlWidget.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/YPKJ5OE7LN/../../../src/ui/PTZControlWidget.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QSlider \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qslider.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QSlider \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qslider.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/YPKJ5OE7LN/moc_SensorStatusPanel.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/YPKJ5OE7LN/../../../src/ui/SensorStatusPanel.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/YPKJ5OE7LN/moc_TrackDetailPanel.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/YPKJ5OE7LN/../../../src/ui/TrackDetailPanel.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/YPKJ5OE7LN/moc_TrackListWidget.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/YPKJ5OE7LN/../../../src/ui/TrackListWidget.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QTableView \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtableview.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/QStandardItemModel \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qstandarditemmodel.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QTableView \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtableview.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/QStandardItemModel \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qstandarditemmodel.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/YPKJ5OE7LN/moc_VideoControlBar.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/YPKJ5OE7LN/../../../src/ui/VideoControlBar.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QComboBox \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qcombobox.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QComboBox \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qcombobox.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/YPKJ5OE7LN/moc_VideoDisplayWidget.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/YPKJ5OE7LN/../../../src/ui/VideoDisplayWidget.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/YPKJ5OE7LN/moc_VideoGridWidget.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/YPKJ5OE7LN/../../../src/ui/VideoGridWidget.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QGridLayout \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qgridlayout.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlayout.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlayoutitem.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qboxlayout.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qgridlayout.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGridLayout \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgridlayout.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlayout.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlayoutitem.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qboxlayout.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgridlayout.h \
  /workspace/counter-uas-c2/src/ui/VideoDisplayWidget.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/VSCBVMNR7M/moc_FrameBuffer.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/VSCBVMNR7M/../../../src/utils/FrameBuffer.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QQueue \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qqueue.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QQueue \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qqueue.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/VSCBVMNR7M/moc_Logger.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/VSCBVMNR7M/../../../src/utils/Logger.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QFile \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qfile.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qfiledevice.h \
- /usr/include/c++/13/filesystem /usr/include/c++/13/bits/fs_fwd.h \
- /usr/include/c++/13/bits/fs_path.h /usr/include/c++/13/locale \
- /usr/include/c++/13/bits/locale_facets.h /usr/include/c++/13/cwctype \
- /usr/include/wctype.h /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h \
- /usr/include/x86_64-linux-gnu/c++/13/bits/ctype_base.h \
- /usr/include/x86_64-linux-gnu/c++/13/bits/ctype_inline.h \
- /usr/include/c++/13/bits/locale_facets.tcc \
- /usr/include/c++/13/bits/locale_facets_nonio.h \
- /usr/include/x86_64-linux-gnu/c++/13/bits/time_members.h \
- /usr/include/x86_64-linux-gnu/c++/13/bits/messages_members.h \
- /usr/include/libintl.h /usr/include/c++/13/bits/codecvt.h \
- /usr/include/c++/13/bits/locale_facets_nonio.tcc \
- /usr/include/c++/13/bits/locale_conv.h /usr/include/c++/13/iomanip \
- /usr/include/c++/13/bits/quoted_string.h /usr/include/c++/13/sstream \
- /usr/include/c++/13/istream /usr/include/c++/13/ios \
- /usr/include/c++/13/bits/basic_ios.h \
- /usr/include/c++/13/bits/basic_ios.tcc /usr/include/c++/13/ostream \
- /usr/include/c++/13/bits/ostream.tcc \
- /usr/include/c++/13/bits/istream.tcc \
- /usr/include/c++/13/bits/sstream.tcc /usr/include/c++/13/codecvt \
- /usr/include/c++/13/bits/fs_dir.h /usr/include/c++/13/bits/fs_ops.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QFile \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qfile.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qfiledevice.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/DWCH7LOILJ/moc_CameraSlewController.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/DWCH7LOILJ/../../../src/video/CameraSlewController.h \
  /workspace/counter-uas-c2/src/video/PTZController.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/DWCH7LOILJ/moc_FileVideoSource.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/DWCH7LOILJ/../../../src/video/FileVideoSource.h \
- /usr/include/x86_64-linux-gnu/qt6/QtMultimedia/QMediaPlayer \
- /usr/include/x86_64-linux-gnu/qt6/QtMultimedia/qmediaplayer.h \
- /usr/include/x86_64-linux-gnu/qt6/QtMultimedia/qtmultimediaglobal.h \
- /usr/include/x86_64-linux-gnu/qt6/QtMultimedia/qtmultimedia-config.h \
- /usr/include/x86_64-linux-gnu/qt6/QtMultimedia/qtmultimediaexports.h \
- /usr/include/x86_64-linux-gnu/qt6/QtMultimedia/qmediaenumdebug.h \
- /usr/include/x86_64-linux-gnu/qt6/QtMultimedia/qaudio.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QtGlobal \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qglobal.h \
- /usr/include/x86_64-linux-gnu/qt6/QtMultimedia/QVideoSink \
- /usr/include/x86_64-linux-gnu/qt6/QtMultimedia/qvideosink.h \
- /usr/include/x86_64-linux-gnu/qt6/QtMultimedia/QVideoFrame \
- /usr/include/x86_64-linux-gnu/qt6/QtMultimedia/qvideoframe.h \
- /usr/include/x86_64-linux-gnu/qt6/QtMultimedia/qvideoframeformat.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtMultimedia/QMediaPlayer \
+ /usr/include/x86_64-linux-gnu/qt5/QtMultimedia/qmediaplayer.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtMultimedia/qtmultimediaglobal.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtMultimedia/qtmultimedia-config.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtMultimedia/qmediaobject.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtMultimedia/qmultimedia.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtMultimedia/qmediacontent.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtMultimedia/qmediaresource.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtNetwork/qnetworkrequest.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QSharedDataPointer \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qshareddata.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QString \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QUrl \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QVariant \
+ /usr/include/x86_64-linux-gnu/qt5/QtMultimedia/qmediaenumdebug.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtMultimedia/qaudio.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtNetwork/qnetworkconfiguration.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QtGlobal \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qglobal.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtMultimedia/QAbstractVideoSurface \
+ /usr/include/x86_64-linux-gnu/qt5/QtMultimedia/qabstractvideosurface.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtMultimedia/qvideoframe.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtMultimedia/qabstractvideobuffer.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtMultimedia/QVideoFrame \
+ /usr/include/x86_64-linux-gnu/qt5/QtMultimedia/qvideoframe.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/DWCH7LOILJ/moc_GigEVideoSource.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/DWCH7LOILJ/../../../src/video/GigEVideoSource.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QThread \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qthread.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qdeadlinetimer.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qelapsedtimer.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QThread \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qthread.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qdeadlinetimer.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qelapsedtimer.h \
  /usr/include/c++/13/future /usr/include/c++/13/mutex \
  /usr/include/c++/13/bits/std_mutex.h \
  /usr/include/c++/13/bits/unique_lock.h \
@@ -634,16 +550,16 @@ CMakeFiles/CounterUAS_C2.dir/CounterUAS_C2_autogen/mocs_compilation.cpp.o: \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/DWCH7LOILJ/../../../src/video/VideoDecoder.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/DWCH7LOILJ/moc_VideoOverlayRenderer.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/DWCH7LOILJ/../../../src/video/VideoOverlayRenderer.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/QFont \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qfont.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/QColor \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qcolor.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/QFont \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qfont.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/QColor \
+ /usr/include/x86_64-linux-gnu/qt5/QtGui/qcolor.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/DWCH7LOILJ/moc_VideoRecorder.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/DWCH7LOILJ/../../../src/video/VideoRecorder.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QWaitCondition \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qwaitcondition.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QDeadlineTimer \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qdeadlinetimer.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QWaitCondition \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qwaitcondition.h \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/QDeadlineTimer \
+ /usr/include/x86_64-linux-gnu/qt5/QtCore/qdeadlinetimer.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/DWCH7LOILJ/moc_VideoSource.cpp \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/DWCH7LOILJ/../../../src/video/VideoSource.h \
  /workspace/counter-uas-c2/build/CounterUAS_C2_autogen/DWCH7LOILJ/moc_VideoStreamManager.cpp \

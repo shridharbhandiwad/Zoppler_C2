@@ -1,58 +1,52 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'TrackSimulator.h'
 **
-** Created by: The Qt Meta Object Compiler version 68 (Qt 6.4.2)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.15.13)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
 #include <memory>
 #include "../../../src/simulators/TrackSimulator.h"
+#include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'TrackSimulator.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 68
-#error "This file was generated using the moc from 6.4.2. It"
+#elif Q_MOC_OUTPUT_REVISION != 67
+#error "This file was generated using the moc from 5.15.13. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
-#endif
-
-#ifndef Q_CONSTINIT
-#define Q_CONSTINIT
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-namespace {
 struct qt_meta_stringdata_CounterUAS__TrackSimulator_t {
-    uint offsetsAndSizes[8];
-    char stringdata0[27];
-    char stringdata1[14];
-    char stringdata2[1];
-    char stringdata3[12];
+    QByteArrayData data[4];
+    char stringdata0[54];
 };
-#define QT_MOC_LITERAL(ofs, len) \
-    uint(sizeof(qt_meta_stringdata_CounterUAS__TrackSimulator_t::offsetsAndSizes) + ofs), len 
-Q_CONSTINIT static const qt_meta_stringdata_CounterUAS__TrackSimulator_t qt_meta_stringdata_CounterUAS__TrackSimulator = {
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_CounterUAS__TrackSimulator_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_CounterUAS__TrackSimulator_t qt_meta_stringdata_CounterUAS__TrackSimulator = {
     {
-        QT_MOC_LITERAL(0, 26),  // "CounterUAS::TrackSimulator"
-        QT_MOC_LITERAL(27, 13),  // "updateTargets"
-        QT_MOC_LITERAL(41, 0),  // ""
-        QT_MOC_LITERAL(42, 11)   // "spawnTarget"
+QT_MOC_LITERAL(0, 0, 26), // "CounterUAS::TrackSimulator"
+QT_MOC_LITERAL(1, 27, 13), // "updateTargets"
+QT_MOC_LITERAL(2, 41, 0), // ""
+QT_MOC_LITERAL(3, 42, 11) // "spawnTarget"
+
     },
-    "CounterUAS::TrackSimulator",
-    "updateTargets",
-    "",
-    "spawnTarget"
+    "CounterUAS::TrackSimulator\0updateTargets\0"
+    "\0spawnTarget"
 };
 #undef QT_MOC_LITERAL
-} // unnamed namespace
 
-Q_CONSTINIT static const uint qt_meta_data_CounterUAS__TrackSimulator[] = {
+static const uint qt_meta_data_CounterUAS__TrackSimulator[] = {
 
  // content:
-      10,       // revision
+       8,       // revision
        0,       // classname
        0,    0, // classinfo
        2,   14, // methods
@@ -62,9 +56,9 @@ Q_CONSTINIT static const uint qt_meta_data_CounterUAS__TrackSimulator[] = {
        0,       // flags
        0,       // signalCount
 
- // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   26,    2, 0x08,    1 /* Private */,
-       3,    0,   27,    2, 0x08,    2 /* Private */,
+ // slots: name, argc, parameters, tag, flags
+       1,    0,   24,    2, 0x08 /* Private */,
+       3,    0,   25,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -72,23 +66,6 @@ Q_CONSTINIT static const uint qt_meta_data_CounterUAS__TrackSimulator[] = {
 
        0        // eod
 };
-
-Q_CONSTINIT const QMetaObject CounterUAS::TrackSimulator::staticMetaObject = { {
-    QMetaObject::SuperData::link<QObject::staticMetaObject>(),
-    qt_meta_stringdata_CounterUAS__TrackSimulator.offsetsAndSizes,
-    qt_meta_data_CounterUAS__TrackSimulator,
-    qt_static_metacall,
-    nullptr,
-    qt_incomplete_metaTypeArray<qt_meta_stringdata_CounterUAS__TrackSimulator_t,
-        // Q_OBJECT / Q_GADGET
-        QtPrivate::TypeAndForceComplete<TrackSimulator, std::true_type>,
-        // method 'updateTargets'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'spawnTarget'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>
-    >,
-    nullptr
-} };
 
 void CounterUAS::TrackSimulator::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
@@ -103,6 +80,16 @@ void CounterUAS::TrackSimulator::qt_static_metacall(QObject *_o, QMetaObject::Ca
     }
     (void)_a;
 }
+
+QT_INIT_METAOBJECT const QMetaObject CounterUAS::TrackSimulator::staticMetaObject = { {
+    QMetaObject::SuperData::link<QObject::staticMetaObject>(),
+    qt_meta_stringdata_CounterUAS__TrackSimulator.data,
+    qt_meta_data_CounterUAS__TrackSimulator,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
+
 
 const QMetaObject *CounterUAS::TrackSimulator::metaObject() const
 {
@@ -128,7 +115,7 @@ int CounterUAS::TrackSimulator::qt_metacall(QMetaObject::Call _c, int _id, void 
         _id -= 2;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         if (_id < 2)
-            *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
+            *reinterpret_cast<int*>(_a[0]) = -1;
         _id -= 2;
     }
     return _id;

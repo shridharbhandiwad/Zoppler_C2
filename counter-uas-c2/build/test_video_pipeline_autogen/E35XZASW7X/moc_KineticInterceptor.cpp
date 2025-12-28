@@ -1,94 +1,69 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'KineticInterceptor.h'
 **
-** Created by: The Qt Meta Object Compiler version 68 (Qt 6.4.2)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.15.13)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
 #include <memory>
 #include "../../../src/effectors/KineticInterceptor.h"
+#include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'KineticInterceptor.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 68
-#error "This file was generated using the moc from 6.4.2. It"
+#elif Q_MOC_OUTPUT_REVISION != 67
+#error "This file was generated using the moc from 5.15.13. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
-#endif
-
-#ifndef Q_CONSTINIT
-#define Q_CONSTINIT
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-namespace {
 struct qt_meta_stringdata_CounterUAS__KineticInterceptor_t {
-    uint offsetsAndSizes[32];
-    char stringdata0[31];
-    char stringdata1[19];
-    char stringdata2[1];
-    char stringdata3[12];
-    char stringdata4[6];
-    char stringdata5[12];
-    char stringdata6[10];
-    char stringdata7[14];
-    char stringdata8[15];
-    char stringdata9[16];
-    char stringdata10[8];
-    char stringdata11[17];
-    char stringdata12[17];
-    char stringdata13[16];
-    char stringdata14[20];
-    char stringdata15[17];
+    QByteArrayData data[16];
+    char stringdata0[231];
 };
-#define QT_MOC_LITERAL(ofs, len) \
-    uint(sizeof(qt_meta_stringdata_CounterUAS__KineticInterceptor_t::offsetsAndSizes) + ofs), len 
-Q_CONSTINIT static const qt_meta_stringdata_CounterUAS__KineticInterceptor_t qt_meta_stringdata_CounterUAS__KineticInterceptor = {
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_CounterUAS__KineticInterceptor_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_CounterUAS__KineticInterceptor_t qt_meta_stringdata_CounterUAS__KineticInterceptor = {
     {
-        QT_MOC_LITERAL(0, 30),  // "CounterUAS::KineticInterceptor"
-        QT_MOC_LITERAL(31, 18),  // "launchPhaseChanged"
-        QT_MOC_LITERAL(50, 0),  // ""
-        QT_MOC_LITERAL(51, 11),  // "LaunchPhase"
-        QT_MOC_LITERAL(63, 5),  // "phase"
-        QT_MOC_LITERAL(69, 11),  // "roundsFired"
-        QT_MOC_LITERAL(81, 9),  // "remaining"
-        QT_MOC_LITERAL(91, 13),  // "reloadStarted"
-        QT_MOC_LITERAL(105, 14),  // "reloadComplete"
-        QT_MOC_LITERAL(120, 15),  // "interceptResult"
-        QT_MOC_LITERAL(136, 7),  // "success"
-        QT_MOC_LITERAL(144, 16),  // "onArmingComplete"
-        QT_MOC_LITERAL(161, 16),  // "onLaunchComplete"
-        QT_MOC_LITERAL(178, 15),  // "onTerminalPhase"
-        QT_MOC_LITERAL(194, 19),  // "onInterceptComplete"
-        QT_MOC_LITERAL(214, 16)   // "onReloadComplete"
+QT_MOC_LITERAL(0, 0, 30), // "CounterUAS::KineticInterceptor"
+QT_MOC_LITERAL(1, 31, 18), // "launchPhaseChanged"
+QT_MOC_LITERAL(2, 50, 0), // ""
+QT_MOC_LITERAL(3, 51, 11), // "LaunchPhase"
+QT_MOC_LITERAL(4, 63, 5), // "phase"
+QT_MOC_LITERAL(5, 69, 11), // "roundsFired"
+QT_MOC_LITERAL(6, 81, 9), // "remaining"
+QT_MOC_LITERAL(7, 91, 13), // "reloadStarted"
+QT_MOC_LITERAL(8, 105, 14), // "reloadComplete"
+QT_MOC_LITERAL(9, 120, 15), // "interceptResult"
+QT_MOC_LITERAL(10, 136, 7), // "success"
+QT_MOC_LITERAL(11, 144, 16), // "onArmingComplete"
+QT_MOC_LITERAL(12, 161, 16), // "onLaunchComplete"
+QT_MOC_LITERAL(13, 178, 15), // "onTerminalPhase"
+QT_MOC_LITERAL(14, 194, 19), // "onInterceptComplete"
+QT_MOC_LITERAL(15, 214, 16) // "onReloadComplete"
+
     },
-    "CounterUAS::KineticInterceptor",
-    "launchPhaseChanged",
-    "",
-    "LaunchPhase",
-    "phase",
-    "roundsFired",
-    "remaining",
-    "reloadStarted",
-    "reloadComplete",
-    "interceptResult",
-    "success",
-    "onArmingComplete",
-    "onLaunchComplete",
-    "onTerminalPhase",
-    "onInterceptComplete",
+    "CounterUAS::KineticInterceptor\0"
+    "launchPhaseChanged\0\0LaunchPhase\0phase\0"
+    "roundsFired\0remaining\0reloadStarted\0"
+    "reloadComplete\0interceptResult\0success\0"
+    "onArmingComplete\0onLaunchComplete\0"
+    "onTerminalPhase\0onInterceptComplete\0"
     "onReloadComplete"
 };
 #undef QT_MOC_LITERAL
-} // unnamed namespace
 
-Q_CONSTINIT static const uint qt_meta_data_CounterUAS__KineticInterceptor[] = {
+static const uint qt_meta_data_CounterUAS__KineticInterceptor[] = {
 
  // content:
-      10,       // revision
+       8,       // revision
        0,       // classname
        0,    0, // classinfo
       10,   14, // methods
@@ -98,19 +73,19 @@ Q_CONSTINIT static const uint qt_meta_data_CounterUAS__KineticInterceptor[] = {
        0,       // flags
        5,       // signalCount
 
- // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   74,    2, 0x06,    1 /* Public */,
-       5,    1,   77,    2, 0x06,    3 /* Public */,
-       7,    0,   80,    2, 0x06,    5 /* Public */,
-       8,    0,   81,    2, 0x06,    6 /* Public */,
-       9,    1,   82,    2, 0x06,    7 /* Public */,
+ // signals: name, argc, parameters, tag, flags
+       1,    1,   64,    2, 0x06 /* Public */,
+       5,    1,   67,    2, 0x06 /* Public */,
+       7,    0,   70,    2, 0x06 /* Public */,
+       8,    0,   71,    2, 0x06 /* Public */,
+       9,    1,   72,    2, 0x06 /* Public */,
 
- // slots: name, argc, parameters, tag, flags, initial metatype offsets
-      11,    0,   85,    2, 0x08,    9 /* Private */,
-      12,    0,   86,    2, 0x08,   10 /* Private */,
-      13,    0,   87,    2, 0x08,   11 /* Private */,
-      14,    0,   88,    2, 0x08,   12 /* Private */,
-      15,    0,   89,    2, 0x08,   13 /* Private */,
+ // slots: name, argc, parameters, tag, flags
+      11,    0,   75,    2, 0x08 /* Private */,
+      12,    0,   76,    2, 0x08 /* Private */,
+      13,    0,   77,    2, 0x08 /* Private */,
+      14,    0,   78,    2, 0x08 /* Private */,
+      15,    0,   79,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -129,53 +104,17 @@ Q_CONSTINIT static const uint qt_meta_data_CounterUAS__KineticInterceptor[] = {
        0        // eod
 };
 
-Q_CONSTINIT const QMetaObject CounterUAS::KineticInterceptor::staticMetaObject = { {
-    QMetaObject::SuperData::link<EffectorInterface::staticMetaObject>(),
-    qt_meta_stringdata_CounterUAS__KineticInterceptor.offsetsAndSizes,
-    qt_meta_data_CounterUAS__KineticInterceptor,
-    qt_static_metacall,
-    nullptr,
-    qt_incomplete_metaTypeArray<qt_meta_stringdata_CounterUAS__KineticInterceptor_t,
-        // Q_OBJECT / Q_GADGET
-        QtPrivate::TypeAndForceComplete<KineticInterceptor, std::true_type>,
-        // method 'launchPhaseChanged'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<LaunchPhase, std::false_type>,
-        // method 'roundsFired'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<int, std::false_type>,
-        // method 'reloadStarted'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'reloadComplete'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'interceptResult'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<bool, std::false_type>,
-        // method 'onArmingComplete'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'onLaunchComplete'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'onTerminalPhase'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'onInterceptComplete'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'onReloadComplete'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>
-    >,
-    nullptr
-} };
-
 void CounterUAS::KineticInterceptor::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
         auto *_t = static_cast<KineticInterceptor *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->launchPhaseChanged((*reinterpret_cast< std::add_pointer_t<LaunchPhase>>(_a[1]))); break;
-        case 1: _t->roundsFired((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 0: _t->launchPhaseChanged((*reinterpret_cast< LaunchPhase(*)>(_a[1]))); break;
+        case 1: _t->roundsFired((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 2: _t->reloadStarted(); break;
         case 3: _t->reloadComplete(); break;
-        case 4: _t->interceptResult((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
+        case 4: _t->interceptResult((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 5: _t->onArmingComplete(); break;
         case 6: _t->onLaunchComplete(); break;
         case 7: _t->onTerminalPhase(); break;
@@ -187,41 +126,51 @@ void CounterUAS::KineticInterceptor::qt_static_metacall(QObject *_o, QMetaObject
         int *result = reinterpret_cast<int *>(_a[0]);
         {
             using _t = void (KineticInterceptor::*)(LaunchPhase );
-            if (_t _q_method = &KineticInterceptor::launchPhaseChanged; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&KineticInterceptor::launchPhaseChanged)) {
                 *result = 0;
                 return;
             }
         }
         {
             using _t = void (KineticInterceptor::*)(int );
-            if (_t _q_method = &KineticInterceptor::roundsFired; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&KineticInterceptor::roundsFired)) {
                 *result = 1;
                 return;
             }
         }
         {
             using _t = void (KineticInterceptor::*)();
-            if (_t _q_method = &KineticInterceptor::reloadStarted; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&KineticInterceptor::reloadStarted)) {
                 *result = 2;
                 return;
             }
         }
         {
             using _t = void (KineticInterceptor::*)();
-            if (_t _q_method = &KineticInterceptor::reloadComplete; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&KineticInterceptor::reloadComplete)) {
                 *result = 3;
                 return;
             }
         }
         {
             using _t = void (KineticInterceptor::*)(bool );
-            if (_t _q_method = &KineticInterceptor::interceptResult; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&KineticInterceptor::interceptResult)) {
                 *result = 4;
                 return;
             }
         }
     }
 }
+
+QT_INIT_METAOBJECT const QMetaObject CounterUAS::KineticInterceptor::staticMetaObject = { {
+    QMetaObject::SuperData::link<EffectorInterface::staticMetaObject>(),
+    qt_meta_stringdata_CounterUAS__KineticInterceptor.data,
+    qt_meta_data_CounterUAS__KineticInterceptor,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
+
 
 const QMetaObject *CounterUAS::KineticInterceptor::metaObject() const
 {
@@ -247,7 +196,7 @@ int CounterUAS::KineticInterceptor::qt_metacall(QMetaObject::Call _c, int _id, v
         _id -= 10;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         if (_id < 10)
-            *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
+            *reinterpret_cast<int*>(_a[0]) = -1;
         _id -= 10;
     }
     return _id;

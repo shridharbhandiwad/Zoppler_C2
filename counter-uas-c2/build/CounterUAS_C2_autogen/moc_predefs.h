@@ -10,7 +10,6 @@
 #define __UINT_LEAST8_TYPE__ unsigned char
 #define __SIZEOF_FLOAT80__ 16
 #define __BFLT16_DENORM_MIN__ 9.18354961579912115600575419704879436e-41BF16
-#define QT_STATEMACHINE_LIB 1
 #define __INTMAX_C(c) c ## L
 #define __CHAR_BIT__ 8
 #define __UINT8_MAX__ 0xff
@@ -63,7 +62,6 @@
 #define __BFLT16_MAX_10_EXP__ 38
 #define __BFLT16_MAX_EXP__ 128
 #define __LDBL_IS_IEC_60559__ 1
-#define QT_NO_DEBUG 1
 #define __FLT64X_HAS_QUIET_NAN__ 1
 #define __UINT_LEAST8_MAX__ 0xff
 #define __GCC_ATOMIC_BOOL_LOCK_FREE 2
@@ -241,7 +239,6 @@
 #define __ORDER_PDP_ENDIAN__ 3412
 #define __DEC128_MIN_EXP__ (-6142)
 #define __DEC128_MAX__ 9.999999999999999999999999999999999E6144DL
-#define QT_OPENGLWIDGETS_LIB 1
 #define __INT_FAST32_TYPE__ long int
 #define QT_CONCURRENT_LIB 1
 #define __UINT_LEAST16_TYPE__ short unsigned int
@@ -252,6 +249,7 @@
 #define __UINT64_MAX__ 0xffffffffffffffffUL
 #define __FLT_IS_IEC_60559__ 1
 #define __GNUC_WIDE_EXECUTION_CHARSET_NAME "UTF-32LE"
+#define DEBUG 1
 #define __FLT64X_DIG__ 18
 #define __INT8_TYPE__ signed char
 #define __cpp_digit_separators 201309L

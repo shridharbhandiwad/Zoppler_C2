@@ -68,11 +68,11 @@ include CMakeFiles/test_video_pipeline_autogen.dir/progress.make
 
 CMakeFiles/test_video_pipeline_autogen: test_video_pipeline_autogen/timestamp
 
-test_video_pipeline_autogen/timestamp: /usr/lib/qt6/libexec/moc
-test_video_pipeline_autogen/timestamp: /usr/lib/qt6/libexec/uic
+test_video_pipeline_autogen/timestamp: /usr/lib/qt5/bin/moc
+test_video_pipeline_autogen/timestamp: /usr/lib/qt5/bin/uic
 test_video_pipeline_autogen/timestamp: CMakeFiles/test_video_pipeline_autogen.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/workspace/counter-uas-c2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC and UIC for target test_video_pipeline"
-	/usr/bin/cmake -E cmake_autogen /workspace/counter-uas-c2/build/CMakeFiles/test_video_pipeline_autogen.dir/AutogenInfo.json Release
+	/usr/bin/cmake -E cmake_autogen /workspace/counter-uas-c2/build/CMakeFiles/test_video_pipeline_autogen.dir/AutogenInfo.json Debug
 	/usr/bin/cmake -E touch /workspace/counter-uas-c2/build/test_video_pipeline_autogen/timestamp
 
 test_video_pipeline_autogen: CMakeFiles/test_video_pipeline_autogen

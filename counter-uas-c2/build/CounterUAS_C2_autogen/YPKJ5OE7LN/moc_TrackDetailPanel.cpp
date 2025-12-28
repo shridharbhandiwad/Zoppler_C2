@@ -1,62 +1,53 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'TrackDetailPanel.h'
 **
-** Created by: The Qt Meta Object Compiler version 68 (Qt 6.4.2)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.15.13)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
 #include <memory>
 #include "../../../src/ui/TrackDetailPanel.h"
-#include <QtGui/qtextcursor.h>
+#include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'TrackDetailPanel.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 68
-#error "This file was generated using the moc from 6.4.2. It"
+#elif Q_MOC_OUTPUT_REVISION != 67
+#error "This file was generated using the moc from 5.15.13. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
-#endif
-
-#ifndef Q_CONSTINIT
-#define Q_CONSTINIT
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-namespace {
 struct qt_meta_stringdata_CounterUAS__TrackDetailPanel_t {
-    uint offsetsAndSizes[10];
-    char stringdata0[29];
-    char stringdata1[16];
-    char stringdata2[1];
-    char stringdata3[8];
-    char stringdata4[20];
+    QByteArrayData data[5];
+    char stringdata0[74];
 };
-#define QT_MOC_LITERAL(ofs, len) \
-    uint(sizeof(qt_meta_stringdata_CounterUAS__TrackDetailPanel_t::offsetsAndSizes) + ofs), len 
-Q_CONSTINIT static const qt_meta_stringdata_CounterUAS__TrackDetailPanel_t qt_meta_stringdata_CounterUAS__TrackDetailPanel = {
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_CounterUAS__TrackDetailPanel_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_CounterUAS__TrackDetailPanel_t qt_meta_stringdata_CounterUAS__TrackDetailPanel = {
     {
-        QT_MOC_LITERAL(0, 28),  // "CounterUAS::TrackDetailPanel"
-        QT_MOC_LITERAL(29, 15),  // "engageRequested"
-        QT_MOC_LITERAL(45, 0),  // ""
-        QT_MOC_LITERAL(46, 7),  // "trackId"
-        QT_MOC_LITERAL(54, 19)   // "slewCameraRequested"
+QT_MOC_LITERAL(0, 0, 28), // "CounterUAS::TrackDetailPanel"
+QT_MOC_LITERAL(1, 29, 15), // "engageRequested"
+QT_MOC_LITERAL(2, 45, 0), // ""
+QT_MOC_LITERAL(3, 46, 7), // "trackId"
+QT_MOC_LITERAL(4, 54, 19) // "slewCameraRequested"
+
     },
-    "CounterUAS::TrackDetailPanel",
-    "engageRequested",
-    "",
-    "trackId",
-    "slewCameraRequested"
+    "CounterUAS::TrackDetailPanel\0"
+    "engageRequested\0\0trackId\0slewCameraRequested"
 };
 #undef QT_MOC_LITERAL
-} // unnamed namespace
 
-Q_CONSTINIT static const uint qt_meta_data_CounterUAS__TrackDetailPanel[] = {
+static const uint qt_meta_data_CounterUAS__TrackDetailPanel[] = {
 
  // content:
-      10,       // revision
+       8,       // revision
        0,       // classname
        0,    0, // classinfo
        2,   14, // methods
@@ -66,9 +57,9 @@ Q_CONSTINIT static const uint qt_meta_data_CounterUAS__TrackDetailPanel[] = {
        0,       // flags
        2,       // signalCount
 
- // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   26,    2, 0x06,    1 /* Public */,
-       4,    1,   29,    2, 0x06,    3 /* Public */,
+ // signals: name, argc, parameters, tag, flags
+       1,    1,   24,    2, 0x06 /* Public */,
+       4,    1,   27,    2, 0x06 /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString,    3,
@@ -77,53 +68,44 @@ Q_CONSTINIT static const uint qt_meta_data_CounterUAS__TrackDetailPanel[] = {
        0        // eod
 };
 
-Q_CONSTINIT const QMetaObject CounterUAS::TrackDetailPanel::staticMetaObject = { {
-    QMetaObject::SuperData::link<QWidget::staticMetaObject>(),
-    qt_meta_stringdata_CounterUAS__TrackDetailPanel.offsetsAndSizes,
-    qt_meta_data_CounterUAS__TrackDetailPanel,
-    qt_static_metacall,
-    nullptr,
-    qt_incomplete_metaTypeArray<qt_meta_stringdata_CounterUAS__TrackDetailPanel_t,
-        // Q_OBJECT / Q_GADGET
-        QtPrivate::TypeAndForceComplete<TrackDetailPanel, std::true_type>,
-        // method 'engageRequested'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
-        // method 'slewCameraRequested'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>
-    >,
-    nullptr
-} };
-
 void CounterUAS::TrackDetailPanel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
         auto *_t = static_cast<TrackDetailPanel *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->engageRequested((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
-        case 1: _t->slewCameraRequested((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 0: _t->engageRequested((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 1: _t->slewCameraRequested((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         {
             using _t = void (TrackDetailPanel::*)(const QString & );
-            if (_t _q_method = &TrackDetailPanel::engageRequested; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&TrackDetailPanel::engageRequested)) {
                 *result = 0;
                 return;
             }
         }
         {
             using _t = void (TrackDetailPanel::*)(const QString & );
-            if (_t _q_method = &TrackDetailPanel::slewCameraRequested; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&TrackDetailPanel::slewCameraRequested)) {
                 *result = 1;
                 return;
             }
         }
     }
 }
+
+QT_INIT_METAOBJECT const QMetaObject CounterUAS::TrackDetailPanel::staticMetaObject = { {
+    QMetaObject::SuperData::link<QWidget::staticMetaObject>(),
+    qt_meta_stringdata_CounterUAS__TrackDetailPanel.data,
+    qt_meta_data_CounterUAS__TrackDetailPanel,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
+
 
 const QMetaObject *CounterUAS::TrackDetailPanel::metaObject() const
 {
@@ -149,7 +131,7 @@ int CounterUAS::TrackDetailPanel::qt_metacall(QMetaObject::Call _c, int _id, voi
         _id -= 2;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         if (_id < 2)
-            *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
+            *reinterpret_cast<int*>(_a[0]) = -1;
         _id -= 2;
     }
     return _id;

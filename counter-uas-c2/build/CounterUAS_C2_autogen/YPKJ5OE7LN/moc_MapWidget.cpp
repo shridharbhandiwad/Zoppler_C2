@@ -1,85 +1,63 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'MapWidget.h'
 **
-** Created by: The Qt Meta Object Compiler version 68 (Qt 6.4.2)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.15.13)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
 #include <memory>
 #include "../../../src/ui/MapWidget.h"
+#include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'MapWidget.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 68
-#error "This file was generated using the moc from 6.4.2. It"
+#elif Q_MOC_OUTPUT_REVISION != 67
+#error "This file was generated using the moc from 5.15.13. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
-#endif
-
-#ifndef Q_CONSTINIT
-#define Q_CONSTINIT
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-namespace {
 struct qt_meta_stringdata_CounterUAS__MapWidget_t {
-    uint offsetsAndSizes[26];
-    char stringdata0[22];
-    char stringdata1[14];
-    char stringdata2[1];
-    char stringdata3[8];
-    char stringdata4[11];
-    char stringdata5[12];
-    char stringdata6[4];
-    char stringdata7[12];
-    char stringdata8[5];
-    char stringdata9[9];
-    char stringdata10[12];
-    char stringdata11[12];
-    char stringdata12[12];
+    QByteArrayData data[13];
+    char stringdata0[134];
 };
-#define QT_MOC_LITERAL(ofs, len) \
-    uint(sizeof(qt_meta_stringdata_CounterUAS__MapWidget_t::offsetsAndSizes) + ofs), len 
-Q_CONSTINIT static const qt_meta_stringdata_CounterUAS__MapWidget_t qt_meta_stringdata_CounterUAS__MapWidget = {
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_CounterUAS__MapWidget_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_CounterUAS__MapWidget_t qt_meta_stringdata_CounterUAS__MapWidget = {
     {
-        QT_MOC_LITERAL(0, 21),  // "CounterUAS::MapWidget"
-        QT_MOC_LITERAL(22, 13),  // "trackSelected"
-        QT_MOC_LITERAL(36, 0),  // ""
-        QT_MOC_LITERAL(37, 7),  // "trackId"
-        QT_MOC_LITERAL(45, 10),  // "mapClicked"
-        QT_MOC_LITERAL(56, 11),  // "GeoPosition"
-        QT_MOC_LITERAL(68, 3),  // "pos"
-        QT_MOC_LITERAL(72, 11),  // "zoomChanged"
-        QT_MOC_LITERAL(84, 4),  // "zoom"
-        QT_MOC_LITERAL(89, 8),  // "addTrack"
-        QT_MOC_LITERAL(98, 11),  // "updateTrack"
-        QT_MOC_LITERAL(110, 11),  // "removeTrack"
-        QT_MOC_LITERAL(122, 11)   // "clearTracks"
+QT_MOC_LITERAL(0, 0, 21), // "CounterUAS::MapWidget"
+QT_MOC_LITERAL(1, 22, 13), // "trackSelected"
+QT_MOC_LITERAL(2, 36, 0), // ""
+QT_MOC_LITERAL(3, 37, 7), // "trackId"
+QT_MOC_LITERAL(4, 45, 10), // "mapClicked"
+QT_MOC_LITERAL(5, 56, 11), // "GeoPosition"
+QT_MOC_LITERAL(6, 68, 3), // "pos"
+QT_MOC_LITERAL(7, 72, 11), // "zoomChanged"
+QT_MOC_LITERAL(8, 84, 4), // "zoom"
+QT_MOC_LITERAL(9, 89, 8), // "addTrack"
+QT_MOC_LITERAL(10, 98, 11), // "updateTrack"
+QT_MOC_LITERAL(11, 110, 11), // "removeTrack"
+QT_MOC_LITERAL(12, 122, 11) // "clearTracks"
+
     },
-    "CounterUAS::MapWidget",
-    "trackSelected",
-    "",
-    "trackId",
-    "mapClicked",
-    "GeoPosition",
-    "pos",
-    "zoomChanged",
-    "zoom",
-    "addTrack",
-    "updateTrack",
-    "removeTrack",
-    "clearTracks"
+    "CounterUAS::MapWidget\0trackSelected\0"
+    "\0trackId\0mapClicked\0GeoPosition\0pos\0"
+    "zoomChanged\0zoom\0addTrack\0updateTrack\0"
+    "removeTrack\0clearTracks"
 };
 #undef QT_MOC_LITERAL
-} // unnamed namespace
 
-Q_CONSTINIT static const uint qt_meta_data_CounterUAS__MapWidget[] = {
+static const uint qt_meta_data_CounterUAS__MapWidget[] = {
 
  // content:
-      10,       // revision
+       8,       // revision
        0,       // classname
        0,    0, // classinfo
        7,   14, // methods
@@ -89,16 +67,16 @@ Q_CONSTINIT static const uint qt_meta_data_CounterUAS__MapWidget[] = {
        0,       // flags
        3,       // signalCount
 
- // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   56,    2, 0x06,    1 /* Public */,
-       4,    1,   59,    2, 0x06,    3 /* Public */,
-       7,    1,   62,    2, 0x06,    5 /* Public */,
+ // signals: name, argc, parameters, tag, flags
+       1,    1,   49,    2, 0x06 /* Public */,
+       4,    1,   52,    2, 0x06 /* Public */,
+       7,    1,   55,    2, 0x06 /* Public */,
 
- // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       9,    1,   65,    2, 0x0a,    7 /* Public */,
-      10,    1,   68,    2, 0x0a,    9 /* Public */,
-      11,    1,   71,    2, 0x0a,   11 /* Public */,
-      12,    0,   74,    2, 0x0a,   13 /* Public */,
+ // slots: name, argc, parameters, tag, flags
+       9,    1,   58,    2, 0x0a /* Public */,
+      10,    1,   61,    2, 0x0a /* Public */,
+      11,    1,   64,    2, 0x0a /* Public */,
+      12,    0,   67,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString,    3,
@@ -114,51 +92,18 @@ Q_CONSTINIT static const uint qt_meta_data_CounterUAS__MapWidget[] = {
        0        // eod
 };
 
-Q_CONSTINIT const QMetaObject CounterUAS::MapWidget::staticMetaObject = { {
-    QMetaObject::SuperData::link<QWidget::staticMetaObject>(),
-    qt_meta_stringdata_CounterUAS__MapWidget.offsetsAndSizes,
-    qt_meta_data_CounterUAS__MapWidget,
-    qt_static_metacall,
-    nullptr,
-    qt_incomplete_metaTypeArray<qt_meta_stringdata_CounterUAS__MapWidget_t,
-        // Q_OBJECT / Q_GADGET
-        QtPrivate::TypeAndForceComplete<MapWidget, std::true_type>,
-        // method 'trackSelected'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
-        // method 'mapClicked'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const GeoPosition &, std::false_type>,
-        // method 'zoomChanged'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<double, std::false_type>,
-        // method 'addTrack'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
-        // method 'updateTrack'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
-        // method 'removeTrack'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
-        // method 'clearTracks'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>
-    >,
-    nullptr
-} };
-
 void CounterUAS::MapWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
         auto *_t = static_cast<MapWidget *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->trackSelected((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
-        case 1: _t->mapClicked((*reinterpret_cast< std::add_pointer_t<GeoPosition>>(_a[1]))); break;
-        case 2: _t->zoomChanged((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
-        case 3: _t->addTrack((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
-        case 4: _t->updateTrack((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
-        case 5: _t->removeTrack((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 0: _t->trackSelected((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 1: _t->mapClicked((*reinterpret_cast< const GeoPosition(*)>(_a[1]))); break;
+        case 2: _t->zoomChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 3: _t->addTrack((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 4: _t->updateTrack((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 5: _t->removeTrack((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         case 6: _t->clearTracks(); break;
         default: ;
         }
@@ -166,27 +111,37 @@ void CounterUAS::MapWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c
         int *result = reinterpret_cast<int *>(_a[0]);
         {
             using _t = void (MapWidget::*)(const QString & );
-            if (_t _q_method = &MapWidget::trackSelected; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&MapWidget::trackSelected)) {
                 *result = 0;
                 return;
             }
         }
         {
             using _t = void (MapWidget::*)(const GeoPosition & );
-            if (_t _q_method = &MapWidget::mapClicked; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&MapWidget::mapClicked)) {
                 *result = 1;
                 return;
             }
         }
         {
             using _t = void (MapWidget::*)(double );
-            if (_t _q_method = &MapWidget::zoomChanged; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&MapWidget::zoomChanged)) {
                 *result = 2;
                 return;
             }
         }
     }
 }
+
+QT_INIT_METAOBJECT const QMetaObject CounterUAS::MapWidget::staticMetaObject = { {
+    QMetaObject::SuperData::link<QWidget::staticMetaObject>(),
+    qt_meta_stringdata_CounterUAS__MapWidget.data,
+    qt_meta_data_CounterUAS__MapWidget,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
+
 
 const QMetaObject *CounterUAS::MapWidget::metaObject() const
 {
@@ -212,7 +167,7 @@ int CounterUAS::MapWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         _id -= 7;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         if (_id < 7)
-            *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
+            *reinterpret_cast<int*>(_a[0]) = -1;
         _id -= 7;
     }
     return _id;

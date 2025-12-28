@@ -1,85 +1,64 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'FileVideoSource.h'
 **
-** Created by: The Qt Meta Object Compiler version 68 (Qt 6.4.2)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.15.13)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
 #include <memory>
 #include "../../../src/video/FileVideoSource.h"
+#include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'FileVideoSource.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 68
-#error "This file was generated using the moc from 6.4.2. It"
+#elif Q_MOC_OUTPUT_REVISION != 67
+#error "This file was generated using the moc from 5.15.13. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
-#endif
-
-#ifndef Q_CONSTINIT
-#define Q_CONSTINIT
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-namespace {
 struct qt_meta_stringdata_CounterUAS__FileVideoSource_t {
-    uint offsetsAndSizes[26];
-    char stringdata0[28];
-    char stringdata1[13];
-    char stringdata2[1];
-    char stringdata3[20];
-    char stringdata4[12];
-    char stringdata5[6];
-    char stringdata6[21];
-    char stringdata7[26];
-    char stringdata8[7];
-    char stringdata9[18];
-    char stringdata10[9];
-    char stringdata11[18];
-    char stringdata12[9];
+    QByteArrayData data[13];
+    char stringdata0[185];
 };
-#define QT_MOC_LITERAL(ofs, len) \
-    uint(sizeof(qt_meta_stringdata_CounterUAS__FileVideoSource_t::offsetsAndSizes) + ofs), len 
-Q_CONSTINIT static const qt_meta_stringdata_CounterUAS__FileVideoSource_t qt_meta_stringdata_CounterUAS__FileVideoSource = {
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_CounterUAS__FileVideoSource_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_CounterUAS__FileVideoSource_t qt_meta_stringdata_CounterUAS__FileVideoSource = {
     {
-        QT_MOC_LITERAL(0, 27),  // "CounterUAS::FileVideoSource"
-        QT_MOC_LITERAL(28, 12),  // "processFrame"
-        QT_MOC_LITERAL(41, 0),  // ""
-        QT_MOC_LITERAL(42, 19),  // "onVideoFrameChanged"
-        QT_MOC_LITERAL(62, 11),  // "QVideoFrame"
-        QT_MOC_LITERAL(74, 5),  // "frame"
-        QT_MOC_LITERAL(80, 20),  // "onMediaStatusChanged"
-        QT_MOC_LITERAL(101, 25),  // "QMediaPlayer::MediaStatus"
-        QT_MOC_LITERAL(127, 6),  // "status"
-        QT_MOC_LITERAL(134, 17),  // "onPositionChanged"
-        QT_MOC_LITERAL(152, 8),  // "position"
-        QT_MOC_LITERAL(161, 17),  // "onDurationChanged"
-        QT_MOC_LITERAL(179, 8)   // "duration"
+QT_MOC_LITERAL(0, 0, 27), // "CounterUAS::FileVideoSource"
+QT_MOC_LITERAL(1, 28, 12), // "processFrame"
+QT_MOC_LITERAL(2, 41, 0), // ""
+QT_MOC_LITERAL(3, 42, 16), // "onFrameAvailable"
+QT_MOC_LITERAL(4, 59, 11), // "QVideoFrame"
+QT_MOC_LITERAL(5, 71, 5), // "frame"
+QT_MOC_LITERAL(6, 77, 20), // "onMediaStatusChanged"
+QT_MOC_LITERAL(7, 98, 25), // "QMediaPlayer::MediaStatus"
+QT_MOC_LITERAL(8, 124, 6), // "status"
+QT_MOC_LITERAL(9, 131, 17), // "onPositionChanged"
+QT_MOC_LITERAL(10, 149, 8), // "position"
+QT_MOC_LITERAL(11, 158, 17), // "onDurationChanged"
+QT_MOC_LITERAL(12, 176, 8) // "duration"
+
     },
-    "CounterUAS::FileVideoSource",
-    "processFrame",
-    "",
-    "onVideoFrameChanged",
-    "QVideoFrame",
-    "frame",
-    "onMediaStatusChanged",
-    "QMediaPlayer::MediaStatus",
-    "status",
-    "onPositionChanged",
-    "position",
-    "onDurationChanged",
-    "duration"
+    "CounterUAS::FileVideoSource\0processFrame\0"
+    "\0onFrameAvailable\0QVideoFrame\0frame\0"
+    "onMediaStatusChanged\0QMediaPlayer::MediaStatus\0"
+    "status\0onPositionChanged\0position\0"
+    "onDurationChanged\0duration"
 };
 #undef QT_MOC_LITERAL
-} // unnamed namespace
 
-Q_CONSTINIT static const uint qt_meta_data_CounterUAS__FileVideoSource[] = {
+static const uint qt_meta_data_CounterUAS__FileVideoSource[] = {
 
  // content:
-      10,       // revision
+       8,       // revision
        0,       // classname
        0,    0, // classinfo
        5,   14, // methods
@@ -89,12 +68,12 @@ Q_CONSTINIT static const uint qt_meta_data_CounterUAS__FileVideoSource[] = {
        0,       // flags
        0,       // signalCount
 
- // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   44,    2, 0x09,    1 /* Protected */,
-       3,    1,   45,    2, 0x08,    2 /* Private */,
-       6,    1,   48,    2, 0x08,    4 /* Private */,
-       9,    1,   51,    2, 0x08,    6 /* Private */,
-      11,    1,   54,    2, 0x08,    8 /* Private */,
+ // slots: name, argc, parameters, tag, flags
+       1,    0,   39,    2, 0x09 /* Protected */,
+       3,    1,   40,    2, 0x08 /* Private */,
+       6,    1,   43,    2, 0x08 /* Private */,
+       9,    1,   46,    2, 0x08 /* Private */,
+      11,    1,   49,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -106,33 +85,6 @@ Q_CONSTINIT static const uint qt_meta_data_CounterUAS__FileVideoSource[] = {
        0        // eod
 };
 
-Q_CONSTINIT const QMetaObject CounterUAS::FileVideoSource::staticMetaObject = { {
-    QMetaObject::SuperData::link<VideoSource::staticMetaObject>(),
-    qt_meta_stringdata_CounterUAS__FileVideoSource.offsetsAndSizes,
-    qt_meta_data_CounterUAS__FileVideoSource,
-    qt_static_metacall,
-    nullptr,
-    qt_incomplete_metaTypeArray<qt_meta_stringdata_CounterUAS__FileVideoSource_t,
-        // Q_OBJECT / Q_GADGET
-        QtPrivate::TypeAndForceComplete<FileVideoSource, std::true_type>,
-        // method 'processFrame'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'onVideoFrameChanged'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QVideoFrame &, std::false_type>,
-        // method 'onMediaStatusChanged'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<QMediaPlayer::MediaStatus, std::false_type>,
-        // method 'onPositionChanged'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<qint64, std::false_type>,
-        // method 'onDurationChanged'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<qint64, std::false_type>
-    >,
-    nullptr
-} };
-
 void CounterUAS::FileVideoSource::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
@@ -140,25 +92,42 @@ void CounterUAS::FileVideoSource::qt_static_metacall(QObject *_o, QMetaObject::C
         (void)_t;
         switch (_id) {
         case 0: _t->processFrame(); break;
-        case 1: _t->onVideoFrameChanged((*reinterpret_cast< std::add_pointer_t<QVideoFrame>>(_a[1]))); break;
-        case 2: _t->onMediaStatusChanged((*reinterpret_cast< std::add_pointer_t<QMediaPlayer::MediaStatus>>(_a[1]))); break;
-        case 3: _t->onPositionChanged((*reinterpret_cast< std::add_pointer_t<qint64>>(_a[1]))); break;
-        case 4: _t->onDurationChanged((*reinterpret_cast< std::add_pointer_t<qint64>>(_a[1]))); break;
+        case 1: _t->onFrameAvailable((*reinterpret_cast< const QVideoFrame(*)>(_a[1]))); break;
+        case 2: _t->onMediaStatusChanged((*reinterpret_cast< QMediaPlayer::MediaStatus(*)>(_a[1]))); break;
+        case 3: _t->onPositionChanged((*reinterpret_cast< qint64(*)>(_a[1]))); break;
+        case 4: _t->onDurationChanged((*reinterpret_cast< qint64(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         switch (_id) {
-        default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
+        default: *reinterpret_cast<int*>(_a[0]) = -1; break;
         case 1:
             switch (*reinterpret_cast<int*>(_a[1])) {
-            default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
             case 0:
-                *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< QVideoFrame >(); break;
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< QVideoFrame >(); break;
+            }
+            break;
+        case 2:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 0:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< QMediaPlayer::MediaStatus >(); break;
             }
             break;
         }
     }
 }
+
+QT_INIT_METAOBJECT const QMetaObject CounterUAS::FileVideoSource::staticMetaObject = { {
+    QMetaObject::SuperData::link<VideoSource::staticMetaObject>(),
+    qt_meta_stringdata_CounterUAS__FileVideoSource.data,
+    qt_meta_data_CounterUAS__FileVideoSource,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
+
 
 const QMetaObject *CounterUAS::FileVideoSource::metaObject() const
 {
