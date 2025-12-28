@@ -1,0 +1,52 @@
+{
+    "defendedAssets": [
+        {
+            "id": "BASE-01",
+            "name": "Main Installation HQ",
+            "position": {
+                "latitude": 34.0522,
+                "longitude": -118.2437,
+                "altitude": 100.0
+            },
+            "criticalRadiusM": 500.0,
+            "warningRadiusM": 1500.0,
+            "priorityLevel": 5
+        },
+        {
+            "id": "FUEL-01",
+            "name": "Fuel Storage Area",
+            "position": {
+                "latitude": 34.0510,
+                "longitude": -118.2450,
+                "altitude": 95.0
+            },
+            "criticalRadiusM": 300.0,
+            "warningRadiusM": 800.0,
+            "priorityLevel": 4
+        },
+        {
+            "id": "COMM-01",
+            "name": "Communications Tower",
+            "position": {
+                "latitude": 34.0535,
+                "longitude": -118.2425,
+                "altitude": 120.0
+            },
+            "criticalRadiusM": 200.0,
+            "warningRadiusM": 500.0,
+            "priorityLevel": 4
+        }
+    ],
+    "noFireZones": [
+        {
+            "id": "NFZ-01",
+            "name": "Residential Area",
+            "polygon": [
+                {"latitude": 34.0540, "longitude": -118.2500},
+                {"latitude": 34.0540, "longitude": -118.2460},
+                {"latitude": 34.0560, "longitude": -118.2460},
+                {"latitude": 34.0560, "longitude": -118.2500}
+            ]
+        }
+    ]
+}

@@ -18,7 +18,12 @@ cd "$BUILD_DIR"
 
 # Configure with CMake
 echo "Configuring with CMake..."
-cmake .. -DCMAKE_BUILD_TYPE="$BUILD_TYPE"
+# Use g++ explicitly if available (avoids clang/libstdc++ issues on some systems)
+if command -v g++ &> /dev/null; then
+    cmake .. -DCMAKE_BUILD_TYPE="$BUILD_TYPE" -DCMAKE_CXX_COMPILER=/usr/bin/g++
+else
+    cmake .. -DCMAKE_BUILD_TYPE="$BUILD_TYPE"
+fi
 
 # Build
 echo "Building..."

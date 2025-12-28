@@ -69,7 +69,6 @@ find_package(Qt6 COMPONENTS
     MultimediaWidgets
     OpenGLWidgets
     Concurrent
-    StateMachine
     SerialPort
     QUIET
 )
@@ -77,6 +76,13 @@ find_package(Qt6 COMPONENTS
 if(Qt6_FOUND)
     set(QT_VERSION_MAJOR 6)
     message(STATUS "Using Qt6")
+    # StateMachine is a separate module in Qt6
+    find_package(Qt6 COMPONENTS StateMachine QUIET)
+    if(Qt6StateMachine_FOUND)
+        message(STATUS "Qt6 StateMachine found")
+    else()
+        message(STATUS "Qt6 StateMachine not found - some features may be limited")
+    endif()
 else()
     find_package(Qt5 REQUIRED COMPONENTS
         Core
@@ -369,12 +375,13 @@ if(BUILD_TESTS)
         tests/test_track_manager.cpp
         ${CORE_SOURCES}
         ${UTILS_SOURCES}
+        ${EFFECTOR_SOURCES}
     )
     target_include_directories(test_track_manager PRIVATE ${CMAKE_SOURCE_DIR}/src)
     if(QT_VERSION_MAJOR EQUAL 6)
-        target_link_libraries(test_track_manager PRIVATE Qt6::Core Qt6::Test)
+        target_link_libraries(test_track_manager PRIVATE Qt6::Core Qt6::Gui Qt6::StateMachine Qt6::Network Qt6::SerialPort Qt6::Test)
     else()
-        target_link_libraries(test_track_manager PRIVATE Qt5::Core Qt5::Test)
+        target_link_libraries(test_track_manager PRIVATE Qt5::Core Qt5::Gui Qt5::Network Qt5::SerialPort Qt5::Test)
     endif()
     apply_test_compile_options(test_track_manager)
     add_test(NAME TrackManagerTest COMMAND test_track_manager)
@@ -383,12 +390,13 @@ if(BUILD_TESTS)
         tests/test_threat_assessor.cpp
         ${CORE_SOURCES}
         ${UTILS_SOURCES}
+        ${EFFECTOR_SOURCES}
     )
     target_include_directories(test_threat_assessor PRIVATE ${CMAKE_SOURCE_DIR}/src)
     if(QT_VERSION_MAJOR EQUAL 6)
-        target_link_libraries(test_threat_assessor PRIVATE Qt6::Core Qt6::Test)
+        target_link_libraries(test_threat_assessor PRIVATE Qt6::Core Qt6::Gui Qt6::StateMachine Qt6::Network Qt6::SerialPort Qt6::Test)
     else()
-        target_link_libraries(test_threat_assessor PRIVATE Qt5::Core Qt5::Test)
+        target_link_libraries(test_threat_assessor PRIVATE Qt5::Core Qt5::Gui Qt5::Network Qt5::SerialPort Qt5::Test)
     endif()
     apply_test_compile_options(test_threat_assessor)
     add_test(NAME ThreatAssessorTest COMMAND test_threat_assessor)
@@ -397,12 +405,14 @@ if(BUILD_TESTS)
         tests/test_video_pipeline.cpp
         ${VIDEO_SOURCES}
         ${UTILS_SOURCES}
+        ${CORE_SOURCES}
+        ${EFFECTOR_SOURCES}
     )
     target_include_directories(test_video_pipeline PRIVATE ${CMAKE_SOURCE_DIR}/src)
     if(QT_VERSION_MAJOR EQUAL 6)
-        target_link_libraries(test_video_pipeline PRIVATE Qt6::Core Qt6::Gui Qt6::Multimedia Qt6::Test)
+        target_link_libraries(test_video_pipeline PRIVATE Qt6::Core Qt6::Gui Qt6::Multimedia Qt6::Network Qt6::SerialPort Qt6::StateMachine Qt6::Test)
     else()
-        target_link_libraries(test_video_pipeline PRIVATE Qt5::Core Qt5::Gui Qt5::Multimedia Qt5::Test)
+        target_link_libraries(test_video_pipeline PRIVATE Qt5::Core Qt5::Gui Qt5::Multimedia Qt5::Network Qt5::SerialPort Qt5::Test)
     endif()
     apply_test_compile_options(test_video_pipeline)
     add_test(NAME VideoPipelineTest COMMAND test_video_pipeline)

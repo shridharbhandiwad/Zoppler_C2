@@ -21,7 +21,8 @@ VideoSource::VideoSource(const QString& sourceId, QObject* parent)
 
 VideoSource::~VideoSource() {
     stop();
-    close();
+    // Note: close() is pure virtual and must be called by derived class destructors
+    // Calling it here would invoke undefined behavior since derived class is already destroyed
 }
 
 void VideoSource::start() {

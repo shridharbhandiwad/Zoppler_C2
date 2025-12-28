@@ -1,0 +1,44 @@
+{
+    "system": {
+        "updateRateHz": 10,
+        "logLevel": "INFO",
+        "logPath": "logs/",
+        "dataPath": "data/"
+    },
+    "trackManager": {
+        "correlationDistanceM": 100.0,
+        "correlationVelocityMps": 10.0,
+        "coastingTimeoutMs": 5000,
+        "dropTimeoutMs": 15000,
+        "maxCoastCount": 10,
+        "enableKalmanFilter": true,
+        "maxTracks": 200
+    },
+    "threatAssessor": {
+        "assessmentIntervalMs": 500,
+        "alertQueueMaxSize": 100,
+        "autoSlewToHighestThreat": true,
+        "highThreatThreshold": 4,
+        "headingToleranceDeg": 30.0
+    },
+    "video": {
+        "defaultFps": 30,
+        "maxStreams": 16,
+        "maxDisplayStreams": 9,
+        "recordingPath": "recordings/",
+        "preBufferSeconds": 30,
+        "postBufferSeconds": 30,
+        "autoReconnect": true,
+        "reconnectIntervalMs": 5000
+    },
+    "map": {
+        "defaultCenterLat": 34.0522,
+        "defaultCenterLon": -118.2437,
+        "defaultZoom": 15,
+        "updateRateHz": 10
+    },
+    "engagement": {
+        "authorizationTimeoutSeconds": 60,
+        "autoRecommendEffector": true
+    }
+}
