@@ -22,6 +22,8 @@ public:
     void setOverlayEnabled(bool enabled) { m_overlayEnabled = enabled; }
     bool overlayEnabled() const { return m_overlayEnabled; }
     
+    QImage currentFrame() const { return m_currentFrame; }
+    
 public slots:
     void updateFrame(const QImage& frame);
     

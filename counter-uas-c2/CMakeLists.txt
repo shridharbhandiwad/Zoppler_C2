@@ -182,6 +182,16 @@ set(SIMULATOR_SOURCES
     src/simulators/SensorSimulator.cpp
     src/simulators/TrackSimulator.cpp
     src/simulators/VideoSimulator.cpp
+    src/simulators/EffectorSimulator.cpp
+    src/simulators/SystemSimulationManager.cpp
+)
+
+set(DIALOG_SOURCES
+    src/ui/dialogs/SensorConfigDialog.cpp
+    src/ui/dialogs/EffectorStatusDialog.cpp
+    src/ui/dialogs/SimulationSettingsDialog.cpp
+    src/ui/dialogs/RulesOfEngagementDialog.cpp
+    src/ui/dialogs/RecordingSettingsDialog.cpp
 )
 
 # Header files
@@ -259,6 +269,16 @@ set(SIMULATOR_HEADERS
     src/simulators/SensorSimulator.h
     src/simulators/TrackSimulator.h
     src/simulators/VideoSimulator.h
+    src/simulators/EffectorSimulator.h
+    src/simulators/SystemSimulationManager.h
+)
+
+set(DIALOG_HEADERS
+    src/ui/dialogs/SensorConfigDialog.h
+    src/ui/dialogs/EffectorStatusDialog.h
+    src/ui/dialogs/SimulationSettingsDialog.h
+    src/ui/dialogs/RulesOfEngagementDialog.h
+    src/ui/dialogs/RecordingSettingsDialog.h
 )
 
 # Resources
@@ -275,6 +295,7 @@ add_executable(${PROJECT_NAME}
     ${EFFECTOR_SOURCES}
     ${NETWORK_SOURCES}
     ${UI_SOURCES}
+    ${DIALOG_SOURCES}
     ${CONFIG_SOURCES}
     ${UTILS_SOURCES}
     ${SIMULATOR_SOURCES}
@@ -284,6 +305,7 @@ add_executable(${PROJECT_NAME}
     ${EFFECTOR_HEADERS}
     ${NETWORK_HEADERS}
     ${UI_HEADERS}
+    ${DIALOG_HEADERS}
     ${CONFIG_HEADERS}
     ${UTILS_HEADERS}
     ${SIMULATOR_HEADERS}

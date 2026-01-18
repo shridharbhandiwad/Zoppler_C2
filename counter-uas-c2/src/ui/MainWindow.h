@@ -6,6 +6,9 @@
 #include <QToolBar>
 #include <QStatusBar>
 #include <QTimer>
+#include <QMenu>
+#include <QAction>
+#include <QLabel>
 
 namespace CounterUAS {
 
@@ -23,6 +26,7 @@ class ThreatAssessor;
 class EngagementManager;
 class VideoStreamManager;
 class VideoSimulator;
+class SystemSimulationManager;
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -37,13 +41,24 @@ public:
     EngagementManager* engagementManager() const { return m_engagementManager; }
     VideoStreamManager* videoManager() const { return m_videoManager; }
     VideoSimulator* videoSimulator() const { return m_videoSimulator; }
+    SystemSimulationManager* simulationManager() const { return m_simulationManager; }
     
 public slots:
+    // Simulation control
     void startSimulation();
     void stopSimulation();
+    void pauseSimulation();
+    void resetSimulation();
+    
+    // Configuration
     void loadConfiguration();
     void saveConfiguration();
+    void exportConfiguration();
+    void importConfiguration();
+    
+    // Info
     void showAbout();
+    void showHelp();
     
 private slots:
     void updateStatusBar();
@@ -55,6 +70,23 @@ private slots:
     void onSimulationVideoFrame(const QImage& frame, qint64 timestamp);
     void onSimulationCameraFrame(const QString& cameraId, const QImage& frame, qint64 timestamp);
     
+    // Menu actions
+    void onSensorConfigure();
+    void onSensorDiagnostics();
+    void onEffectorStatus();
+    void onRulesOfEngagement();
+    void onRecordingSettings();
+    void onSimulationSettings();
+    void onAddCameraStream();
+    void onStartAllRecording();
+    void onStopAllRecording();
+    void onTakeSnapshot();
+    
+    // View menu
+    void onSaveLayout();
+    void onRestoreLayout();
+    void onResetLayout();
+    
 private:
     void setupUI();
     void setupMenuBar();
@@ -63,6 +95,8 @@ private:
     void setupConnections();
     void initializeSubsystems();
     void setupVideoSimulation();
+    void setupSimulationManager();
+    void createViewMenu(QMenu* viewMenu);
     
     // Core subsystems
     TrackManager* m_trackManager;
@@ -70,6 +104,7 @@ private:
     EngagementManager* m_engagementManager;
     VideoStreamManager* m_videoManager;
     VideoSimulator* m_videoSimulator;
+    SystemSimulationManager* m_simulationManager;
     
     // UI Widgets
     MapWidget* m_mapWidget;
@@ -94,9 +129,22 @@ private:
     
     // Toolbar and status
     QToolBar* m_mainToolBar;
+    QToolBar* m_simulationToolBar;
     QTimer* m_statusUpdateTimer;
     
+    // Status bar widgets
+    QLabel* m_statusTrackCount;
+    QLabel* m_statusThreatCount;
+    QLabel* m_statusSimStatus;
+    QLabel* m_statusTime;
+    
+    // Menu actions
+    QAction* m_startSimAction;
+    QAction* m_stopSimAction;
+    QAction* m_pauseSimAction;
+    
     bool m_simulationRunning = false;
+    bool m_simulationPaused = false;
 };
 
 } // namespace CounterUAS
