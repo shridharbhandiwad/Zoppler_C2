@@ -81,6 +81,7 @@ SOURCES += \
 SOURCES += \
     src/ui/MainWindow.cpp \
     src/ui/MapWidget.cpp \
+    src/ui/PPIDisplayWidget.cpp \
     src/ui/VideoDisplayWidget.cpp \
     src/ui/VideoGridWidget.cpp \
     src/ui/VideoControlBar.cpp \
@@ -167,6 +168,7 @@ HEADERS += \
 HEADERS += \
     src/ui/MainWindow.h \
     src/ui/MapWidget.h \
+    src/ui/PPIDisplayWidget.h \
     src/ui/VideoDisplayWidget.h \
     src/ui/VideoGridWidget.h \
     src/ui/VideoControlBar.h \
