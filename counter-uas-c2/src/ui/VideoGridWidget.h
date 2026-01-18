@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <QGridLayout>
+#include <QVBoxLayout>
+#include <QLabel>
 #include <QList>
 #include <QHash>
 #include <QImage>
@@ -21,8 +23,15 @@ public:
     void removeCamera(const QString& cameraId);
     void clearAllCameras();
     
+    // Simplified Day/Night camera layout
+    void setupDayNightLayout();
+    
     // Get widget for a specific camera
     VideoDisplayWidget* widgetForCamera(const QString& cameraId) const;
+    
+    // Get Day/Night camera widgets directly
+    VideoDisplayWidget* dayCameraWidget() const { return m_dayWidget; }
+    VideoDisplayWidget* nightCameraWidget() const { return m_nightWidget; }
     
     // Get list of all camera IDs
     QStringList cameraIds() const;
@@ -38,8 +47,14 @@ private:
     QGridLayout* m_layout;
     QList<VideoDisplayWidget*> m_widgets;
     QHash<QString, VideoDisplayWidget*> m_cameraWidgetMap;
-    int m_rows = 2;
+    int m_rows = 1;
     int m_cols = 2;
+    
+    // Day/Night camera widgets
+    VideoDisplayWidget* m_dayWidget = nullptr;
+    VideoDisplayWidget* m_nightWidget = nullptr;
+    QLabel* m_dayLabel = nullptr;
+    QLabel* m_nightLabel = nullptr;
 };
 
 } // namespace CounterUAS

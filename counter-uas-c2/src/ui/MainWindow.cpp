@@ -92,21 +92,33 @@ void MainWindow::setupUI() {
     
     mainSplitter->addWidget(m_displayStack);
     
-    // Video panel
+    // Simplified Video panel with Day/Night cameras only
     QWidget* videoPanel = new QWidget(this);
+    videoPanel->setStyleSheet("background-color: #1a1a1a;");
     QVBoxLayout* videoLayout = new QVBoxLayout(videoPanel);
-    videoLayout->setContentsMargins(0, 0, 0, 0);
+    videoLayout->setContentsMargins(4, 4, 4, 4);
+    videoLayout->setSpacing(4);
     
+    // Video panel header
+    QLabel* videoPanelLabel = new QLabel("CAMERA FEEDS", videoPanel);
+    videoPanelLabel->setStyleSheet("QLabel { color: #aaa; font-weight: bold; font-size: 12px; "
+                                   "padding: 4px; background-color: #2a2a2a; border-radius: 3px; }");
+    videoPanelLabel->setAlignment(Qt::AlignCenter);
+    videoLayout->addWidget(videoPanelLabel);
+    
+    // Primary video display (shows selected camera)
     m_primaryVideoWidget = new VideoDisplayWidget(this);
-    m_primaryVideoWidget->setMinimumSize(640, 480);
-    videoLayout->addWidget(m_primaryVideoWidget, 2);
+    m_primaryVideoWidget->setMinimumSize(400, 300);
+    m_primaryVideoWidget->setStyleSheet("border: 2px solid #444; border-radius: 4px;");
+    videoLayout->addWidget(m_primaryVideoWidget, 3);
     
+    // Day/Night camera grid
     m_videoGridWidget = new VideoGridWidget(this);
-    m_videoGridWidget->setMinimumHeight(200);
-    videoLayout->addWidget(m_videoGridWidget, 1);
+    m_videoGridWidget->setMinimumHeight(150);
+    videoLayout->addWidget(m_videoGridWidget, 2);
     
     mainSplitter->addWidget(videoPanel);
-    mainSplitter->setSizes({700, 500});
+    mainSplitter->setSizes({600, 450});
     
     QVBoxLayout* centralLayout = new QVBoxLayout(centralWidget);
     centralLayout->setContentsMargins(0, 0, 0, 0);
@@ -395,10 +407,9 @@ void MainWindow::setupDockWidgets() {
     
     // Add default sensors to status panel
     m_sensorStatusPanel->addSensor("SIM-RADAR-001", "Primary Radar", "RADAR");
-    m_sensorStatusPanel->addSensor("SIM-RADAR-002", "Secondary Radar", "RADAR");
     m_sensorStatusPanel->addSensor("SIM-RF-001", "RF Detector", "RF_DETECTOR");
-    m_sensorStatusPanel->addSensor("SIM-CAM-001", "Main EO Tracker", "CAMERA");
-    m_sensorStatusPanel->addSensor("SIM-CAM-002", "Thermal Camera", "CAMERA");
+    m_sensorStatusPanel->addSensor("SIM-DAY-001", "Day Camera", "CAMERA");
+    m_sensorStatusPanel->addSensor("SIM-NIGHT-001", "Night Camera", "CAMERA");
     
     // Camera status dock (bottom)
     m_cameraStatusDock = new QDockWidget("Camera Status", this);
@@ -589,10 +600,9 @@ void MainWindow::startSimulation() {
     
     // Update sensor status
     m_sensorStatusPanel->updateSensorStatus("SIM-RADAR-001", "ONLINE");
-    m_sensorStatusPanel->updateSensorStatus("SIM-RADAR-002", "ONLINE");
     m_sensorStatusPanel->updateSensorStatus("SIM-RF-001", "ONLINE");
-    m_sensorStatusPanel->updateSensorStatus("SIM-CAM-001", "ONLINE");
-    m_sensorStatusPanel->updateSensorStatus("SIM-CAM-002", "ONLINE");
+    m_sensorStatusPanel->updateSensorStatus("SIM-DAY-001", "ONLINE");
+    m_sensorStatusPanel->updateSensorStatus("SIM-NIGHT-001", "ONLINE");
     
     // Start PPI sweep animation
     m_ppiWidget->startSweep();
@@ -620,10 +630,9 @@ void MainWindow::stopSimulation() {
     
     // Update sensor status
     m_sensorStatusPanel->updateSensorStatus("SIM-RADAR-001", "OFFLINE");
-    m_sensorStatusPanel->updateSensorStatus("SIM-RADAR-002", "OFFLINE");
     m_sensorStatusPanel->updateSensorStatus("SIM-RF-001", "OFFLINE");
-    m_sensorStatusPanel->updateSensorStatus("SIM-CAM-001", "OFFLINE");
-    m_sensorStatusPanel->updateSensorStatus("SIM-CAM-002", "OFFLINE");
+    m_sensorStatusPanel->updateSensorStatus("SIM-DAY-001", "OFFLINE");
+    m_sensorStatusPanel->updateSensorStatus("SIM-NIGHT-001", "OFFLINE");
     
     // Stop PPI sweep animation
     m_ppiWidget->stopSweep();
@@ -786,11 +795,10 @@ void MainWindow::onSensorConfigure() {
 void MainWindow::onSensorDiagnostics() {
     QMessageBox::information(this, "Sensor Diagnostics",
         "Sensor Diagnostics\n\n"
-        "Radar-001: ONLINE (Signal Quality: 95%)\n"
-        "Radar-002: ONLINE (Signal Quality: 92%)\n"
-        "RF-001: ONLINE (Signal Quality: 88%)\n"
-        "CAM-001: ONLINE (Signal Quality: 100%)\n"
-        "CAM-002: ONLINE (Signal Quality: 100%)");
+        "Primary Radar: ONLINE (Signal Quality: 95%)\n"
+        "RF Detector: ONLINE (Signal Quality: 88%)\n"
+        "Day Camera: ONLINE (Signal Quality: 100%)\n"
+        "Night Camera: ONLINE (Signal Quality: 100%)");
 }
 
 void MainWindow::onEffectorStatus() {
