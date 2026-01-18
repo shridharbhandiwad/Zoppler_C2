@@ -269,7 +269,33 @@ void SystemSimulationManager::reset() {
     // Reset simulators
     if (m_sensorSimulator) {
         m_sensorSimulator->clearInjectedTargets();
+        m_sensorSimulator->clearSensors();
     }
+    
+    if (m_effectorSimulator) {
+        m_effectorSimulator->clearEffectors();
+    }
+    
+    // Clean up owned simulated sensors - these are parented to 'this' but
+    // we need to clear the lists to prevent duplicates on next createFullSimulationEnvironment()
+    qDeleteAll(m_simulatedRadars);
+    m_simulatedRadars.clear();
+    
+    qDeleteAll(m_simulatedRFDetectors);
+    m_simulatedRFDetectors.clear();
+    
+    qDeleteAll(m_simulatedCameras);
+    m_simulatedCameras.clear();
+    
+    // Clean up owned simulated effectors
+    qDeleteAll(m_simulatedJammers);
+    m_simulatedJammers.clear();
+    
+    qDeleteAll(m_simulatedInterceptors);
+    m_simulatedInterceptors.clear();
+    
+    qDeleteAll(m_simulatedDESystems);
+    m_simulatedDESystems.clear();
     
     // Reset statistics
     m_stats = SimulationStats();
@@ -462,6 +488,20 @@ void SystemSimulationManager::registerDirectedEnergy(DirectedEnergySystem* de) {
 }
 
 void SystemSimulationManager::createDefaultSensors() {
+    // Clean up any existing sensors first to prevent memory leaks
+    if (!m_simulatedRadars.isEmpty() || !m_simulatedRFDetectors.isEmpty() || 
+        !m_simulatedCameras.isEmpty()) {
+        if (m_sensorSimulator) {
+            m_sensorSimulator->clearSensors();
+        }
+        qDeleteAll(m_simulatedRadars);
+        m_simulatedRadars.clear();
+        qDeleteAll(m_simulatedRFDetectors);
+        m_simulatedRFDetectors.clear();
+        qDeleteAll(m_simulatedCameras);
+        m_simulatedCameras.clear();
+    }
+    
     // Create simulated radar
     auto* radar1 = new RadarSensor("SIM-RADAR-001", this);
     RadarConfig radarConfig;
@@ -519,6 +559,32 @@ void SystemSimulationManager::createDefaultSensors() {
 }
 
 void SystemSimulationManager::createDefaultEffectors() {
+    // Clean up any existing effectors first to prevent memory leaks
+    if (!m_simulatedJammers.isEmpty() || !m_simulatedInterceptors.isEmpty() || 
+        !m_simulatedDESystems.isEmpty()) {
+        if (m_effectorSimulator) {
+            m_effectorSimulator->clearEffectors();
+        }
+        // Also unregister from engagement manager
+        if (m_engagementManager) {
+            for (auto* jammer : m_simulatedJammers) {
+                m_engagementManager->unregisterEffector(jammer->effectorId());
+            }
+            for (auto* interceptor : m_simulatedInterceptors) {
+                m_engagementManager->unregisterEffector(interceptor->effectorId());
+            }
+            for (auto* de : m_simulatedDESystems) {
+                m_engagementManager->unregisterEffector(de->effectorId());
+            }
+        }
+        qDeleteAll(m_simulatedJammers);
+        m_simulatedJammers.clear();
+        qDeleteAll(m_simulatedInterceptors);
+        m_simulatedInterceptors.clear();
+        qDeleteAll(m_simulatedDESystems);
+        m_simulatedDESystems.clear();
+    }
+    
     // Create RF Jammer
     auto* jammer1 = new RFJammer("SIM-JAMMER-001", this);
     jammer1->setDisplayName("RF Jammer Alpha");
