@@ -5,4 +5,16 @@
         <!-- Add icon and config resources here as needed -->
         <!-- Example: <file>icons/app.png</file> -->
     </qresource>
+    <qresource prefix="/simulation">
+        <!-- Simulation video assets -->
+        <!-- Add simulation frame images here for image sequence playback -->
+        <!-- Supported formats: PNG, JPG, BMP -->
+        <!-- Example: <file>assets/frame_001.png</file> -->
+        <!-- 
+            To use image sequence simulation:
+            1. Add your frame images to resources/simulation_assets/
+            2. List them here
+            3. Set VideoSimulator to use ImageSequence or Resources mode
+        -->
+    </qresource>
 </RCC>

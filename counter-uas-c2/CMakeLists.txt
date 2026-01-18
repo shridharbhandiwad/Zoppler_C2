@@ -128,6 +128,7 @@ set(VIDEO_SOURCES
     src/video/RTSPVideoSource.cpp
     src/video/GigEVideoSource.cpp
     src/video/FileVideoSource.cpp
+    src/video/SimulationVideoSource.cpp
     src/video/VideoDecoder.cpp
     src/video/VideoOverlayRenderer.cpp
     src/video/VideoRecorder.cpp
@@ -204,6 +205,7 @@ set(VIDEO_HEADERS
     src/video/RTSPVideoSource.h
     src/video/GigEVideoSource.h
     src/video/FileVideoSource.h
+    src/video/SimulationVideoSource.h
     src/video/VideoDecoder.h
     src/video/VideoOverlayRenderer.h
     src/video/VideoRecorder.h
@@ -296,7 +298,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 
 # Link Qt libraries
 if(QT_VERSION_MAJOR EQUAL 6)
-    target_link_libraries(${PROJECT_NAME} PRIVATE
+    set(QT6_LINK_LIBS
         Qt6::Core
         Qt6::Gui
         Qt6::Widgets
@@ -306,9 +308,15 @@ if(QT_VERSION_MAJOR EQUAL 6)
         Qt6::MultimediaWidgets
         Qt6::OpenGLWidgets
         Qt6::Concurrent
-        Qt6::StateMachine
         Qt6::SerialPort
     )
+    
+    # Add StateMachine if available
+    if(Qt6StateMachine_FOUND)
+        list(APPEND QT6_LINK_LIBS Qt6::StateMachine)
+    endif()
+    
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${QT6_LINK_LIBS})
 else()
     target_link_libraries(${PROJECT_NAME} PRIVATE
         Qt5::Core

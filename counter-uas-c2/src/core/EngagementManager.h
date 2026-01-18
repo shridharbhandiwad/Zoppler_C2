@@ -2,12 +2,13 @@
 #define ENGAGEMENTMANAGER_H
 
 #include <QObject>
-#include <QStateMachine>
-#include <QState>
 #include <QTimer>
 #include <QList>
 #include <QImage>
 #include "core/Track.h"
+
+// QStateMachine is optional - not used directly in the header
+// Include in implementation if needed
 
 namespace CounterUAS {
 

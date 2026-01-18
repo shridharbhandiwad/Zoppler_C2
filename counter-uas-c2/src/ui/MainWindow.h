@@ -22,6 +22,7 @@ class TrackManager;
 class ThreatAssessor;
 class EngagementManager;
 class VideoStreamManager;
+class VideoSimulator;
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -35,6 +36,7 @@ public:
     ThreatAssessor* threatAssessor() const { return m_threatAssessor; }
     EngagementManager* engagementManager() const { return m_engagementManager; }
     VideoStreamManager* videoManager() const { return m_videoManager; }
+    VideoSimulator* videoSimulator() const { return m_videoSimulator; }
     
 public slots:
     void startSimulation();
@@ -50,6 +52,8 @@ private slots:
     void onCameraSlewRequested(const QString& trackId);
     void onAlertClicked(const QString& alertId);
     void toggleFullScreenVideo();
+    void onSimulationVideoFrame(const QImage& frame, qint64 timestamp);
+    void onSimulationCameraFrame(const QString& cameraId, const QImage& frame, qint64 timestamp);
     
 private:
     void setupUI();
@@ -58,12 +62,14 @@ private:
     void setupDockWidgets();
     void setupConnections();
     void initializeSubsystems();
+    void setupVideoSimulation();
     
     // Core subsystems
     TrackManager* m_trackManager;
     ThreatAssessor* m_threatAssessor;
     EngagementManager* m_engagementManager;
     VideoStreamManager* m_videoManager;
+    VideoSimulator* m_videoSimulator;
     
     // UI Widgets
     MapWidget* m_mapWidget;

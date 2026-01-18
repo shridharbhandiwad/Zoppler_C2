@@ -1,4 +1,7 @@
 #include "simulators/VideoSimulator.h"
+#include "video/SimulationVideoSource.h"
+#include "video/VideoStreamManager.h"
+#include "utils/Logger.h"
 #include <QPainter>
 #include <QDateTime>
 #include <QRandomGenerator>
@@ -6,16 +9,58 @@
 
 namespace CounterUAS {
 
-VideoSimulator::VideoSimulator(QObject* parent) : QObject(parent), m_timer(new QTimer(this)) {
+VideoSimulator::VideoSimulator(QObject* parent) 
+    : QObject(parent)
+    , m_timer(new QTimer(this)) 
+{
     connect(m_timer, &QTimer::timeout, this, &VideoSimulator::generateFrame);
 }
 
+VideoSimulator::~VideoSimulator() {
+    stop();
+    destroySimulationSources();
+}
+
+void VideoSimulator::setVideoManager(VideoStreamManager* manager) {
+    m_videoManager = manager;
+}
+
 void VideoSimulator::start() {
-    m_timer->start(33);  // ~30 fps
+    if (m_running) return;
+    
+    m_running = true;
+    m_frameCount = 0;
+    
+    if (m_legacyMode) {
+        // Legacy mode: just emit frames from timer
+        m_timer->start(33);  // ~30 fps
+    } else {
+        // Modern mode: create simulation video sources
+        createSimulationSources();
+        
+        // Start all simulation sources
+        for (auto* source : m_sources) {
+            source->start();
+        }
+    }
+    
+    Logger::instance().info("VideoSimulator", "Simulation video started");
+    emit simulationStarted();
 }
 
 void VideoSimulator::stop() {
+    if (!m_running) return;
+    
+    m_running = false;
     m_timer->stop();
+    
+    // Stop all simulation sources
+    for (auto* source : m_sources) {
+        source->stop();
+    }
+    
+    Logger::instance().info("VideoSimulator", "Simulation video stopped");
+    emit simulationStopped();
 }
 
 void VideoSimulator::setResolution(int width, int height) {
@@ -23,7 +68,148 @@ void VideoSimulator::setResolution(int width, int height) {
     m_height = height;
 }
 
+void VideoSimulator::addSimulatedCamera(const SimulatedCamera& camera) {
+    // Check if camera already exists
+    for (auto& cam : m_cameraConfigs) {
+        if (cam.cameraId == camera.cameraId) {
+            cam = camera;
+            return;
+        }
+    }
+    m_cameraConfigs.append(camera);
+}
+
+void VideoSimulator::removeSimulatedCamera(const QString& cameraId) {
+    for (int i = 0; i < m_cameraConfigs.size(); i++) {
+        if (m_cameraConfigs[i].cameraId == cameraId) {
+            m_cameraConfigs.removeAt(i);
+            break;
+        }
+    }
+}
+
+void VideoSimulator::clearSimulatedCameras() {
+    m_cameraConfigs.clear();
+}
+
+QList<VideoSimulator::SimulatedCamera> VideoSimulator::simulatedCameras() const {
+    return m_cameraConfigs.toList();
+}
+
+void VideoSimulator::setupDefaultCameras() {
+    clearSimulatedCameras();
+    
+    // Primary EO tracking camera
+    SimulatedCamera eoCam1;
+    eoCam1.cameraId = "SIM-EO-001";
+    eoCam1.name = "Main EO Tracker";
+    eoCam1.scenarioType = 0;
+    eoCam1.enabled = true;
+    addSimulatedCamera(eoCam1);
+    
+    // Secondary EO camera
+    SimulatedCamera eoCam2;
+    eoCam2.cameraId = "SIM-EO-002";
+    eoCam2.name = "Secondary EO";
+    eoCam2.scenarioType = 0;
+    eoCam2.enabled = true;
+    addSimulatedCamera(eoCam2);
+    
+    // Thermal camera
+    SimulatedCamera thermalCam;
+    thermalCam.cameraId = "SIM-THERMAL-001";
+    thermalCam.name = "Thermal IR";
+    thermalCam.scenarioType = 1;
+    thermalCam.enabled = true;
+    addSimulatedCamera(thermalCam);
+    
+    // Radar display
+    SimulatedCamera radarCam;
+    radarCam.cameraId = "SIM-RADAR-001";
+    radarCam.name = "Radar Display";
+    radarCam.scenarioType = 2;
+    radarCam.enabled = true;
+    addSimulatedCamera(radarCam);
+    
+    Logger::instance().info("VideoSimulator", "Default cameras configured (4 cameras)");
+}
+
+void VideoSimulator::createSimulationSources() {
+    destroySimulationSources();
+    
+    // If no cameras configured, setup defaults
+    if (m_cameraConfigs.isEmpty()) {
+        setupDefaultCameras();
+    }
+    
+    for (const auto& config : m_cameraConfigs) {
+        if (!config.enabled) continue;
+        
+        // Create simulation source
+        auto* source = new SimulationVideoSource(config.cameraId, this);
+        source->setCameraName(config.name);
+        source->setScenarioType(config.scenarioType);
+        source->setShowOverlay(true);
+        source->setTargetVisible(true);
+        source->setTargetFPS(30.0);
+        
+        // Open in generated mode
+        source->open(QUrl("simulation://generated"));
+        
+        // Connect frame signal
+        connect(source, &SimulationVideoSource::frameReady,
+                this, &VideoSimulator::onSourceFrameReady);
+        
+        m_sources[config.cameraId] = source;
+        
+        // Register with VideoStreamManager if available
+        if (m_videoManager) {
+            CameraDefinition camDef;
+            camDef.cameraId = config.cameraId;
+            camDef.name = config.name;
+            camDef.sourceType = "SIMULATION";
+            camDef.streamUrl = "simulation://generated";
+            camDef.hasPTZ = true;
+            
+            m_videoManager->addStream(camDef);
+        }
+        
+        Logger::instance().info("VideoSimulator", 
+                               QString("Created simulation source: %1 (%2)")
+                                   .arg(config.cameraId)
+                                   .arg(config.name));
+    }
+}
+
+void VideoSimulator::destroySimulationSources() {
+    for (auto* source : m_sources) {
+        source->stop();
+        source->close();
+        
+        // Remove from video manager
+        if (m_videoManager) {
+            m_videoManager->removeStream(source->sourceId());
+        }
+        
+        source->deleteLater();
+    }
+    m_sources.clear();
+}
+
+void VideoSimulator::onSourceFrameReady(const QImage& frame, qint64 timestamp) {
+    auto* source = qobject_cast<SimulationVideoSource*>(sender());
+    if (!source) return;
+    
+    emit cameraFrameReady(source->sourceId(), frame, timestamp);
+    
+    // For legacy compatibility, emit the first camera's frame as the primary
+    if (source->sourceId() == m_cameraConfigs.first().cameraId) {
+        emit frameReady(frame, timestamp);
+    }
+}
+
 void VideoSimulator::generateFrame() {
+    // Legacy frame generation for backward compatibility
     QImage frame(m_width, m_height, QImage::Format_RGB888);
     frame.fill(QColor(30, 30, 40));
     
@@ -53,7 +239,6 @@ void VideoSimulator::generateFrame() {
     painter.drawLine(cx, cy + 10, cx, cy + 30);
     
     // Draw simulated target (moving)
-    auto* gen = QRandomGenerator::global();
     double t = m_frameCount * 0.03;
     int targetX = cx + static_cast<int>(100 * std::sin(t));
     int targetY = cy + static_cast<int>(50 * std::cos(t * 0.7));
@@ -68,12 +253,18 @@ void VideoSimulator::generateFrame() {
     painter.setFont(QFont("Courier", 10));
     painter.drawText(10, 20, QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz"));
     painter.drawText(10, 40, QString("Frame: %1").arg(m_frameCount));
-    painter.drawText(10, m_height - 10, QString("Az: %1°  El: %2°  Zoom: 1.0x")
+    painter.drawText(10, m_height - 10, QString("Az: %1%2  El: %3%4  Zoom: 1.0x")
                                             .arg(180 + 10 * std::sin(t * 0.1), 0, 'f', 1)
-                                            .arg(5 * std::cos(t * 0.15), 0, 'f', 1));
+                                            .arg(QChar(0x00B0))
+                                            .arg(5 * std::cos(t * 0.15), 0, 'f', 1)
+                                            .arg(QChar(0x00B0)));
     
     // Simulated camera name
-    painter.drawText(m_width - 100, 20, "CAM-001");
+    painter.drawText(m_width - 100, 20, "SIM-CAM-001");
+    
+    // Status indicator
+    painter.setPen(QColor(0, 255, 0));
+    painter.drawText(m_width - 150, 40, "SIMULATION");
     
     painter.end();
     

@@ -19,6 +19,7 @@ void VideoGridWidget::setGridSize(int rows, int cols) {
         delete w;
     }
     m_widgets.clear();
+    m_cameraWidgetMap.clear();
     
     // Create new grid
     for (int r = 0; r < rows; ++r) {
@@ -35,20 +36,62 @@ void VideoGridWidget::setGridSize(int rows, int cols) {
 }
 
 void VideoGridWidget::addCamera(const QString& cameraId) {
+    // Check if camera already assigned
+    if (m_cameraWidgetMap.contains(cameraId)) {
+        return;
+    }
+    
+    // Find first available widget
     for (auto* w : m_widgets) {
         if (w->currentSource().isEmpty()) {
             w->setSource(cameraId);
+            m_cameraWidgetMap[cameraId] = w;
             return;
         }
     }
 }
 
 void VideoGridWidget::removeCamera(const QString& cameraId) {
-    for (auto* w : m_widgets) {
-        if (w->currentSource() == cameraId) {
+    if (m_cameraWidgetMap.contains(cameraId)) {
+        VideoDisplayWidget* w = m_cameraWidgetMap.take(cameraId);
+        if (w) {
             w->setSource(QString());
-            return;
         }
+    }
+}
+
+void VideoGridWidget::clearAllCameras() {
+    m_cameraWidgetMap.clear();
+    for (auto* w : m_widgets) {
+        w->setSource(QString());
+    }
+}
+
+VideoDisplayWidget* VideoGridWidget::widgetForCamera(const QString& cameraId) const {
+    return m_cameraWidgetMap.value(cameraId, nullptr);
+}
+
+QStringList VideoGridWidget::cameraIds() const {
+    return m_cameraWidgetMap.keys();
+}
+
+void VideoGridWidget::updateFrame(const QString& cameraId, const QImage& frame) {
+    // If camera is not yet assigned, try to add it
+    if (!m_cameraWidgetMap.contains(cameraId)) {
+        // Find first available widget
+        for (auto* w : m_widgets) {
+            if (w->currentSource().isEmpty()) {
+                w->setSource(cameraId);
+                m_cameraWidgetMap[cameraId] = w;
+                break;
+            }
+        }
+    }
+    
+    // Update the frame
+    VideoDisplayWidget* widget = m_cameraWidgetMap.value(cameraId, nullptr);
+    if (widget) {
+        widget->updateFrame(frame);
     }
 }
 
