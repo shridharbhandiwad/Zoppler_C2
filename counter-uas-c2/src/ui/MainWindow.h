@@ -11,6 +11,7 @@
 #include <QLabel>
 #include <QStackedWidget>
 #include <QComboBox>
+#include <QToolButton>
 
 namespace CounterUAS {
 

@@ -18,8 +18,10 @@ TrackSimulator::TrackSimulator(TrackManager* manager, QObject* parent)
 
 void TrackSimulator::start() {
     m_updateTimer->start(100);  // Update at 10Hz
-    m_spawnTimer->start(5000);  // Spawn new target every 5s
-    spawnTarget();  // Create initial target
+    if (m_autoSpawnEnabled) {
+        m_spawnTimer->start(m_spawnInterval);
+        spawnTarget();  // Create initial target
+    }
 }
 
 void TrackSimulator::stop() {
@@ -27,18 +29,76 @@ void TrackSimulator::stop() {
     m_spawnTimer->stop();
 }
 
+void TrackSimulator::setAutoSpawnEnabled(bool enabled) {
+    m_autoSpawnEnabled = enabled;
+    if (m_updateTimer->isActive()) {
+        if (enabled && !m_spawnTimer->isActive()) {
+            m_spawnTimer->start(m_spawnInterval);
+        } else if (!enabled && m_spawnTimer->isActive()) {
+            m_spawnTimer->stop();
+        }
+    }
+}
+
+void TrackSimulator::setSpawnInterval(int msec) {
+    m_spawnInterval = msec;
+    if (m_spawnTimer->isActive()) {
+        m_spawnTimer->setInterval(msec);
+    }
+}
+
 void TrackSimulator::addTarget(const SimulatedTarget& target) {
+    if (m_targets.size() >= m_maxTargets) return;
     m_targets.append(target);
+    emit targetInjected(target.id, target.position);
 }
 
 void TrackSimulator::clearTargets() {
+    for (const auto& target : m_targets) {
+        emit targetRemoved(target.id);
+    }
     m_targets.clear();
+}
+
+QString TrackSimulator::injectTarget(const ManualTargetParams& params) {
+    if (m_targets.size() >= m_maxTargets) {
+        return QString();  // At max capacity
+    }
+    
+    auto* gen = QRandomGenerator::global();
+    
+    SimulatedTarget target;
+    target.id = QString("MAN-%1").arg(gen->bounded(10000));
+    
+    // Calculate position from range and bearing
+    double bearingRad = qDegreesToRadians(params.bearingDeg);
+    target.position.latitude = m_basePosition.latitude + 
+                               (params.rangeM * std::cos(bearingRad)) / 111000.0;
+    target.position.longitude = m_basePosition.longitude + 
+                                (params.rangeM * std::sin(bearingRad)) / 
+                                (111000.0 * std::cos(qDegreesToRadians(m_basePosition.latitude)));
+    target.position.altitude = m_basePosition.altitude + params.altitudeM;
+    
+    // Calculate velocity from speed and heading
+    double headingRad = qDegreesToRadians(params.headingDeg);
+    target.velocity.north = params.speedMps * std::cos(headingRad);
+    target.velocity.east = params.speedMps * std::sin(headingRad);
+    target.velocity.down = -params.climbRateMps;  // Positive down = descending
+    
+    target.classification = params.classification;
+    target.active = true;
+    
+    m_targets.append(target);
+    emit targetInjected(target.id, target.position);
+    
+    return target.id;
 }
 
 void TrackSimulator::updateTargets() {
     if (!m_trackManager) return;
     
     double dt = 0.1;  // 100ms
+    QList<QString> removedIds;
     
     for (auto& target : m_targets) {
         if (!target.active) continue;
@@ -58,23 +118,29 @@ void TrackSimulator::updateTargets() {
         m_trackManager->processRadarDetection(target.position, target.velocity, 
                                               0.9, QDateTime::currentMSecsSinceEpoch());
         
-        // Check if target has passed through base
+        // Check if target has passed through base or left range
         Track tempTrack("temp");
         tempTrack.setPosition(m_basePosition);
         double dist = tempTrack.distanceTo(target.position);
         
         if (dist < 100.0 || dist > 5000.0) {
             target.active = false;
+            removedIds.append(target.id);
         }
     }
     
-    // Remove inactive targets
+    // Remove inactive targets and emit signals
     m_targets.erase(std::remove_if(m_targets.begin(), m_targets.end(),
         [](const SimulatedTarget& t) { return !t.active; }), m_targets.end());
+    
+    for (const QString& id : removedIds) {
+        emit targetRemoved(id);
+    }
 }
 
 void TrackSimulator::spawnTarget() {
-    if (m_targets.size() >= 10) return;  // Max 10 targets
+    if (!m_autoSpawnEnabled) return;
+    if (m_targets.size() >= m_maxTargets) return;
     
     auto* gen = QRandomGenerator::global();
     
@@ -105,6 +171,7 @@ void TrackSimulator::spawnTarget() {
     target.active = true;
     
     m_targets.append(target);
+    emit targetInjected(target.id, target.position);
 }
 
 } // namespace CounterUAS
