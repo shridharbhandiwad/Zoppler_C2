@@ -99,39 +99,23 @@ QList<VideoSimulator::SimulatedCamera> VideoSimulator::simulatedCameras() const 
 void VideoSimulator::setupDefaultCameras() {
     clearSimulatedCameras();
     
-    // Primary EO tracking camera
-    SimulatedCamera eoCam1;
-    eoCam1.cameraId = "SIM-EO-001";
-    eoCam1.name = "Main EO Tracker";
-    eoCam1.scenarioType = 0;
-    eoCam1.enabled = true;
-    addSimulatedCamera(eoCam1);
+    // Day Camera - Electro-Optical for daytime visibility
+    SimulatedCamera dayCam;
+    dayCam.cameraId = "SIM-DAY-001";
+    dayCam.name = "Day Camera";
+    dayCam.scenarioType = 0;  // EO scenario
+    dayCam.enabled = true;
+    addSimulatedCamera(dayCam);
     
-    // Secondary EO camera
-    SimulatedCamera eoCam2;
-    eoCam2.cameraId = "SIM-EO-002";
-    eoCam2.name = "Secondary EO";
-    eoCam2.scenarioType = 0;
-    eoCam2.enabled = true;
-    addSimulatedCamera(eoCam2);
+    // Night Camera - Thermal/IR for nighttime visibility
+    SimulatedCamera nightCam;
+    nightCam.cameraId = "SIM-NIGHT-001";
+    nightCam.name = "Night Camera";
+    nightCam.scenarioType = 1;  // Thermal scenario
+    nightCam.enabled = true;
+    addSimulatedCamera(nightCam);
     
-    // Thermal camera
-    SimulatedCamera thermalCam;
-    thermalCam.cameraId = "SIM-THERMAL-001";
-    thermalCam.name = "Thermal IR";
-    thermalCam.scenarioType = 1;
-    thermalCam.enabled = true;
-    addSimulatedCamera(thermalCam);
-    
-    // Radar display
-    SimulatedCamera radarCam;
-    radarCam.cameraId = "SIM-RADAR-001";
-    radarCam.name = "Radar Display";
-    radarCam.scenarioType = 2;
-    radarCam.enabled = true;
-    addSimulatedCamera(radarCam);
-    
-    Logger::instance().info("VideoSimulator", "Default cameras configured (4 cameras)");
+    Logger::instance().info("VideoSimulator", "Default cameras configured (Day/Night cameras)");
 }
 
 void VideoSimulator::createSimulationSources() {
