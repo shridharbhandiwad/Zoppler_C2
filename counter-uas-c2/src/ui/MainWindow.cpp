@@ -569,6 +569,9 @@ void MainWindow::initializeSubsystems() {
     // Center PPI on base
     m_ppiWidget->setCenter(baseAsset.position);
     m_ppiWidget->setDefendedAreaRadii(baseAsset.criticalRadiusM, baseAsset.warningRadiusM, 5000.0);
+    
+    // Set reference position for track list range calculation
+    m_trackListWidget->setReferencePosition(baseAsset.position);
 }
 
 void MainWindow::setupVideoSimulation() {
