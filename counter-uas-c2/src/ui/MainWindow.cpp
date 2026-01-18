@@ -1,5 +1,6 @@
 #include "ui/MainWindow.h"
 #include "ui/MapWidget.h"
+#include "ui/PPIDisplayWidget.h"
 #include "ui/VideoDisplayWidget.h"
 #include "ui/VideoGridWidget.h"
 #include "ui/TrackListWidget.h"
@@ -51,11 +52,13 @@ MainWindow::MainWindow(QWidget* parent)
     setupUI();
     setupMenuBar();
     setupToolBar();
+    setupPPIToolBar();
     setupDockWidgets();
     setupConnections();
     initializeSubsystems();
     setupVideoSimulation();
     setupSimulationManager();
+    setupPPIDisplay();
     
     m_statusUpdateTimer->setInterval(1000);
     connect(m_statusUpdateTimer, &QTimer::timeout, this, &MainWindow::updateStatusBar);
@@ -69,13 +72,25 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::setupUI() {
-    // Central widget with map and video
+    // Central widget with map/PPI and video
     QWidget* centralWidget = new QWidget(this);
     QSplitter* mainSplitter = new QSplitter(Qt::Horizontal, centralWidget);
     
+    // Create stacked widget for map/PPI display switching
+    m_displayStack = new QStackedWidget(this);
+    
     // Map widget
     m_mapWidget = new MapWidget(this);
-    mainSplitter->addWidget(m_mapWidget);
+    m_displayStack->addWidget(m_mapWidget);
+    
+    // PPI Display widget
+    m_ppiWidget = new PPIDisplayWidget(this);
+    m_displayStack->addWidget(m_ppiWidget);
+    
+    // Start with PPI display as default
+    m_displayStack->setCurrentWidget(m_ppiWidget);
+    
+    mainSplitter->addWidget(m_displayStack);
     
     // Video panel
     QWidget* videoPanel = new QWidget(this);
@@ -255,6 +270,108 @@ void MainWindow::setupToolBar() {
     m_simulationToolBar->addAction("Settings", this, &MainWindow::onSimulationSettings);
 }
 
+void MainWindow::setupPPIToolBar() {
+    m_ppiToolBar = addToolBar("PPI Display");
+    m_ppiToolBar->setIconSize(QSize(20, 20));
+    m_ppiToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    
+    // Display mode selector (Map vs PPI)
+    QLabel* displayLabel = new QLabel(" Display: ", this);
+    m_ppiToolBar->addWidget(displayLabel);
+    
+    m_displayModeCombo = new QComboBox(this);
+    m_displayModeCombo->addItem("PPI Radar", 1);
+    m_displayModeCombo->addItem("2D Map", 0);
+    m_displayModeCombo->setCurrentIndex(0);  // PPI as default
+    m_displayModeCombo->setToolTip("Switch between PPI radar display and 2D map");
+    connect(m_displayModeCombo, QOverload<int>::of(&QComboBox::currentIndexChanged),
+            this, &MainWindow::onTogglePPIDisplay);
+    m_ppiToolBar->addWidget(m_displayModeCombo);
+    
+    m_ppiToolBar->addSeparator();
+    
+    // PPI mode selector
+    QLabel* ppiModeLabel = new QLabel(" PPI Mode: ", this);
+    m_ppiToolBar->addWidget(ppiModeLabel);
+    
+    m_ppiModeCombo = new QComboBox(this);
+    m_ppiModeCombo->addItem("Radar Only", static_cast<int>(PPIDisplayMode::RadarOnly));
+    m_ppiModeCombo->addItem("Map + Radar", static_cast<int>(PPIDisplayMode::MapOverlay));
+    m_ppiModeCombo->addItem("Map Only", static_cast<int>(PPIDisplayMode::MapOnly));
+    m_ppiModeCombo->addItem("Night Vision", static_cast<int>(PPIDisplayMode::NightVision));
+    m_ppiModeCombo->setToolTip("Select PPI display rendering mode");
+    connect(m_ppiModeCombo, QOverload<int>::of(&QComboBox::currentIndexChanged),
+            this, &MainWindow::onPPIDisplayModeChanged);
+    m_ppiToolBar->addWidget(m_ppiModeCombo);
+    
+    m_ppiToolBar->addSeparator();
+    
+    // Sweep control
+    m_ppiSweepAction = m_ppiToolBar->addAction("Start Sweep");
+    m_ppiSweepAction->setCheckable(true);
+    m_ppiSweepAction->setChecked(false);
+    m_ppiSweepAction->setToolTip("Toggle radar sweep animation");
+    connect(m_ppiSweepAction, &QAction::triggered, this, &MainWindow::onPPISweepToggle);
+    
+    m_ppiToolBar->addSeparator();
+    
+    // Range controls
+    QLabel* rangeLabel = new QLabel(" Range: ", this);
+    m_ppiToolBar->addWidget(rangeLabel);
+    
+    QAction* rangeInAction = m_ppiToolBar->addAction("Range In");
+    rangeInAction->setToolTip("Decrease radar range (zoom in)");
+    connect(rangeInAction, &QAction::triggered, this, [this]() {
+        double newRange = m_ppiWidget->rangeScale() * 0.8;
+        m_ppiWidget->setRangeScale(newRange);
+    });
+    
+    QAction* rangeOutAction = m_ppiToolBar->addAction("Range Out");
+    rangeOutAction->setToolTip("Increase radar range (zoom out)");
+    connect(rangeOutAction, &QAction::triggered, this, [this]() {
+        double newRange = m_ppiWidget->rangeScale() * 1.25;
+        m_ppiWidget->setRangeScale(newRange);
+    });
+    
+    // Preset range buttons
+    m_ppiToolBar->addSeparator();
+    
+    QAction* range1kmAction = m_ppiToolBar->addAction("1km");
+    connect(range1kmAction, &QAction::triggered, this, [this]() {
+        m_ppiWidget->setRangeScale(1000.0);
+    });
+    
+    QAction* range5kmAction = m_ppiToolBar->addAction("5km");
+    connect(range5kmAction, &QAction::triggered, this, [this]() {
+        m_ppiWidget->setRangeScale(5000.0);
+    });
+    
+    QAction* range10kmAction = m_ppiToolBar->addAction("10km");
+    connect(range10kmAction, &QAction::triggered, this, [this]() {
+        m_ppiWidget->setRangeScale(10000.0);
+    });
+    
+    m_ppiToolBar->addSeparator();
+    
+    // North-up toggle
+    QAction* northUpAction = m_ppiToolBar->addAction("North Up");
+    northUpAction->setCheckable(true);
+    northUpAction->setChecked(true);
+    northUpAction->setToolTip("Toggle North-Up display orientation");
+    connect(northUpAction, &QAction::triggered, this, [this](bool checked) {
+        m_ppiWidget->setNorthUp(checked);
+    });
+    
+    // Track history toggle
+    QAction* historyAction = m_ppiToolBar->addAction("Trails");
+    historyAction->setCheckable(true);
+    historyAction->setChecked(true);
+    historyAction->setToolTip("Show track history trails");
+    connect(historyAction, &QAction::triggered, this, [this](bool checked) {
+        m_ppiWidget->setShowTrackHistory(checked);
+    });
+}
+
 void MainWindow::setupDockWidgets() {
     setDockOptions(QMainWindow::AnimatedDocks | QMainWindow::AllowNestedDocks);
     
@@ -363,6 +480,10 @@ void MainWindow::initializeSubsystems() {
     // Center map on base
     m_mapWidget->setCenter(baseAsset.position);
     m_mapWidget->setZoom(15);
+    
+    // Center PPI on base
+    m_ppiWidget->setCenter(baseAsset.position);
+    m_ppiWidget->setDefendedAreaRadii(baseAsset.criticalRadiusM, baseAsset.warningRadiusM, 5000.0);
 }
 
 void MainWindow::setupVideoSimulation() {
@@ -394,6 +515,45 @@ void MainWindow::setupSimulationManager() {
     m_simulationManager->createFullSimulationEnvironment();
     
     Logger::instance().info("MainWindow", "Simulation manager configured");
+}
+
+void MainWindow::setupPPIDisplay() {
+    // Configure PPI display
+    m_ppiWidget->setTrackManager(m_trackManager);
+    
+    // Set initial center to match map widget
+    GeoPosition basePos;
+    basePos.latitude = 34.0522;
+    basePos.longitude = -118.2437;
+    basePos.altitude = 100.0;
+    m_ppiWidget->setCenter(basePos);
+    
+    // Configure defended area radii
+    m_ppiWidget->setDefendedAreaRadii(500.0, 1500.0, 5000.0);
+    m_ppiWidget->setDefendedAreaVisible(true);
+    
+    // Set initial range
+    m_ppiWidget->setRangeScale(5000.0);  // 5km default range
+    
+    // Enable track history
+    m_ppiWidget->setShowTrackHistory(true);
+    m_ppiWidget->setTrackHistoryLength(30);  // 30 seconds of history
+    
+    // Connect PPI signals
+    connect(m_ppiWidget, &PPIDisplayWidget::trackSelected,
+            this, &MainWindow::onTrackSelected);
+    connect(m_ppiWidget, &PPIDisplayWidget::trackDoubleClicked,
+            this, &MainWindow::onEngageRequested);
+    
+    // Connect track manager to PPI widget
+    connect(m_trackManager, &TrackManager::trackUpdated,
+            m_ppiWidget, &PPIDisplayWidget::updateTrack);
+    connect(m_trackManager, &TrackManager::trackCreated,
+            m_ppiWidget, &PPIDisplayWidget::addTrack);
+    connect(m_trackManager, &TrackManager::trackDropped,
+            m_ppiWidget, &PPIDisplayWidget::removeTrack);
+    
+    Logger::instance().info("MainWindow", "PPI display configured");
 }
 
 void MainWindow::onSimulationVideoFrame(const QImage& frame, qint64 timestamp) {
@@ -434,6 +594,11 @@ void MainWindow::startSimulation() {
     m_sensorStatusPanel->updateSensorStatus("SIM-CAM-001", "ONLINE");
     m_sensorStatusPanel->updateSensorStatus("SIM-CAM-002", "ONLINE");
     
+    // Start PPI sweep animation
+    m_ppiWidget->startSweep();
+    m_ppiSweepAction->setChecked(true);
+    m_ppiSweepAction->setText("Stop Sweep");
+    
     m_simulationRunning = true;
     
     statusBar()->showMessage("Simulation started - All systems active");
@@ -459,6 +624,11 @@ void MainWindow::stopSimulation() {
     m_sensorStatusPanel->updateSensorStatus("SIM-RF-001", "OFFLINE");
     m_sensorStatusPanel->updateSensorStatus("SIM-CAM-001", "OFFLINE");
     m_sensorStatusPanel->updateSensorStatus("SIM-CAM-002", "OFFLINE");
+    
+    // Stop PPI sweep animation
+    m_ppiWidget->stopSweep();
+    m_ppiSweepAction->setChecked(false);
+    m_ppiSweepAction->setText("Start Sweep");
     
     m_simulationRunning = false;
     m_simulationPaused = false;
@@ -570,6 +740,7 @@ void MainWindow::onTrackSelected(const QString& trackId) {
     if (track) {
         m_trackDetailPanel->setTrack(track);
         m_mapWidget->selectTrack(trackId);
+        m_ppiWidget->selectTrack(trackId);
         
         // Slew camera if track has associated camera
         if (!track->associatedCameraId().isEmpty()) {
@@ -705,6 +876,58 @@ void MainWindow::onResetLayout() {
     m_effectorDock->show();
     m_alertDock->show();
     statusBar()->showMessage("Layout reset to default");
+}
+
+void MainWindow::onTogglePPIDisplay() {
+    int displayType = m_displayModeCombo->currentData().toInt();
+    
+    if (displayType == 0) {
+        // Switch to 2D Map
+        m_displayStack->setCurrentWidget(m_mapWidget);
+        m_ppiModeCombo->setEnabled(false);
+        m_ppiSweepAction->setEnabled(false);
+        statusBar()->showMessage("Switched to 2D Map display");
+    } else {
+        // Switch to PPI radar display
+        m_displayStack->setCurrentWidget(m_ppiWidget);
+        m_ppiModeCombo->setEnabled(true);
+        m_ppiSweepAction->setEnabled(true);
+        statusBar()->showMessage("Switched to PPI radar display");
+    }
+}
+
+void MainWindow::onPPIDisplayModeChanged(int index) {
+    int mode = m_ppiModeCombo->itemData(index).toInt();
+    m_ppiWidget->setDisplayMode(static_cast<PPIDisplayMode>(mode));
+    
+    QString modeNames[] = {"Radar Only", "Map + Radar", "Map Only", "Night Vision"};
+    if (mode >= 0 && mode <= 3) {
+        statusBar()->showMessage(QString("PPI display mode: %1").arg(modeNames[mode]));
+    }
+}
+
+void MainWindow::onPPIRangeChanged(double rangeM) {
+    m_ppiWidget->setRangeScale(rangeM);
+    
+    QString rangeStr;
+    if (rangeM >= 1000) {
+        rangeStr = QString("%1 km").arg(rangeM / 1000.0, 0, 'f', 1);
+    } else {
+        rangeStr = QString("%1 m").arg(rangeM, 0, 'f', 0);
+    }
+    statusBar()->showMessage(QString("PPI range: %1").arg(rangeStr));
+}
+
+void MainWindow::onPPISweepToggle() {
+    if (m_ppiSweepAction->isChecked()) {
+        m_ppiWidget->startSweep();
+        m_ppiSweepAction->setText("Stop Sweep");
+        statusBar()->showMessage("Radar sweep started");
+    } else {
+        m_ppiWidget->stopSweep();
+        m_ppiSweepAction->setText("Start Sweep");
+        statusBar()->showMessage("Radar sweep stopped");
+    }
 }
 
 } // namespace CounterUAS
