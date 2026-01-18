@@ -9,10 +9,13 @@
 #include <QMenu>
 #include <QAction>
 #include <QLabel>
+#include <QStackedWidget>
+#include <QComboBox>
 
 namespace CounterUAS {
 
 class MapWidget;
+class PPIDisplayWidget;
 class VideoDisplayWidget;
 class VideoGridWidget;
 class TrackListWidget;
@@ -87,15 +90,23 @@ private slots:
     void onRestoreLayout();
     void onResetLayout();
     
+    // PPI Display controls
+    void onTogglePPIDisplay();
+    void onPPIDisplayModeChanged(int mode);
+    void onPPIRangeChanged(double rangeM);
+    void onPPISweepToggle();
+    
 private:
     void setupUI();
     void setupMenuBar();
     void setupToolBar();
+    void setupPPIToolBar();
     void setupDockWidgets();
     void setupConnections();
     void initializeSubsystems();
     void setupVideoSimulation();
     void setupSimulationManager();
+    void setupPPIDisplay();
     void createViewMenu(QMenu* viewMenu);
     
     // Core subsystems
@@ -108,6 +119,8 @@ private:
     
     // UI Widgets
     MapWidget* m_mapWidget;
+    PPIDisplayWidget* m_ppiWidget;
+    QStackedWidget* m_displayStack;  // For switching between map and PPI
     VideoDisplayWidget* m_primaryVideoWidget;
     VideoGridWidget* m_videoGridWidget;
     TrackListWidget* m_trackListWidget;
@@ -130,7 +143,13 @@ private:
     // Toolbar and status
     QToolBar* m_mainToolBar;
     QToolBar* m_simulationToolBar;
+    QToolBar* m_ppiToolBar;
     QTimer* m_statusUpdateTimer;
+    
+    // PPI controls
+    QComboBox* m_displayModeCombo;
+    QComboBox* m_ppiModeCombo;
+    QAction* m_ppiSweepAction;
     
     // Status bar widgets
     QLabel* m_statusTrackCount;

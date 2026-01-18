@@ -151,6 +151,7 @@ set(NETWORK_SOURCES
 set(UI_SOURCES
     src/ui/MainWindow.cpp
     src/ui/MapWidget.cpp
+    src/ui/PPIDisplayWidget.cpp
     src/ui/VideoDisplayWidget.cpp
     src/ui/VideoGridWidget.cpp
     src/ui/VideoControlBar.cpp
@@ -238,6 +239,7 @@ set(NETWORK_HEADERS
 set(UI_HEADERS
     src/ui/MainWindow.h
     src/ui/MapWidget.h
+    src/ui/PPIDisplayWidget.h
     src/ui/VideoDisplayWidget.h
     src/ui/VideoGridWidget.h
     src/ui/VideoControlBar.h
@@ -401,6 +403,12 @@ if(BUILD_TESTS)
         endif()
     endfunction()
     
+    # Build test libraries list (StateMachine is optional)
+    set(QT6_TEST_LIBS Qt6::Core Qt6::Gui Qt6::Network Qt6::SerialPort Qt6::Test)
+    if(Qt6StateMachine_FOUND)
+        list(APPEND QT6_TEST_LIBS Qt6::StateMachine)
+    endif()
+    
     add_executable(test_track_manager
         tests/test_track_manager.cpp
         ${CORE_SOURCES}
@@ -409,7 +417,7 @@ if(BUILD_TESTS)
     )
     target_include_directories(test_track_manager PRIVATE ${CMAKE_SOURCE_DIR}/src)
     if(QT_VERSION_MAJOR EQUAL 6)
-        target_link_libraries(test_track_manager PRIVATE Qt6::Core Qt6::Gui Qt6::StateMachine Qt6::Network Qt6::SerialPort Qt6::Test)
+        target_link_libraries(test_track_manager PRIVATE ${QT6_TEST_LIBS})
     else()
         target_link_libraries(test_track_manager PRIVATE Qt5::Core Qt5::Gui Qt5::Network Qt5::SerialPort Qt5::Test)
     endif()
@@ -424,12 +432,18 @@ if(BUILD_TESTS)
     )
     target_include_directories(test_threat_assessor PRIVATE ${CMAKE_SOURCE_DIR}/src)
     if(QT_VERSION_MAJOR EQUAL 6)
-        target_link_libraries(test_threat_assessor PRIVATE Qt6::Core Qt6::Gui Qt6::StateMachine Qt6::Network Qt6::SerialPort Qt6::Test)
+        target_link_libraries(test_threat_assessor PRIVATE ${QT6_TEST_LIBS})
     else()
         target_link_libraries(test_threat_assessor PRIVATE Qt5::Core Qt5::Gui Qt5::Network Qt5::SerialPort Qt5::Test)
     endif()
     apply_test_compile_options(test_threat_assessor)
     add_test(NAME ThreatAssessorTest COMMAND test_threat_assessor)
+    
+    # Build multimedia test libraries list
+    set(QT6_TEST_MULTIMEDIA_LIBS Qt6::Core Qt6::Gui Qt6::Multimedia Qt6::Network Qt6::SerialPort Qt6::Test)
+    if(Qt6StateMachine_FOUND)
+        list(APPEND QT6_TEST_MULTIMEDIA_LIBS Qt6::StateMachine)
+    endif()
     
     add_executable(test_video_pipeline
         tests/test_video_pipeline.cpp
@@ -440,7 +454,7 @@ if(BUILD_TESTS)
     )
     target_include_directories(test_video_pipeline PRIVATE ${CMAKE_SOURCE_DIR}/src)
     if(QT_VERSION_MAJOR EQUAL 6)
-        target_link_libraries(test_video_pipeline PRIVATE Qt6::Core Qt6::Gui Qt6::Multimedia Qt6::Network Qt6::SerialPort Qt6::StateMachine Qt6::Test)
+        target_link_libraries(test_video_pipeline PRIVATE ${QT6_TEST_MULTIMEDIA_LIBS})
     else()
         target_link_libraries(test_video_pipeline PRIVATE Qt5::Core Qt5::Gui Qt5::Multimedia Qt5::Network Qt5::SerialPort Qt5::Test)
     endif()
