@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QTableView>
 #include <QStandardItemModel>
+#include "core/Track.h"
 
 namespace CounterUAS {
 
@@ -14,6 +15,10 @@ class TrackListWidget : public QWidget {
     
 public:
     explicit TrackListWidget(TrackManager* trackManager, QWidget* parent = nullptr);
+    
+    // Set reference position for range calculation (typically the defended asset)
+    void setReferencePosition(const GeoPosition& pos);
+    GeoPosition referencePosition() const { return m_referencePosition; }
     
 signals:
     void trackSelected(const QString& trackId);
@@ -28,10 +33,12 @@ private slots:
 private:
     void updateTrackRow(const QString& trackId);
     int findTrackRow(const QString& trackId);
+    QString formatRange(double rangeMeters) const;
     
     TrackManager* m_trackManager;
     QTableView* m_tableView;
     QStandardItemModel* m_model;
+    GeoPosition m_referencePosition;  // Reference point for range calculation
 };
 
 } // namespace CounterUAS
