@@ -184,8 +184,18 @@ void SystemSimulationManager::start() {
         m_effectorSimulator->setWeatherFactor(m_scenario.weatherFactor);
     }
     
-    // Start all simulators
-    if (m_trackSimulator) m_trackSimulator->start();
+    // Configure track simulator with scenario settings
+    if (m_trackSimulator) {
+        m_trackSimulator->setMaxTargets(m_scenario.maxTargets);
+        m_trackSimulator->setAutoSpawnEnabled(m_autoSpawnTargets);
+        // Convert spawn rate to interval (targets/sec -> msec between spawns)
+        if (m_scenario.threatSpawnRate > 0) {
+            int intervalMs = static_cast<int>(1000.0 / m_scenario.threatSpawnRate);
+            m_trackSimulator->setSpawnInterval(intervalMs);
+        }
+        m_trackSimulator->start();
+    }
+    
     if (m_sensorSimulator && m_scenario.enableRadarSim) m_sensorSimulator->start();
     if (m_effectorSimulator && m_scenario.enableEffectorSim) m_effectorSimulator->start();
     if (m_videoSimulator && m_scenario.enableVideoSim) m_videoSimulator->start();
@@ -194,7 +204,9 @@ void SystemSimulationManager::start() {
     m_statsTimer->start();
     
     Logger::instance().info("SystemSimulationManager", 
-        QString("Simulation started: %1").arg(m_scenario.name));
+        QString("Simulation started: %1 (auto-spawn: %2)")
+            .arg(m_scenario.name)
+            .arg(m_autoSpawnTargets ? "enabled" : "disabled"));
     
     emit runningChanged(true);
 }

@@ -32,6 +32,7 @@
 #include <QFileDialog>
 #include <QInputDialog>
 #include <QSettings>
+#include <QToolButton>
 
 namespace CounterUAS {
 
@@ -243,22 +244,49 @@ void MainWindow::setupToolBar() {
     m_mainToolBar->setIconSize(QSize(24, 24));
     m_mainToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     
-    // Simulation controls
-    QAction* startAction = m_mainToolBar->addAction("Start Sim");
+    // Grouped Simulation Controls
+    QToolButton* simControlBtn = new QToolButton(this);
+    simControlBtn->setText("Simulation");
+    simControlBtn->setPopupMode(QToolButton::MenuButtonPopup);
+    simControlBtn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    
+    QMenu* simMenu = new QMenu(simControlBtn);
+    QAction* startAction = simMenu->addAction("Start Simulation");
     connect(startAction, &QAction::triggered, this, &MainWindow::startSimulation);
-    
-    QAction* stopAction = m_mainToolBar->addAction("Stop Sim");
+    QAction* stopAction = simMenu->addAction("Stop Simulation");
     connect(stopAction, &QAction::triggered, this, &MainWindow::stopSimulation);
-    
-    QAction* pauseAction = m_mainToolBar->addAction("Pause");
+    QAction* pauseAction = simMenu->addAction("Pause/Resume");
     connect(pauseAction, &QAction::triggered, this, &MainWindow::pauseSimulation);
+    simMenu->addSeparator();
+    QAction* resetAction = simMenu->addAction("Reset Simulation");
+    connect(resetAction, &QAction::triggered, this, &MainWindow::resetSimulation);
+    simMenu->addSeparator();
+    QAction* settingsAction = simMenu->addAction("Settings...");
+    connect(settingsAction, &QAction::triggered, this, &MainWindow::onSimulationSettings);
+    
+    simControlBtn->setMenu(simMenu);
+    simControlBtn->setDefaultAction(startAction);
+    m_mainToolBar->addWidget(simControlBtn);
     
     m_mainToolBar->addSeparator();
     
-    // Map controls
-    m_mainToolBar->addAction("Zoom In", m_mapWidget, [this]() { m_mapWidget->setZoom(m_mapWidget->zoom() + 1); });
-    m_mainToolBar->addAction("Zoom Out", m_mapWidget, [this]() { m_mapWidget->setZoom(m_mapWidget->zoom() - 1); });
-    m_mainToolBar->addAction("Center", m_mapWidget, [this]() { 
+    // Grouped Map/View Controls
+    QToolButton* viewControlBtn = new QToolButton(this);
+    viewControlBtn->setText("View");
+    viewControlBtn->setPopupMode(QToolButton::MenuButtonPopup);
+    viewControlBtn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    
+    QMenu* viewMenu = new QMenu(viewControlBtn);
+    QAction* zoomInAction = viewMenu->addAction("Zoom In");
+    connect(zoomInAction, &QAction::triggered, this, [this]() { 
+        m_mapWidget->setZoom(m_mapWidget->zoom() + 1); 
+    });
+    QAction* zoomOutAction = viewMenu->addAction("Zoom Out");
+    connect(zoomOutAction, &QAction::triggered, this, [this]() { 
+        m_mapWidget->setZoom(m_mapWidget->zoom() - 1); 
+    });
+    QAction* centerAction = viewMenu->addAction("Center on Base");
+    connect(centerAction, &QAction::triggered, this, [this]() { 
         GeoPosition basePos;
         basePos.latitude = 34.0522;
         basePos.longitude = -118.2437;
@@ -266,20 +294,39 @@ void MainWindow::setupToolBar() {
         m_mapWidget->setCenter(basePos); 
     });
     
+    viewControlBtn->setMenu(viewMenu);
+    viewControlBtn->setDefaultAction(zoomInAction);
+    m_mainToolBar->addWidget(viewControlBtn);
+    
     m_mainToolBar->addSeparator();
     
-    // Recording
-    m_mainToolBar->addAction("Record All", this, &MainWindow::onStartAllRecording);
-    m_mainToolBar->addAction("Snapshot", this, &MainWindow::onTakeSnapshot);
+    // Grouped Recording Controls
+    QToolButton* recordBtn = new QToolButton(this);
+    recordBtn->setText("Record");
+    recordBtn->setPopupMode(QToolButton::MenuButtonPopup);
+    recordBtn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     
-    // Secondary toolbar for simulation status
-    m_simulationToolBar = addToolBar("Simulation");
+    QMenu* recordMenu = new QMenu(recordBtn);
+    QAction* recordAllAction = recordMenu->addAction("Start Recording All");
+    connect(recordAllAction, &QAction::triggered, this, &MainWindow::onStartAllRecording);
+    QAction* stopRecordAction = recordMenu->addAction("Stop All Recording");
+    connect(stopRecordAction, &QAction::triggered, this, &MainWindow::onStopAllRecording);
+    recordMenu->addSeparator();
+    QAction* snapshotAction = recordMenu->addAction("Take Snapshot");
+    connect(snapshotAction, &QAction::triggered, this, &MainWindow::onTakeSnapshot);
+    
+    recordBtn->setMenu(recordMenu);
+    recordBtn->setDefaultAction(snapshotAction);
+    m_mainToolBar->addWidget(recordBtn);
+    
+    // Secondary toolbar for simulation status display
+    m_simulationToolBar = addToolBar("Simulation Status");
     m_simulationToolBar->setToolButtonStyle(Qt::ToolButtonTextOnly);
     
     QLabel* scenarioLabel = new QLabel(" Scenario: Default ", this);
+    scenarioLabel->setStyleSheet("QLabel { padding: 4px; background-color: #2a2a2a; "
+                                  "border-radius: 3px; color: #aaa; }");
     m_simulationToolBar->addWidget(scenarioLabel);
-    
-    m_simulationToolBar->addAction("Settings", this, &MainWindow::onSimulationSettings);
 }
 
 void MainWindow::setupPPIToolBar() {
@@ -303,7 +350,7 @@ void MainWindow::setupPPIToolBar() {
     m_ppiToolBar->addSeparator();
     
     // PPI mode selector
-    QLabel* ppiModeLabel = new QLabel(" PPI Mode: ", this);
+    QLabel* ppiModeLabel = new QLabel(" Mode: ", this);
     m_ppiToolBar->addWidget(ppiModeLabel);
     
     m_ppiModeCombo = new QComboBox(this);
@@ -318,55 +365,78 @@ void MainWindow::setupPPIToolBar() {
     
     m_ppiToolBar->addSeparator();
     
-    // Sweep control
-    m_ppiSweepAction = m_ppiToolBar->addAction("Start Sweep");
-    m_ppiSweepAction->setCheckable(true);
-    m_ppiSweepAction->setChecked(false);
-    m_ppiSweepAction->setToolTip("Toggle radar sweep animation");
-    connect(m_ppiSweepAction, &QAction::triggered, this, &MainWindow::onPPISweepToggle);
+    // Grouped Range Controls
+    QToolButton* rangeBtn = new QToolButton(this);
+    rangeBtn->setText("Range");
+    rangeBtn->setPopupMode(QToolButton::MenuButtonPopup);
+    rangeBtn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    rangeBtn->setToolTip("Radar range controls");
     
-    m_ppiToolBar->addSeparator();
+    QMenu* rangeMenu = new QMenu(rangeBtn);
     
-    // Range controls
-    QLabel* rangeLabel = new QLabel(" Range: ", this);
-    m_ppiToolBar->addWidget(rangeLabel);
-    
-    QAction* rangeInAction = m_ppiToolBar->addAction("Range In");
+    QAction* rangeInAction = rangeMenu->addAction("Range In (Zoom)");
     rangeInAction->setToolTip("Decrease radar range (zoom in)");
     connect(rangeInAction, &QAction::triggered, this, [this]() {
         double newRange = m_ppiWidget->rangeScale() * 0.8;
         m_ppiWidget->setRangeScale(newRange);
     });
     
-    QAction* rangeOutAction = m_ppiToolBar->addAction("Range Out");
+    QAction* rangeOutAction = rangeMenu->addAction("Range Out");
     rangeOutAction->setToolTip("Increase radar range (zoom out)");
     connect(rangeOutAction, &QAction::triggered, this, [this]() {
         double newRange = m_ppiWidget->rangeScale() * 1.25;
         m_ppiWidget->setRangeScale(newRange);
     });
     
-    // Preset range buttons
-    m_ppiToolBar->addSeparator();
+    rangeMenu->addSeparator();
+    rangeMenu->addAction("Preset Ranges:")->setEnabled(false);
     
-    QAction* range1kmAction = m_ppiToolBar->addAction("1km");
+    QAction* range1kmAction = rangeMenu->addAction("  1 km");
     connect(range1kmAction, &QAction::triggered, this, [this]() {
         m_ppiWidget->setRangeScale(1000.0);
     });
     
-    QAction* range5kmAction = m_ppiToolBar->addAction("5km");
+    QAction* range2kmAction = rangeMenu->addAction("  2 km");
+    connect(range2kmAction, &QAction::triggered, this, [this]() {
+        m_ppiWidget->setRangeScale(2000.0);
+    });
+    
+    QAction* range5kmAction = rangeMenu->addAction("  5 km");
     connect(range5kmAction, &QAction::triggered, this, [this]() {
         m_ppiWidget->setRangeScale(5000.0);
     });
     
-    QAction* range10kmAction = m_ppiToolBar->addAction("10km");
+    QAction* range10kmAction = rangeMenu->addAction("  10 km");
     connect(range10kmAction, &QAction::triggered, this, [this]() {
         m_ppiWidget->setRangeScale(10000.0);
     });
     
+    rangeBtn->setMenu(rangeMenu);
+    rangeBtn->setDefaultAction(range5kmAction);
+    m_ppiToolBar->addWidget(rangeBtn);
+    
     m_ppiToolBar->addSeparator();
     
+    // Grouped Display Options
+    QToolButton* displayOptionsBtn = new QToolButton(this);
+    displayOptionsBtn->setText("Options");
+    displayOptionsBtn->setPopupMode(QToolButton::InstantPopup);
+    displayOptionsBtn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    displayOptionsBtn->setToolTip("Display options");
+    
+    QMenu* optionsMenu = new QMenu(displayOptionsBtn);
+    
+    // Sweep control
+    m_ppiSweepAction = optionsMenu->addAction("Radar Sweep");
+    m_ppiSweepAction->setCheckable(true);
+    m_ppiSweepAction->setChecked(false);
+    m_ppiSweepAction->setToolTip("Toggle radar sweep animation");
+    connect(m_ppiSweepAction, &QAction::triggered, this, &MainWindow::onPPISweepToggle);
+    
+    optionsMenu->addSeparator();
+    
     // North-up toggle
-    QAction* northUpAction = m_ppiToolBar->addAction("North Up");
+    QAction* northUpAction = optionsMenu->addAction("North Up");
     northUpAction->setCheckable(true);
     northUpAction->setChecked(true);
     northUpAction->setToolTip("Toggle North-Up display orientation");
@@ -375,13 +445,16 @@ void MainWindow::setupPPIToolBar() {
     });
     
     // Track history toggle
-    QAction* historyAction = m_ppiToolBar->addAction("Trails");
+    QAction* historyAction = optionsMenu->addAction("Show Trails");
     historyAction->setCheckable(true);
     historyAction->setChecked(true);
     historyAction->setToolTip("Show track history trails");
     connect(historyAction, &QAction::triggered, this, [this](bool checked) {
         m_ppiWidget->setShowTrackHistory(checked);
     });
+    
+    displayOptionsBtn->setMenu(optionsMenu);
+    m_ppiToolBar->addWidget(displayOptionsBtn);
 }
 
 void MainWindow::setupDockWidgets() {

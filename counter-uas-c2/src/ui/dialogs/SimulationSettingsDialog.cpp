@@ -11,6 +11,7 @@
 #include <QPushButton>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QGridLayout>
 
 namespace CounterUAS {
 
@@ -19,189 +20,48 @@ SimulationSettingsDialog::SimulationSettingsDialog(SystemSimulationManager* simM
     , m_simManager(simManager)
 {
     setWindowTitle("Simulation Settings");
-    setMinimumSize(600, 700);
+    setMinimumSize(650, 750);
     
     setupUI();
     
     // Load current scenario
     if (m_simManager) {
         loadScenarioToUI(m_simManager->currentScenario());
+        
+        // Connect to track simulator signals if available
+        TrackSimulator* trackSim = m_simManager->trackSimulator();
+        if (trackSim) {
+            connect(trackSim, &TrackSimulator::targetInjected,
+                    this, &SimulationSettingsDialog::onTargetInjected);
+            connect(trackSim, &TrackSimulator::targetRemoved,
+                    this, &SimulationSettingsDialog::onTargetRemoved);
+            updateTargetList();
+        }
     }
 }
 
 void SimulationSettingsDialog::setupUI() {
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
     
-    // Scenario selection
-    QGroupBox* scenarioGroup = new QGroupBox("Scenario", this);
-    QHBoxLayout* scenarioLayout = new QHBoxLayout(scenarioGroup);
+    // Create tabbed interface
+    m_tabWidget = new QTabWidget(this);
     
-    m_scenarioCombo = new QComboBox(this);
-    m_scenarioCombo->addItem("Default Scenario");
-    m_scenarioCombo->addItem("Swarm Attack");
-    m_scenarioCombo->addItem("Multi-Threat Environment");
-    m_scenarioCombo->addItem("Stress Test");
-    m_scenarioCombo->addItem("Custom");
-    connect(m_scenarioCombo, QOverload<int>::of(&QComboBox::currentIndexChanged),
-            this, &SimulationSettingsDialog::onScenarioSelected);
-    scenarioLayout->addWidget(m_scenarioCombo);
+    // Tab 1: Scenario Settings
+    QWidget* scenarioTab = new QWidget(this);
+    setupScenarioTab(scenarioTab);
+    m_tabWidget->addTab(scenarioTab, "Scenario");
     
-    QPushButton* loadBtn = new QPushButton("Load...", this);
-    connect(loadBtn, &QPushButton::clicked, this, &SimulationSettingsDialog::onLoadCustom);
-    scenarioLayout->addWidget(loadBtn);
+    // Tab 2: Target Control
+    QWidget* targetTab = new QWidget(this);
+    setupTargetControlTab(targetTab);
+    m_tabWidget->addTab(targetTab, "Target Control");
     
-    QPushButton* saveBtn = new QPushButton("Save...", this);
-    connect(saveBtn, &QPushButton::clicked, this, &SimulationSettingsDialog::onSaveCustom);
-    scenarioLayout->addWidget(saveBtn);
+    // Tab 3: Environment
+    QWidget* envTab = new QWidget(this);
+    setupEnvironmentTab(envTab);
+    m_tabWidget->addTab(envTab, "Environment");
     
-    mainLayout->addWidget(scenarioGroup);
-    
-    // General settings
-    QGroupBox* generalGroup = new QGroupBox("General", this);
-    QFormLayout* generalLayout = new QFormLayout(generalGroup);
-    
-    m_durationMinutes = new QSpinBox(this);
-    m_durationMinutes->setRange(1, 120);
-    m_durationMinutes->setValue(10);
-    m_durationMinutes->setSuffix(" min");
-    generalLayout->addRow("Duration:", m_durationMinutes);
-    
-    m_maxTargets = new QSpinBox(this);
-    m_maxTargets->setRange(1, 100);
-    m_maxTargets->setValue(10);
-    generalLayout->addRow("Max Targets:", m_maxTargets);
-    
-    m_spawnRate = new QDoubleSpinBox(this);
-    m_spawnRate->setRange(0.01, 5.0);
-    m_spawnRate->setSingleStep(0.1);
-    m_spawnRate->setValue(0.2);
-    m_spawnRate->setSuffix(" /sec");
-    generalLayout->addRow("Spawn Rate:", m_spawnRate);
-    
-    m_timeScale = new QDoubleSpinBox(this);
-    m_timeScale->setRange(0.1, 10.0);
-    m_timeScale->setSingleStep(0.1);
-    m_timeScale->setValue(1.0);
-    m_timeScale->setSuffix("x");
-    generalLayout->addRow("Time Scale:", m_timeScale);
-    
-    mainLayout->addWidget(generalGroup);
-    
-    // Environment settings
-    QGroupBox* envGroup = new QGroupBox("Environment", this);
-    QFormLayout* envLayout = new QFormLayout(envGroup);
-    
-    QHBoxLayout* weatherLayout = new QHBoxLayout();
-    m_weatherSlider = new QSlider(Qt::Horizontal, this);
-    m_weatherSlider->setRange(0, 100);
-    m_weatherSlider->setValue(100);
-    m_weatherLabel = new QLabel("100%", this);
-    connect(m_weatherSlider, &QSlider::valueChanged, this, [this](int v) {
-        m_weatherLabel->setText(QString("%1%").arg(v));
-    });
-    weatherLayout->addWidget(m_weatherSlider);
-    weatherLayout->addWidget(m_weatherLabel);
-    envLayout->addRow("Weather:", weatherLayout);
-    
-    QHBoxLayout* clutterLayout = new QHBoxLayout();
-    m_clutterSlider = new QSlider(Qt::Horizontal, this);
-    m_clutterSlider->setRange(0, 100);
-    m_clutterSlider->setValue(10);
-    m_clutterLabel = new QLabel("10%", this);
-    connect(m_clutterSlider, &QSlider::valueChanged, this, [this](int v) {
-        m_clutterLabel->setText(QString("%1%").arg(v));
-    });
-    clutterLayout->addWidget(m_clutterSlider);
-    clutterLayout->addWidget(m_clutterLabel);
-    envLayout->addRow("Clutter:", clutterLayout);
-    
-    QHBoxLayout* noiseLayout = new QHBoxLayout();
-    m_noiseSlider = new QSlider(Qt::Horizontal, this);
-    m_noiseSlider->setRange(0, 100);
-    m_noiseSlider->setValue(5);
-    m_noiseLabel = new QLabel("5%", this);
-    connect(m_noiseSlider, &QSlider::valueChanged, this, [this](int v) {
-        m_noiseLabel->setText(QString("%1%").arg(v));
-    });
-    noiseLayout->addWidget(m_noiseSlider);
-    noiseLayout->addWidget(m_noiseLabel);
-    envLayout->addRow("Noise:", noiseLayout);
-    
-    mainLayout->addWidget(envGroup);
-    
-    // Threat parameters
-    QGroupBox* threatGroup = new QGroupBox("Threat Parameters", this);
-    QFormLayout* threatLayout = new QFormLayout(threatGroup);
-    
-    m_minThreatLevel = new QSpinBox(this);
-    m_minThreatLevel->setRange(1, 5);
-    m_minThreatLevel->setValue(1);
-    threatLayout->addRow("Min Threat Level:", m_minThreatLevel);
-    
-    m_maxThreatLevel = new QSpinBox(this);
-    m_maxThreatLevel->setRange(1, 5);
-    m_maxThreatLevel->setValue(5);
-    threatLayout->addRow("Max Threat Level:", m_maxThreatLevel);
-    
-    m_hostileProbability = new QDoubleSpinBox(this);
-    m_hostileProbability->setRange(0, 1);
-    m_hostileProbability->setSingleStep(0.05);
-    m_hostileProbability->setValue(0.7);
-    threatLayout->addRow("Hostile Probability:", m_hostileProbability);
-    
-    mainLayout->addWidget(threatGroup);
-    
-    // Simulator enables
-    QGroupBox* simGroup = new QGroupBox("Enabled Simulators", this);
-    QVBoxLayout* simLayout = new QVBoxLayout(simGroup);
-    
-    m_enableRadar = new QCheckBox("Radar Simulation", this);
-    m_enableRadar->setChecked(true);
-    simLayout->addWidget(m_enableRadar);
-    
-    m_enableRF = new QCheckBox("RF Detection Simulation", this);
-    m_enableRF->setChecked(true);
-    simLayout->addWidget(m_enableRF);
-    
-    m_enableCamera = new QCheckBox("Camera Simulation", this);
-    m_enableCamera->setChecked(true);
-    simLayout->addWidget(m_enableCamera);
-    
-    m_enableVideo = new QCheckBox("Video Feed Simulation", this);
-    m_enableVideo->setChecked(true);
-    simLayout->addWidget(m_enableVideo);
-    
-    m_enableEffectors = new QCheckBox("Effector Simulation", this);
-    m_enableEffectors->setChecked(true);
-    simLayout->addWidget(m_enableEffectors);
-    
-    mainLayout->addWidget(simGroup);
-    
-    // Base position
-    QGroupBox* posGroup = new QGroupBox("Base Position", this);
-    QFormLayout* posLayout = new QFormLayout(posGroup);
-    
-    m_baseLat = new QDoubleSpinBox(this);
-    m_baseLat->setRange(-90, 90);
-    m_baseLat->setDecimals(6);
-    m_baseLat->setValue(34.0522);
-    m_baseLat->setSuffix("°");
-    posLayout->addRow("Latitude:", m_baseLat);
-    
-    m_baseLon = new QDoubleSpinBox(this);
-    m_baseLon->setRange(-180, 180);
-    m_baseLon->setDecimals(6);
-    m_baseLon->setValue(-118.2437);
-    m_baseLon->setSuffix("°");
-    posLayout->addRow("Longitude:", m_baseLon);
-    
-    m_baseAlt = new QDoubleSpinBox(this);
-    m_baseAlt->setRange(0, 10000);
-    m_baseAlt->setValue(100);
-    m_baseAlt->setSuffix(" m");
-    posLayout->addRow("Altitude:", m_baseAlt);
-    
-    mainLayout->addWidget(posGroup);
+    mainLayout->addWidget(m_tabWidget);
     
     // Dialog buttons
     QHBoxLayout* btnLayout = new QHBoxLayout();
@@ -220,6 +80,297 @@ void SimulationSettingsDialog::setupUI() {
     btnLayout->addWidget(okBtn);
     btnLayout->addWidget(cancelBtn);
     mainLayout->addLayout(btnLayout);
+}
+
+void SimulationSettingsDialog::setupScenarioTab(QWidget* tab) {
+    QVBoxLayout* layout = new QVBoxLayout(tab);
+    
+    // Scenario selection
+    QGroupBox* scenarioGroup = new QGroupBox("Scenario Selection", tab);
+    QHBoxLayout* scenarioLayout = new QHBoxLayout(scenarioGroup);
+    
+    m_scenarioCombo = new QComboBox(tab);
+    m_scenarioCombo->addItem("Default Scenario");
+    m_scenarioCombo->addItem("Swarm Attack");
+    m_scenarioCombo->addItem("Multi-Threat Environment");
+    m_scenarioCombo->addItem("Stress Test");
+    m_scenarioCombo->addItem("Custom");
+    connect(m_scenarioCombo, QOverload<int>::of(&QComboBox::currentIndexChanged),
+            this, &SimulationSettingsDialog::onScenarioSelected);
+    scenarioLayout->addWidget(m_scenarioCombo);
+    
+    QPushButton* loadBtn = new QPushButton("Load...", tab);
+    connect(loadBtn, &QPushButton::clicked, this, &SimulationSettingsDialog::onLoadCustom);
+    scenarioLayout->addWidget(loadBtn);
+    
+    QPushButton* saveBtn = new QPushButton("Save...", tab);
+    connect(saveBtn, &QPushButton::clicked, this, &SimulationSettingsDialog::onSaveCustom);
+    scenarioLayout->addWidget(saveBtn);
+    
+    layout->addWidget(scenarioGroup);
+    
+    // General settings
+    QGroupBox* generalGroup = new QGroupBox("General Settings", tab);
+    QFormLayout* generalLayout = new QFormLayout(generalGroup);
+    
+    m_durationMinutes = new QSpinBox(tab);
+    m_durationMinutes->setRange(1, 120);
+    m_durationMinutes->setValue(10);
+    m_durationMinutes->setSuffix(" min");
+    generalLayout->addRow("Duration:", m_durationMinutes);
+    
+    m_maxTargets = new QSpinBox(tab);
+    m_maxTargets->setRange(1, 100);
+    m_maxTargets->setValue(10);
+    generalLayout->addRow("Max Tracks:", m_maxTargets);
+    
+    m_timeScale = new QDoubleSpinBox(tab);
+    m_timeScale->setRange(0.1, 10.0);
+    m_timeScale->setSingleStep(0.1);
+    m_timeScale->setValue(1.0);
+    m_timeScale->setSuffix("x");
+    generalLayout->addRow("Time Scale:", m_timeScale);
+    
+    layout->addWidget(generalGroup);
+    
+    // Base position
+    QGroupBox* posGroup = new QGroupBox("Base Position", tab);
+    QFormLayout* posLayout = new QFormLayout(posGroup);
+    
+    m_baseLat = new QDoubleSpinBox(tab);
+    m_baseLat->setRange(-90, 90);
+    m_baseLat->setDecimals(6);
+    m_baseLat->setValue(34.0522);
+    m_baseLat->setSuffix("°");
+    posLayout->addRow("Latitude:", m_baseLat);
+    
+    m_baseLon = new QDoubleSpinBox(tab);
+    m_baseLon->setRange(-180, 180);
+    m_baseLon->setDecimals(6);
+    m_baseLon->setValue(-118.2437);
+    m_baseLon->setSuffix("°");
+    posLayout->addRow("Longitude:", m_baseLon);
+    
+    m_baseAlt = new QDoubleSpinBox(tab);
+    m_baseAlt->setRange(0, 10000);
+    m_baseAlt->setValue(100);
+    m_baseAlt->setSuffix(" m");
+    posLayout->addRow("Altitude:", m_baseAlt);
+    
+    layout->addWidget(posGroup);
+    
+    // Simulator enables
+    QGroupBox* simGroup = new QGroupBox("Enabled Simulators", tab);
+    QGridLayout* simLayout = new QGridLayout(simGroup);
+    
+    m_enableRadar = new QCheckBox("Radar", tab);
+    m_enableRadar->setChecked(true);
+    simLayout->addWidget(m_enableRadar, 0, 0);
+    
+    m_enableRF = new QCheckBox("RF Detection", tab);
+    m_enableRF->setChecked(true);
+    simLayout->addWidget(m_enableRF, 0, 1);
+    
+    m_enableCamera = new QCheckBox("Camera", tab);
+    m_enableCamera->setChecked(true);
+    simLayout->addWidget(m_enableCamera, 1, 0);
+    
+    m_enableVideo = new QCheckBox("Video Feed", tab);
+    m_enableVideo->setChecked(true);
+    simLayout->addWidget(m_enableVideo, 1, 1);
+    
+    m_enableEffectors = new QCheckBox("Effectors", tab);
+    m_enableEffectors->setChecked(true);
+    simLayout->addWidget(m_enableEffectors, 2, 0);
+    
+    layout->addWidget(simGroup);
+    layout->addStretch();
+}
+
+void SimulationSettingsDialog::setupTargetControlTab(QWidget* tab) {
+    QVBoxLayout* layout = new QVBoxLayout(tab);
+    
+    // Auto-spawn control
+    QGroupBox* autoGroup = new QGroupBox("Automatic Target Spawning", tab);
+    QFormLayout* autoLayout = new QFormLayout(autoGroup);
+    
+    m_autoSpawnEnabled = new QCheckBox("Enable auto-spawn targets", tab);
+    m_autoSpawnEnabled->setChecked(true);
+    connect(m_autoSpawnEnabled, &QCheckBox::toggled, 
+            this, &SimulationSettingsDialog::onAutoSpawnToggled);
+    autoLayout->addRow("", m_autoSpawnEnabled);
+    
+    m_spawnRate = new QDoubleSpinBox(tab);
+    m_spawnRate->setRange(0.01, 5.0);
+    m_spawnRate->setSingleStep(0.1);
+    m_spawnRate->setValue(0.2);
+    m_spawnRate->setSuffix(" /sec");
+    autoLayout->addRow("Spawn Rate:", m_spawnRate);
+    
+    m_spawnIntervalSec = new QSpinBox(tab);
+    m_spawnIntervalSec->setRange(1, 60);
+    m_spawnIntervalSec->setValue(5);
+    m_spawnIntervalSec->setSuffix(" sec");
+    autoLayout->addRow("Spawn Interval:", m_spawnIntervalSec);
+    
+    layout->addWidget(autoGroup);
+    
+    // Manual target injection
+    QGroupBox* manualGroup = new QGroupBox("Manual Target Injection", tab);
+    QFormLayout* manualLayout = new QFormLayout(manualGroup);
+    
+    // Start position (relative to base)
+    m_targetRange = new QDoubleSpinBox(tab);
+    m_targetRange->setRange(100, 10000);
+    m_targetRange->setValue(2500);
+    m_targetRange->setSuffix(" m");
+    m_targetRange->setToolTip("Distance from base position");
+    manualLayout->addRow("Range:", m_targetRange);
+    
+    m_targetBearing = new QDoubleSpinBox(tab);
+    m_targetBearing->setRange(0, 360);
+    m_targetBearing->setValue(45);
+    m_targetBearing->setSuffix("°");
+    m_targetBearing->setToolTip("Bearing from base (0° = North, 90° = East)");
+    manualLayout->addRow("Bearing:", m_targetBearing);
+    
+    m_targetAltitude = new QDoubleSpinBox(tab);
+    m_targetAltitude->setRange(0, 2000);
+    m_targetAltitude->setValue(150);
+    m_targetAltitude->setSuffix(" m");
+    m_targetAltitude->setToolTip("Altitude above ground");
+    manualLayout->addRow("Altitude:", m_targetAltitude);
+    
+    // Velocity
+    m_targetSpeed = new QDoubleSpinBox(tab);
+    m_targetSpeed->setRange(1, 100);
+    m_targetSpeed->setValue(15);
+    m_targetSpeed->setSuffix(" m/s");
+    m_targetSpeed->setToolTip("Target speed");
+    manualLayout->addRow("Speed:", m_targetSpeed);
+    
+    m_targetHeading = new QDoubleSpinBox(tab);
+    m_targetHeading->setRange(0, 360);
+    m_targetHeading->setValue(225);  // Default heading toward base
+    m_targetHeading->setSuffix("°");
+    m_targetHeading->setToolTip("Direction of movement (0° = North, 90° = East)");
+    manualLayout->addRow("Heading:", m_targetHeading);
+    
+    m_targetClimbRate = new QDoubleSpinBox(tab);
+    m_targetClimbRate->setRange(-20, 20);
+    m_targetClimbRate->setValue(0);
+    m_targetClimbRate->setSuffix(" m/s");
+    m_targetClimbRate->setToolTip("Vertical speed (positive = climbing)");
+    manualLayout->addRow("Climb Rate:", m_targetClimbRate);
+    
+    // Classification
+    m_targetClassification = new QComboBox(tab);
+    m_targetClassification->addItem("Pending", static_cast<int>(TrackClassification::Pending));
+    m_targetClassification->addItem("Hostile", static_cast<int>(TrackClassification::Hostile));
+    m_targetClassification->addItem("Friendly", static_cast<int>(TrackClassification::Friendly));
+    m_targetClassification->addItem("Unknown", static_cast<int>(TrackClassification::Unknown));
+    m_targetClassification->setCurrentIndex(1);  // Default to Hostile
+    manualLayout->addRow("Classification:", m_targetClassification);
+    
+    // Inject button
+    QHBoxLayout* injectBtnLayout = new QHBoxLayout();
+    m_injectTargetBtn = new QPushButton("Inject Target", tab);
+    m_injectTargetBtn->setStyleSheet("QPushButton { background-color: #4CAF50; color: white; "
+                                      "font-weight: bold; padding: 8px 16px; }");
+    connect(m_injectTargetBtn, &QPushButton::clicked, this, &SimulationSettingsDialog::onInjectTarget);
+    injectBtnLayout->addWidget(m_injectTargetBtn);
+    manualLayout->addRow("", injectBtnLayout);
+    
+    layout->addWidget(manualGroup);
+    
+    // Active targets
+    QGroupBox* activeGroup = new QGroupBox("Active Targets", tab);
+    QVBoxLayout* activeLayout = new QVBoxLayout(activeGroup);
+    
+    m_targetCountLabel = new QLabel("Active: 0 / 10", tab);
+    m_targetCountLabel->setStyleSheet("font-weight: bold;");
+    activeLayout->addWidget(m_targetCountLabel);
+    
+    m_activeTargetsList = new QListWidget(tab);
+    m_activeTargetsList->setMaximumHeight(100);
+    activeLayout->addWidget(m_activeTargetsList);
+    
+    m_clearTargetsBtn = new QPushButton("Clear All Targets", tab);
+    m_clearTargetsBtn->setStyleSheet("QPushButton { background-color: #f44336; color: white; }");
+    connect(m_clearTargetsBtn, &QPushButton::clicked, this, &SimulationSettingsDialog::onClearTargets);
+    activeLayout->addWidget(m_clearTargetsBtn);
+    
+    layout->addWidget(activeGroup);
+    layout->addStretch();
+}
+
+void SimulationSettingsDialog::setupEnvironmentTab(QWidget* tab) {
+    QVBoxLayout* layout = new QVBoxLayout(tab);
+    
+    // Environment settings
+    QGroupBox* envGroup = new QGroupBox("Environmental Conditions", tab);
+    QFormLayout* envLayout = new QFormLayout(envGroup);
+    
+    QHBoxLayout* weatherLayout = new QHBoxLayout();
+    m_weatherSlider = new QSlider(Qt::Horizontal, tab);
+    m_weatherSlider->setRange(0, 100);
+    m_weatherSlider->setValue(100);
+    m_weatherLabel = new QLabel("100%", tab);
+    connect(m_weatherSlider, &QSlider::valueChanged, this, [this](int v) {
+        m_weatherLabel->setText(QString("%1%").arg(v));
+    });
+    weatherLayout->addWidget(m_weatherSlider);
+    weatherLayout->addWidget(m_weatherLabel);
+    envLayout->addRow("Weather:", weatherLayout);
+    
+    QHBoxLayout* clutterLayout = new QHBoxLayout();
+    m_clutterSlider = new QSlider(Qt::Horizontal, tab);
+    m_clutterSlider->setRange(0, 100);
+    m_clutterSlider->setValue(10);
+    m_clutterLabel = new QLabel("10%", tab);
+    connect(m_clutterSlider, &QSlider::valueChanged, this, [this](int v) {
+        m_clutterLabel->setText(QString("%1%").arg(v));
+    });
+    clutterLayout->addWidget(m_clutterSlider);
+    clutterLayout->addWidget(m_clutterLabel);
+    envLayout->addRow("Clutter:", clutterLayout);
+    
+    QHBoxLayout* noiseLayout = new QHBoxLayout();
+    m_noiseSlider = new QSlider(Qt::Horizontal, tab);
+    m_noiseSlider->setRange(0, 100);
+    m_noiseSlider->setValue(5);
+    m_noiseLabel = new QLabel("5%", tab);
+    connect(m_noiseSlider, &QSlider::valueChanged, this, [this](int v) {
+        m_noiseLabel->setText(QString("%1%").arg(v));
+    });
+    noiseLayout->addWidget(m_noiseSlider);
+    noiseLayout->addWidget(m_noiseLabel);
+    envLayout->addRow("Noise:", noiseLayout);
+    
+    layout->addWidget(envGroup);
+    
+    // Threat parameters
+    QGroupBox* threatGroup = new QGroupBox("Threat Parameters", tab);
+    QFormLayout* threatLayout = new QFormLayout(threatGroup);
+    
+    m_minThreatLevel = new QSpinBox(tab);
+    m_minThreatLevel->setRange(1, 5);
+    m_minThreatLevel->setValue(1);
+    threatLayout->addRow("Min Threat Level:", m_minThreatLevel);
+    
+    m_maxThreatLevel = new QSpinBox(tab);
+    m_maxThreatLevel->setRange(1, 5);
+    m_maxThreatLevel->setValue(5);
+    threatLayout->addRow("Max Threat Level:", m_maxThreatLevel);
+    
+    m_hostileProbability = new QDoubleSpinBox(tab);
+    m_hostileProbability->setRange(0, 1);
+    m_hostileProbability->setSingleStep(0.05);
+    m_hostileProbability->setValue(0.7);
+    threatLayout->addRow("Hostile Probability:", m_hostileProbability);
+    
+    layout->addWidget(threatGroup);
+    layout->addStretch();
 }
 
 void SimulationSettingsDialog::loadScenarioToUI(const SimulationScenario& scenario) {
@@ -244,6 +395,15 @@ void SimulationSettingsDialog::loadScenarioToUI(const SimulationScenario& scenar
     m_baseLat->setValue(scenario.basePosition.latitude);
     m_baseLon->setValue(scenario.basePosition.longitude);
     m_baseAlt->setValue(scenario.basePosition.altitude);
+    
+    // Load track simulator settings
+    if (m_simManager) {
+        TrackSimulator* trackSim = m_simManager->trackSimulator();
+        if (trackSim) {
+            m_autoSpawnEnabled->setChecked(trackSim->autoSpawnEnabled());
+            m_spawnIntervalSec->setValue(trackSim->spawnInterval() / 1000);
+        }
+    }
 }
 
 SimulationScenario SimulationSettingsDialog::getScenario() const {
@@ -303,6 +463,14 @@ void SimulationSettingsDialog::onApply() {
     if (m_simManager) {
         m_simManager->setScenario(scenario);
         m_simManager->setTimeScale(m_timeScale->value());
+        
+        // Apply track simulator settings
+        TrackSimulator* trackSim = m_simManager->trackSimulator();
+        if (trackSim) {
+            trackSim->setAutoSpawnEnabled(m_autoSpawnEnabled->isChecked());
+            trackSim->setSpawnInterval(m_spawnIntervalSec->value() * 1000);
+            trackSim->setMaxTargets(m_maxTargets->value());
+        }
     }
     
     emit scenarioChanged(scenario);
@@ -325,6 +493,87 @@ void SimulationSettingsDialog::onSaveCustom() {
         m_simManager->setScenario(getScenario());
         m_simManager->saveScenario(path);
         QMessageBox::information(this, "Saved", "Scenario saved successfully.");
+    }
+}
+
+void SimulationSettingsDialog::onInjectTarget() {
+    if (!m_simManager) return;
+    
+    TrackSimulator* trackSim = m_simManager->trackSimulator();
+    if (!trackSim) {
+        QMessageBox::warning(this, "Error", "Track simulator not available.");
+        return;
+    }
+    
+    if (trackSim->targetCount() >= trackSim->maxTargets()) {
+        QMessageBox::warning(this, "Max Targets Reached",
+            QString("Maximum number of targets (%1) reached. Clear some targets first.")
+                .arg(trackSim->maxTargets()));
+        return;
+    }
+    
+    ManualTargetParams params;
+    params.rangeM = m_targetRange->value();
+    params.bearingDeg = m_targetBearing->value();
+    params.altitudeM = m_targetAltitude->value();
+    params.speedMps = m_targetSpeed->value();
+    params.headingDeg = m_targetHeading->value();
+    params.climbRateMps = m_targetClimbRate->value();
+    params.classification = static_cast<TrackClassification>(
+        m_targetClassification->currentData().toInt());
+    
+    QString targetId = trackSim->injectTarget(params);
+    
+    if (!targetId.isEmpty()) {
+        emit targetInjected(targetId);
+    }
+}
+
+void SimulationSettingsDialog::onClearTargets() {
+    if (!m_simManager) return;
+    
+    TrackSimulator* trackSim = m_simManager->trackSimulator();
+    if (trackSim) {
+        trackSim->clearTargets();
+        updateTargetList();
+    }
+}
+
+void SimulationSettingsDialog::onAutoSpawnToggled(bool enabled) {
+    if (!m_simManager) return;
+    
+    TrackSimulator* trackSim = m_simManager->trackSimulator();
+    if (trackSim) {
+        trackSim->setAutoSpawnEnabled(enabled);
+    }
+    
+    // Enable/disable spawn rate controls based on auto-spawn state
+    m_spawnRate->setEnabled(enabled);
+    m_spawnIntervalSec->setEnabled(enabled);
+}
+
+void SimulationSettingsDialog::onTargetInjected(const QString& targetId, const GeoPosition& position) {
+    Q_UNUSED(position)
+    m_activeTargetsList->addItem(targetId);
+    updateTargetList();
+}
+
+void SimulationSettingsDialog::onTargetRemoved(const QString& targetId) {
+    QList<QListWidgetItem*> items = m_activeTargetsList->findItems(targetId, Qt::MatchExactly);
+    for (auto* item : items) {
+        delete m_activeTargetsList->takeItem(m_activeTargetsList->row(item));
+    }
+    updateTargetList();
+}
+
+void SimulationSettingsDialog::updateTargetList() {
+    if (!m_simManager) return;
+    
+    TrackSimulator* trackSim = m_simManager->trackSimulator();
+    if (trackSim) {
+        m_targetCountLabel->setText(QString("Active: %1 / %2")
+            .arg(trackSim->targetCount())
+            .arg(trackSim->maxTargets()));
     }
 }
 
