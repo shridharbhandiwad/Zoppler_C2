@@ -194,17 +194,13 @@ void MainWindow::createViewMenu(QMenu* viewMenu) {
     // Panel visibility toggles
     QMenu* panelsMenu = viewMenu->addMenu("&Panels");
     
-    auto addPanelToggle = [panelsMenu](QDockWidget* dock) {
-        if (dock) {
-            QAction* action = panelsMenu->addAction(dock->windowTitle());
-            action->setCheckable(true);
-            action->setChecked(dock->isVisible());
-            QObject::connect(action, &QAction::toggled, dock, &QDockWidget::setVisible);
-            QObject::connect(dock, &QDockWidget::visibilityChanged, action, &QAction::setChecked);
-        }
-    };
+    // Create placeholder actions that will be populated after dock widgets are created
+    panelsMenu->addAction("Track List")->setCheckable(true);
+    panelsMenu->addAction("Track Details")->setCheckable(true);
+    panelsMenu->addAction("Sensor Status")->setCheckable(true);
+    panelsMenu->addAction("Effector Control")->setCheckable(true);
+    panelsMenu->addAction("Alerts")->setCheckable(true);
     
-    // Will be connected after dock widgets are created
     viewMenu->addSeparator();
     
     // Layout management
