@@ -2,7 +2,6 @@
 #define KINETICINTERCEPTOR_H
 
 #include "effectors/EffectorInterface.h"
-#include <QStateMachine>
 
 namespace CounterUAS {
 

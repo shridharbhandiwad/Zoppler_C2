@@ -12,6 +12,7 @@
 #include "core/ThreatAssessor.h"
 #include "core/EngagementManager.h"
 #include "video/VideoStreamManager.h"
+#include "simulators/VideoSimulator.h"
 #include "config/ConfigManager.h"
 #include "utils/Logger.h"
 #include <QMenuBar>
@@ -31,6 +32,7 @@ MainWindow::MainWindow(QWidget* parent)
     , m_threatAssessor(new ThreatAssessor(m_trackManager, this))
     , m_engagementManager(new EngagementManager(m_trackManager, this))
     , m_videoManager(new VideoStreamManager(this))
+    , m_videoSimulator(new VideoSimulator(this))
     , m_statusUpdateTimer(new QTimer(this))
 {
     setWindowTitle("Counter-UAS Command & Control System");
@@ -43,6 +45,7 @@ MainWindow::MainWindow(QWidget* parent)
     setupDockWidgets();
     setupConnections();
     initializeSubsystems();
+    setupVideoSimulation();
     
     m_statusUpdateTimer->setInterval(1000);
     connect(m_statusUpdateTimer, &QTimer::timeout, this, &MainWindow::updateStatusBar);
@@ -229,22 +232,68 @@ void MainWindow::initializeSubsystems() {
     m_mapWidget->setZoom(15);
 }
 
+void MainWindow::setupVideoSimulation() {
+    // Configure video simulator with default cameras
+    m_videoSimulator->setVideoManager(m_videoManager);
+    m_videoSimulator->setupDefaultCameras();
+    
+    // Connect video simulator signals
+    connect(m_videoSimulator, &VideoSimulator::frameReady,
+            this, &MainWindow::onSimulationVideoFrame);
+    connect(m_videoSimulator, &VideoSimulator::cameraFrameReady,
+            this, &MainWindow::onSimulationCameraFrame);
+    
+    // Connect video manager frame signals to grid widget
+    connect(m_videoManager, &VideoStreamManager::frameReady,
+            m_videoGridWidget, &VideoGridWidget::updateFrame);
+    
+    Logger::instance().info("MainWindow", "Video simulation configured");
+}
+
+void MainWindow::onSimulationVideoFrame(const QImage& frame, qint64 timestamp) {
+    Q_UNUSED(timestamp)
+    // Update primary video display with simulation frame
+    m_primaryVideoWidget->updateFrame(frame);
+}
+
+void MainWindow::onSimulationCameraFrame(const QString& cameraId, const QImage& frame, qint64 timestamp) {
+    Q_UNUSED(timestamp)
+    // Update video grid with camera-specific frame
+    m_videoGridWidget->updateFrame(cameraId, frame);
+}
+
 void MainWindow::startSimulation() {
     if (m_simulationRunning) return;
     
+    // Start core simulation systems
     m_trackManager->start();
     m_threatAssessor->start();
+    
+    // Start video simulation - this will create simulated camera feeds
+    m_videoSimulator->start();
+    
+    // Set primary video source to first simulated camera
+    auto cameras = m_videoSimulator->simulatedCameras();
+    if (!cameras.isEmpty()) {
+        m_primaryVideoWidget->setSource(cameras.first().cameraId);
+    }
+    
     m_simulationRunning = true;
     
-    statusBar()->showMessage("Simulation started");
-    Logger::instance().info("MainWindow", "Simulation started");
+    statusBar()->showMessage("Simulation started - Video feeds active");
+    Logger::instance().info("MainWindow", "Simulation started with video");
 }
 
 void MainWindow::stopSimulation() {
     if (!m_simulationRunning) return;
     
+    // Stop video simulation
+    m_videoSimulator->stop();
+    
+    // Stop core simulation systems
     m_trackManager->stop();
     m_threatAssessor->stop();
+    
     m_simulationRunning = false;
     
     statusBar()->showMessage("Simulation stopped");
