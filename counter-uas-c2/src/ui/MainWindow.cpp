@@ -466,11 +466,19 @@ void MainWindow::setupDockWidgets() {
     m_trackDetailDock->setWidget(m_trackDetailPanel);
     addDockWidget(Qt::LeftDockWidgetArea, m_trackDetailDock);
     
-    // Sensor status dock (bottom left)
+    // Track list dock (bottom) - add first to ensure visibility
+    m_trackListDock = new QDockWidget("Track List", this);
+    m_trackListWidget = new TrackListWidget(m_trackManager, this);
+    m_trackListDock->setWidget(m_trackListWidget);
+    m_trackListDock->setMinimumHeight(150);  // Ensure minimum visible height
+    addDockWidget(Qt::BottomDockWidgetArea, m_trackListDock);
+    
+    // Sensor status dock (bottom, beside track list)
     m_sensorStatusDock = new QDockWidget("Sensor Status", this);
     m_sensorStatusPanel = new SensorStatusPanel(this);
     m_sensorStatusDock->setWidget(m_sensorStatusPanel);
     addDockWidget(Qt::BottomDockWidgetArea, m_sensorStatusDock);
+    splitDockWidget(m_trackListDock, m_sensorStatusDock, Qt::Horizontal);
     
     // Add default sensors to status panel
     m_sensorStatusPanel->addSensor("SIM-RADAR-001", "Primary Radar", "RADAR");
@@ -484,12 +492,8 @@ void MainWindow::setupDockWidgets() {
     m_cameraStatusDock->setWidget(m_cameraStatusPanel);
     tabifyDockWidget(m_sensorStatusDock, m_cameraStatusDock);
     
-    // Track list dock (bottom, below camera status)
-    m_trackListDock = new QDockWidget("Track List", this);
-    m_trackListWidget = new TrackListWidget(m_trackManager, this);
-    m_trackListDock->setWidget(m_trackListWidget);
-    addDockWidget(Qt::BottomDockWidgetArea, m_trackListDock);
-    splitDockWidget(m_cameraStatusDock, m_trackListDock, Qt::Vertical);
+    // Raise sensor status tab by default (track list is always visible beside it)
+    m_sensorStatusDock->raise();
     
     // Effector control dock (right)
     m_effectorDock = new QDockWidget("Effector Control", this);
