@@ -58,6 +58,7 @@ SOURCES += \
     src/video/RTSPVideoSource.cpp \
     src/video/GigEVideoSource.cpp \
     src/video/FileVideoSource.cpp \
+    src/video/SimulationVideoSource.cpp \
     src/video/VideoDecoder.cpp \
     src/video/VideoOverlayRenderer.cpp \
     src/video/VideoRecorder.cpp \
@@ -133,6 +134,7 @@ HEADERS += \
     src/video/RTSPVideoSource.h \
     src/video/GigEVideoSource.h \
     src/video/FileVideoSource.h \
+    src/video/SimulationVideoSource.h \
     src/video/VideoDecoder.h \
     src/video/VideoOverlayRenderer.h \
     src/video/VideoRecorder.h \
