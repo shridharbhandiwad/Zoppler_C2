@@ -384,15 +384,28 @@ void TrackManager::processCameraDetection(const QString& cameraId, const Boundin
 }
 
 void TrackManager::clearAllTracks() {
-    QWriteLocker locker(&m_lock);
-    
-    for (auto* t : m_tracks) {
-        delete t;
+    // First, collect all track IDs while holding the lock
+    QList<QString> trackIds;
+    {
+        QReadLocker locker(&m_lock);
+        trackIds = m_tracks.keys();
     }
-    m_tracks.clear();
-    m_kalmanFilters.clear();
     
-    locker.unlock();
+    // Emit trackDropped signals outside of write lock to allow connected slots
+    // to safely access track data before deletion
+    for (const QString& id : trackIds) {
+        emit trackDropped(id);
+    }
+    
+    // Now acquire write lock and delete all tracks
+    {
+        QWriteLocker locker(&m_lock);
+        for (auto* t : m_tracks) {
+            delete t;
+        }
+        m_tracks.clear();
+        m_kalmanFilters.clear();
+    }
     
     emit trackCountChanged(0);
 }

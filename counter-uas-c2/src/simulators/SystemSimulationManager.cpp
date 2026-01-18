@@ -259,16 +259,33 @@ void SystemSimulationManager::resume() {
 }
 
 void SystemSimulationManager::reset() {
+    // First stop all simulation activity
     stop();
     
-    // Clear track manager
+    // Clear track simulator targets BEFORE clearing track manager
+    // This prevents the track simulator from updating deleted tracks
+    if (m_trackSimulator) {
+        m_trackSimulator->clearTargets();
+    }
+    
+    // Clear sensor simulator injected targets
+    if (m_sensorSimulator) {
+        m_sensorSimulator->clearInjectedTargets();
+    }
+    
+    // Reset video simulator
+    if (m_videoSimulator) {
+        m_videoSimulator->clearTrackedTargets();
+    }
+    
+    // Now clear track manager - this emits trackDropped signals so connected
+    // UI widgets can clean up their track references safely
     if (m_trackManager) {
         m_trackManager->clearAllTracks();
     }
     
-    // Reset simulators
+    // Clear sensor registrations after track manager is cleared
     if (m_sensorSimulator) {
-        m_sensorSimulator->clearInjectedTargets();
         m_sensorSimulator->clearSensors();
     }
     
