@@ -111,7 +111,17 @@ SOURCES += \
 SOURCES += \
     src/simulators/SensorSimulator.cpp \
     src/simulators/TrackSimulator.cpp \
-    src/simulators/VideoSimulator.cpp
+    src/simulators/VideoSimulator.cpp \
+    src/simulators/EffectorSimulator.cpp \
+    src/simulators/SystemSimulationManager.cpp
+
+# Dialog sources
+SOURCES += \
+    src/ui/dialogs/SensorConfigDialog.cpp \
+    src/ui/dialogs/EffectorStatusDialog.cpp \
+    src/ui/dialogs/SimulationSettingsDialog.cpp \
+    src/ui/dialogs/RulesOfEngagementDialog.cpp \
+    src/ui/dialogs/RecordingSettingsDialog.cpp
 
 # Core module headers
 HEADERS += \
@@ -187,7 +197,17 @@ HEADERS += \
 HEADERS += \
     src/simulators/SensorSimulator.h \
     src/simulators/TrackSimulator.h \
-    src/simulators/VideoSimulator.h
+    src/simulators/VideoSimulator.h \
+    src/simulators/EffectorSimulator.h \
+    src/simulators/SystemSimulationManager.h
+
+# Dialog headers
+HEADERS += \
+    src/ui/dialogs/SensorConfigDialog.h \
+    src/ui/dialogs/EffectorStatusDialog.h \
+    src/ui/dialogs/SimulationSettingsDialog.h \
+    src/ui/dialogs/RulesOfEngagementDialog.h \
+    src/ui/dialogs/RecordingSettingsDialog.h
 
 # Resources
 RESOURCES += \
