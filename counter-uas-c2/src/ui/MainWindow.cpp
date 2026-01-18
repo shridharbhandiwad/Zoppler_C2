@@ -734,9 +734,25 @@ void MainWindow::pauseSimulation() {
 }
 
 void MainWindow::resetSimulation() {
+    // Stop simulation if running
     stopSimulation();
+    
+    // Clear PPI widget tracks before resetting simulation manager
+    // This ensures no dangling pointers remain
+    m_ppiWidget->clearTracks();
+    m_mapWidget->clearTracks();
+    
+    // Reset video simulator separately (MainWindow owns its own instance)
+    m_videoSimulator->clearTrackedTargets();
+    
+    // Reset simulation manager (clears track manager, simulators, etc.)
     m_simulationManager->reset();
-    statusBar()->showMessage("Simulation reset");
+    
+    // Re-create simulation environment for next run
+    m_simulationManager->createFullSimulationEnvironment();
+    
+    statusBar()->showMessage("Simulation reset - ready to start");
+    Logger::instance().info("MainWindow", "Simulation reset complete");
 }
 
 void MainWindow::loadConfiguration() {

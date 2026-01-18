@@ -60,6 +60,9 @@ public:
     // Default setup
     void setupDefaultCameras();
     
+    // Reset tracked target state
+    void clearTrackedTargets();
+    
     // Legacy frame generation (for direct display without VideoStreamManager)
     void enableLegacyMode(bool enable) { m_legacyMode = enable; }
     bool legacyMode() const { return m_legacyMode; }

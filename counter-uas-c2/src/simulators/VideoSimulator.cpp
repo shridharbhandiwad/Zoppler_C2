@@ -118,6 +118,20 @@ void VideoSimulator::setupDefaultCameras() {
     Logger::instance().info("VideoSimulator", "Default cameras configured (Day/Night cameras)");
 }
 
+void VideoSimulator::clearTrackedTargets() {
+    // Reset frame count for simulated targets
+    m_frameCount = 0;
+    
+    // Clear target visibility on all simulation sources
+    for (auto* source : m_sources) {
+        if (source) {
+            source->setTargetVisible(false);
+        }
+    }
+    
+    Logger::instance().info("VideoSimulator", "Tracked targets cleared");
+}
+
 void VideoSimulator::createSimulationSources() {
     destroySimulationSources();
     
