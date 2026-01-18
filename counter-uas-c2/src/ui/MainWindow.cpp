@@ -460,17 +460,11 @@ void MainWindow::setupPPIToolBar() {
 void MainWindow::setupDockWidgets() {
     setDockOptions(QMainWindow::AnimatedDocks | QMainWindow::AllowNestedDocks);
     
-    // Track list dock (left)
-    m_trackListDock = new QDockWidget("Track List", this);
-    m_trackListWidget = new TrackListWidget(m_trackManager, this);
-    m_trackListDock->setWidget(m_trackListWidget);
-    addDockWidget(Qt::LeftDockWidgetArea, m_trackListDock);
-    
-    // Track detail dock (left, tabbed with track list)
+    // Track detail dock (left)
     m_trackDetailDock = new QDockWidget("Track Detail", this);
     m_trackDetailPanel = new TrackDetailPanel(this);
     m_trackDetailDock->setWidget(m_trackDetailPanel);
-    tabifyDockWidget(m_trackListDock, m_trackDetailDock);
+    addDockWidget(Qt::LeftDockWidgetArea, m_trackDetailDock);
     
     // Sensor status dock (bottom left)
     m_sensorStatusDock = new QDockWidget("Sensor Status", this);
@@ -484,11 +478,18 @@ void MainWindow::setupDockWidgets() {
     m_sensorStatusPanel->addSensor("SIM-DAY-001", "Day Camera", "CAMERA");
     m_sensorStatusPanel->addSensor("SIM-NIGHT-001", "Night Camera", "CAMERA");
     
-    // Camera status dock (bottom)
+    // Camera status dock (bottom, tabbed with sensor status)
     m_cameraStatusDock = new QDockWidget("Camera Status", this);
     m_cameraStatusPanel = new CameraStatusPanel(m_videoManager, this);
     m_cameraStatusDock->setWidget(m_cameraStatusPanel);
     tabifyDockWidget(m_sensorStatusDock, m_cameraStatusDock);
+    
+    // Track list dock (bottom, below camera status)
+    m_trackListDock = new QDockWidget("Track List", this);
+    m_trackListWidget = new TrackListWidget(m_trackManager, this);
+    m_trackListDock->setWidget(m_trackListWidget);
+    addDockWidget(Qt::BottomDockWidgetArea, m_trackListDock);
+    splitDockWidget(m_cameraStatusDock, m_trackListDock, Qt::Vertical);
     
     // Effector control dock (right)
     m_effectorDock = new QDockWidget("Effector Control", this);
