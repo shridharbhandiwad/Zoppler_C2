@@ -18,13 +18,14 @@ TrackDetailPanel::TrackDetailPanel(QWidget* parent) : QWidget(parent) {
 
 void TrackDetailPanel::setupUI() {
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
-    mainLayout->setContentsMargins(4, 4, 4, 4);
-    mainLayout->setSpacing(6);
+    mainLayout->setContentsMargins(8, 8, 8, 8);
+    mainLayout->setSpacing(8);
     
-    // Panel title
+    // Panel title with consistent styling
     QLabel* titleLabel = new QLabel("TRACK DETAILS", this);
-    titleLabel->setStyleSheet("QLabel { font-weight: bold; font-size: 11px; color: #aaa; "
-                             "padding: 4px; background-color: #2a2a2a; border-radius: 3px; }");
+    titleLabel->setStyleSheet("QLabel { font-weight: bold; font-size: 11px; color: #00d4ff; "
+                             "padding: 6px; background-color: #1a2a35; border-radius: 4px; "
+                             "border: 1px solid #2a4a5a; }");
     titleLabel->setAlignment(Qt::AlignCenter);
     mainLayout->addWidget(titleLabel);
     
@@ -46,13 +47,14 @@ void TrackDetailPanel::setupUI() {
 void TrackDetailPanel::createIdentityGroup() {
     m_identityGroup = new QGroupBox("Identity", this);
     m_identityGroup->setStyleSheet(
-        "QGroupBox { font-weight: bold; border: 1px solid #444; border-radius: 4px; "
-        "margin-top: 6px; padding-top: 6px; }"
-        "QGroupBox::title { subcontrol-origin: margin; left: 8px; padding: 0 4px; color: #8cf; }");
+        "QGroupBox { font-weight: bold; border: 1px solid #2a4a5a; border-radius: 6px; "
+        "background-color: #0d1a20; margin-top: 10px; padding: 12px 8px 8px 8px; }"
+        "QGroupBox::title { subcontrol-origin: margin; left: 10px; padding: 2px 8px; "
+        "color: #00d4ff; background-color: #0d1a20; }");
     
     QFormLayout* layout = new QFormLayout(m_identityGroup);
-    layout->setSpacing(3);
-    layout->setContentsMargins(8, 8, 8, 8);
+    layout->setSpacing(4);
+    layout->setContentsMargins(10, 14, 10, 10);
     
     m_trackIdLabel = new QLabel("-", this);
     m_trackIdLabel->setStyleSheet("QLabel { color: #fff; font-weight: bold; font-size: 12px; }");
@@ -72,13 +74,14 @@ void TrackDetailPanel::createIdentityGroup() {
 void TrackDetailPanel::createPositionGroup() {
     m_positionGroup = new QGroupBox("Position", this);
     m_positionGroup->setStyleSheet(
-        "QGroupBox { font-weight: bold; border: 1px solid #444; border-radius: 4px; "
-        "margin-top: 6px; padding-top: 6px; }"
-        "QGroupBox::title { subcontrol-origin: margin; left: 8px; padding: 0 4px; color: #8cf; }");
+        "QGroupBox { font-weight: bold; border: 1px solid #2a4a5a; border-radius: 6px; "
+        "background-color: #0d1a20; margin-top: 10px; padding: 12px 8px 8px 8px; }"
+        "QGroupBox::title { subcontrol-origin: margin; left: 10px; padding: 2px 8px; "
+        "color: #00d4ff; background-color: #0d1a20; }");
     
     QGridLayout* layout = new QGridLayout(m_positionGroup);
-    layout->setSpacing(3);
-    layout->setContentsMargins(8, 8, 8, 8);
+    layout->setSpacing(4);
+    layout->setContentsMargins(10, 14, 10, 10);
     
     // Geographic coordinates
     layout->addWidget(new QLabel("Lat:", this), 0, 0);
@@ -122,13 +125,14 @@ void TrackDetailPanel::createPositionGroup() {
 void TrackDetailPanel::createKinematicsGroup() {
     m_kinematicsGroup = new QGroupBox("Kinematics", this);
     m_kinematicsGroup->setStyleSheet(
-        "QGroupBox { font-weight: bold; border: 1px solid #444; border-radius: 4px; "
-        "margin-top: 6px; padding-top: 6px; }"
-        "QGroupBox::title { subcontrol-origin: margin; left: 8px; padding: 0 4px; color: #8cf; }");
+        "QGroupBox { font-weight: bold; border: 1px solid #2a4a5a; border-radius: 6px; "
+        "background-color: #0d1a20; margin-top: 10px; padding: 12px 8px 8px 8px; }"
+        "QGroupBox::title { subcontrol-origin: margin; left: 10px; padding: 2px 8px; "
+        "color: #00d4ff; background-color: #0d1a20; }");
     
     QFormLayout* layout = new QFormLayout(m_kinematicsGroup);
-    layout->setSpacing(3);
-    layout->setContentsMargins(8, 8, 8, 8);
+    layout->setSpacing(4);
+    layout->setContentsMargins(10, 14, 10, 10);
     
     m_speedLabel = new QLabel("-", this);
     m_speedLabel->setStyleSheet("QLabel { color: #8f8; font-weight: bold; }");
@@ -146,13 +150,14 @@ void TrackDetailPanel::createKinematicsGroup() {
 void TrackDetailPanel::createThreatGroup() {
     m_threatGroup = new QGroupBox("Threat Assessment", this);
     m_threatGroup->setStyleSheet(
-        "QGroupBox { font-weight: bold; border: 1px solid #444; border-radius: 4px; "
-        "margin-top: 6px; padding-top: 6px; }"
-        "QGroupBox::title { subcontrol-origin: margin; left: 8px; padding: 0 4px; color: #f88; }");
+        "QGroupBox { font-weight: bold; border: 1px solid #4a2a2a; border-radius: 6px; "
+        "background-color: #0d1a20; margin-top: 10px; padding: 12px 8px 8px 8px; }"
+        "QGroupBox::title { subcontrol-origin: margin; left: 10px; padding: 2px 8px; "
+        "color: #ff6666; background-color: #0d1a20; }");
     
     QVBoxLayout* layout = new QVBoxLayout(m_threatGroup);
-    layout->setSpacing(4);
-    layout->setContentsMargins(8, 8, 8, 8);
+    layout->setSpacing(6);
+    layout->setContentsMargins(10, 14, 10, 10);
     
     // Threat level with bar
     QHBoxLayout* threatLayout = new QHBoxLayout();
@@ -197,13 +202,14 @@ void TrackDetailPanel::createThreatGroup() {
 void TrackDetailPanel::createActionsGroup() {
     m_actionsGroup = new QGroupBox("Actions", this);
     m_actionsGroup->setStyleSheet(
-        "QGroupBox { font-weight: bold; border: 1px solid #444; border-radius: 4px; "
-        "margin-top: 6px; padding-top: 6px; }"
-        "QGroupBox::title { subcontrol-origin: margin; left: 8px; padding: 0 4px; color: #8cf; }");
+        "QGroupBox { font-weight: bold; border: 1px solid #2a4a5a; border-radius: 6px; "
+        "background-color: #0d1a20; margin-top: 10px; padding: 12px 8px 8px 8px; }"
+        "QGroupBox::title { subcontrol-origin: margin; left: 10px; padding: 2px 8px; "
+        "color: #00d4ff; background-color: #0d1a20; }");
     
     QVBoxLayout* layout = new QVBoxLayout(m_actionsGroup);
-    layout->setSpacing(4);
-    layout->setContentsMargins(8, 8, 8, 8);
+    layout->setSpacing(6);
+    layout->setContentsMargins(10, 14, 10, 10);
     
     // Engage and Slew buttons in a row
     QHBoxLayout* btnLayout = new QHBoxLayout();

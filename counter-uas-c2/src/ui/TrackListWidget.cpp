@@ -24,13 +24,14 @@ TrackListWidget::TrackListWidget(TrackManager* trackManager, QWidget* parent)
     setMinimumSize(300, 120);
     
     QVBoxLayout* layout = new QVBoxLayout(this);
-    layout->setContentsMargins(4, 4, 4, 4);
-    layout->setSpacing(4);
+    layout->setContentsMargins(8, 8, 8, 8);
+    layout->setSpacing(6);
     
-    // Add title label
-    QLabel* titleLabel = new QLabel("Active Tracks", this);
-    titleLabel->setStyleSheet("QLabel { font-weight: bold; font-size: 12px; color: #ccc; "
-                             "background-color: #2a2a2a; padding: 4px; border-radius: 3px; }");
+    // Add title label with consistent styling
+    QLabel* titleLabel = new QLabel("THREAT DATABASE", this);
+    titleLabel->setStyleSheet("QLabel { font-weight: bold; font-size: 11px; color: #00d4ff; "
+                             "padding: 6px; background-color: #1a2a35; border-radius: 4px; "
+                             "border: 1px solid #2a4a5a; }");
     titleLabel->setAlignment(Qt::AlignCenter);
     layout->addWidget(titleLabel);
     
@@ -54,21 +55,29 @@ TrackListWidget::TrackListWidget(TrackManager* trackManager, QWidget* parent)
     header->setSectionResizeMode(6, QHeaderView::ResizeToContents);  // Velocity
     header->setSectionResizeMode(7, QHeaderView::Stretch);           // Status
     
-    // Style the table
+    // Style the table with improved visual distinction
     m_tableView->setStyleSheet(
         "QTableView { "
-        "   background-color: #1a1a1a; "
-        "   alternate-background-color: #252525; "
+        "   background-color: #0d1a20; "
+        "   alternate-background-color: #12252d; "
         "   color: #ddd; "
-        "   gridline-color: #333; "
-        "   selection-background-color: #3a6090; "
+        "   gridline-color: #2a4a5a; "
+        "   border: 1px solid #2a4a5a; "
+        "   border-radius: 4px; "
+        "   selection-background-color: #1a4a6a; "
         "   selection-color: white; "
         "} "
+        "QTableView::item { "
+        "   padding: 6px; "
+        "} "
         "QHeaderView::section { "
-        "   background-color: #333; "
-        "   color: #ccc; "
-        "   padding: 4px; "
-        "   border: 1px solid #444; "
+        "   background-color: #1a2a35; "
+        "   color: #00d4ff; "
+        "   padding: 8px 4px; "
+        "   border: none; "
+        "   border-bottom: 2px solid #2a4a5a; "
+        "   font-weight: bold; "
+        "   font-size: 10px; "
         "} "
     );
     

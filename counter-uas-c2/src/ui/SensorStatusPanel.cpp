@@ -17,10 +17,15 @@ SensorStatusPanel::SensorStatusPanel(QWidget* parent)
 
 void SensorStatusPanel::setupUI() {
     QVBoxLayout* layout = new QVBoxLayout(this);
-    layout->setContentsMargins(5, 5, 5, 5);
+    layout->setContentsMargins(8, 8, 8, 8);
+    layout->setSpacing(6);
     
-    QLabel* titleLabel = new QLabel("Sensor Status", this);
-    titleLabel->setStyleSheet("font-weight: bold; font-size: 12px;");
+    // Panel title with consistent styling
+    QLabel* titleLabel = new QLabel("SENSOR NETWORK", this);
+    titleLabel->setStyleSheet("QLabel { font-weight: bold; font-size: 11px; color: #00d4ff; "
+                             "padding: 6px; background-color: #1a2a35; border-radius: 4px; "
+                             "border: 1px solid #2a4a5a; }");
+    titleLabel->setAlignment(Qt::AlignCenter);
     layout->addWidget(titleLabel);
     
     m_table = new QTableWidget(this);
@@ -32,6 +37,32 @@ void SensorStatusPanel::setupUI() {
     m_table->setSelectionMode(QAbstractItemView::SingleSelection);
     m_table->setAlternatingRowColors(true);
     m_table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    
+    // Apply consistent table styling
+    m_table->setStyleSheet(
+        "QTableWidget { "
+        "   background-color: #0d1a20; "
+        "   alternate-background-color: #12252d; "
+        "   color: #ddd; "
+        "   gridline-color: #2a4a5a; "
+        "   border: 1px solid #2a4a5a; "
+        "   border-radius: 4px; "
+        "   selection-background-color: #1a4a6a; "
+        "   selection-color: white; "
+        "} "
+        "QTableWidget::item { "
+        "   padding: 6px; "
+        "} "
+        "QHeaderView::section { "
+        "   background-color: #1a2a35; "
+        "   color: #00d4ff; "
+        "   padding: 8px 4px; "
+        "   border: none; "
+        "   border-bottom: 2px solid #2a4a5a; "
+        "   font-weight: bold; "
+        "   font-size: 10px; "
+        "} "
+    );
     
     connect(m_table, &QTableWidget::cellClicked, this, &SensorStatusPanel::onTableItemClicked);
     connect(m_table, &QTableWidget::cellDoubleClicked, this, &SensorStatusPanel::onTableItemDoubleClicked);
