@@ -9,6 +9,8 @@
 #include "ui/CameraStatusPanel.h"
 #include "ui/EffectorControlPanel.h"
 #include "ui/AlertQueue.h"
+#include "ui/QuickActionsPanel.h"
+#include "ui/SystemStatusWidget.h"
 #include "ui/dialogs/SensorConfigDialog.h"
 #include "ui/dialogs/EffectorStatusDialog.h"
 #include "ui/dialogs/SimulationSettingsDialog.h"
@@ -458,19 +460,30 @@ void MainWindow::setupPPIToolBar() {
 }
 
 void MainWindow::setupDockWidgets() {
-    setDockOptions(QMainWindow::AnimatedDocks | QMainWindow::AllowNestedDocks);
+    setDockOptions(QMainWindow::AnimatedDocks | QMainWindow::AllowNestedDocks | 
+                   QMainWindow::AllowTabbedDocks);
     
-    // Track detail dock (left)
-    m_trackDetailDock = new QDockWidget("Track Detail", this);
+    // ===== LEFT SIDE: Quick Actions + Track Detail =====
+    
+    // Quick Actions dock (left, top) - grouped controls
+    m_quickActionsDock = new QDockWidget("Quick Actions", this);
+    m_quickActionsPanel = new QuickActionsPanel(this);
+    m_quickActionsDock->setWidget(m_quickActionsPanel);
+    addDockWidget(Qt::LeftDockWidgetArea, m_quickActionsDock);
+    
+    // Track detail dock (left, below quick actions)
+    m_trackDetailDock = new QDockWidget("Track Details", this);
     m_trackDetailPanel = new TrackDetailPanel(this);
     m_trackDetailDock->setWidget(m_trackDetailPanel);
     addDockWidget(Qt::LeftDockWidgetArea, m_trackDetailDock);
+    
+    // ===== BOTTOM: Track List + Status Panels =====
     
     // Track list dock (bottom) - add first to ensure visibility
     m_trackListDock = new QDockWidget("Track List", this);
     m_trackListWidget = new TrackListWidget(m_trackManager, this);
     m_trackListDock->setWidget(m_trackListWidget);
-    m_trackListDock->setMinimumHeight(150);  // Ensure minimum visible height
+    m_trackListDock->setMinimumHeight(150);
     addDockWidget(Qt::BottomDockWidgetArea, m_trackListDock);
     
     // Sensor status dock (bottom, beside track list)
@@ -492,10 +505,22 @@ void MainWindow::setupDockWidgets() {
     m_cameraStatusDock->setWidget(m_cameraStatusPanel);
     tabifyDockWidget(m_sensorStatusDock, m_cameraStatusDock);
     
-    // Raise sensor status tab by default (track list is always visible beside it)
+    // Raise sensor status tab by default
     m_sensorStatusDock->raise();
     
-    // Effector control dock (right)
+    // ===== RIGHT SIDE: System Status + Effector + Alerts =====
+    
+    // System status dock (right, top) - consolidated overview
+    m_systemStatusDock = new QDockWidget("System Status", this);
+    m_systemStatusWidget = new SystemStatusWidget(this);
+    m_systemStatusWidget->setTrackManager(m_trackManager);
+    m_systemStatusWidget->setThreatAssessor(m_threatAssessor);
+    m_systemStatusWidget->setEngagementManager(m_engagementManager);
+    m_systemStatusWidget->setVideoManager(m_videoManager);
+    m_systemStatusDock->setWidget(m_systemStatusWidget);
+    addDockWidget(Qt::RightDockWidgetArea, m_systemStatusDock);
+    
+    // Effector control dock (right, below system status)
     m_effectorDock = new QDockWidget("Effector Control", this);
     m_effectorControlPanel = new EffectorControlPanel(m_engagementManager, this);
     m_effectorDock->setWidget(m_effectorControlPanel);
@@ -535,6 +560,75 @@ void MainWindow::setupConnections() {
     connect(m_videoGridWidget, &VideoGridWidget::cameraSelected,
             m_primaryVideoWidget, &VideoDisplayWidget::setSource);
     
+    // ===== Quick Actions Panel Connections =====
+    connect(m_quickActionsPanel, &QuickActionsPanel::startSimulation,
+            this, &MainWindow::startSimulation);
+    connect(m_quickActionsPanel, &QuickActionsPanel::stopSimulation,
+            this, &MainWindow::stopSimulation);
+    connect(m_quickActionsPanel, &QuickActionsPanel::pauseSimulation,
+            this, &MainWindow::pauseSimulation);
+    connect(m_quickActionsPanel, &QuickActionsPanel::resetSimulation,
+            this, &MainWindow::resetSimulation);
+    
+    connect(m_quickActionsPanel, &QuickActionsPanel::displayModeChanged,
+            this, [this](int mode) {
+                // Update display mode combo to match
+                for (int i = 0; i < m_displayModeCombo->count(); ++i) {
+                    if (m_displayModeCombo->itemData(i).toInt() == mode) {
+                        m_displayModeCombo->setCurrentIndex(i);
+                        break;
+                    }
+                }
+                onTogglePPIDisplay();
+            });
+    
+    connect(m_quickActionsPanel, &QuickActionsPanel::zoomIn,
+            this, [this]() { 
+                m_mapWidget->setZoom(m_mapWidget->zoom() + 1);
+                double newRange = m_ppiWidget->rangeScale() * 0.8;
+                m_ppiWidget->setRangeScale(newRange);
+            });
+    connect(m_quickActionsPanel, &QuickActionsPanel::zoomOut,
+            this, [this]() { 
+                m_mapWidget->setZoom(m_mapWidget->zoom() - 1);
+                double newRange = m_ppiWidget->rangeScale() * 1.25;
+                m_ppiWidget->setRangeScale(newRange);
+            });
+    connect(m_quickActionsPanel, &QuickActionsPanel::centerView,
+            this, [this]() { 
+                GeoPosition basePos;
+                basePos.latitude = 34.0522;
+                basePos.longitude = -118.2437;
+                basePos.altitude = 100.0;
+                m_mapWidget->setCenter(basePos);
+                m_ppiWidget->setCenter(basePos);
+            });
+    
+    connect(m_quickActionsPanel, &QuickActionsPanel::startRecording,
+            this, &MainWindow::onStartAllRecording);
+    connect(m_quickActionsPanel, &QuickActionsPanel::stopRecording,
+            this, &MainWindow::onStopAllRecording);
+    connect(m_quickActionsPanel, &QuickActionsPanel::takeSnapshot,
+            this, &MainWindow::onTakeSnapshot);
+    
+    connect(m_quickActionsPanel, &QuickActionsPanel::engageSelected,
+            this, [this]() {
+                QString trackId = m_engagementManager->selectedTrackId();
+                if (!trackId.isEmpty()) {
+                    onEngageRequested(trackId);
+                }
+            });
+    
+    // ===== Track Detail Panel Classification =====
+    connect(m_trackDetailPanel, &TrackDetailPanel::classificationChanged,
+            this, [this](const QString& trackId, TrackClassification classification) {
+                m_trackManager->setTrackClassification(trackId, classification, 1.0);
+            });
+    connect(m_trackDetailPanel, &TrackDetailPanel::engageRequested,
+            this, &MainWindow::onEngageRequested);
+    connect(m_trackDetailPanel, &TrackDetailPanel::slewCameraRequested,
+            this, &MainWindow::onCameraSlewRequested);
+    
     // Simulation manager signals
     connect(m_simulationManager, &SystemSimulationManager::runningChanged,
             this, [this](bool running) {
@@ -542,6 +636,7 @@ void MainWindow::setupConnections() {
                 m_stopSimAction->setEnabled(running);
                 m_pauseSimAction->setEnabled(running);
                 m_statusSimStatus->setText(running ? "Simulation: Running" : "Simulation: Stopped");
+                m_quickActionsPanel->setSimulationRunning(running);
             });
     
     connect(m_simulationManager, &SystemSimulationManager::pausedChanged,
@@ -550,6 +645,7 @@ void MainWindow::setupConnections() {
                 if (paused) {
                     m_statusSimStatus->setText("Simulation: Paused");
                 }
+                m_quickActionsPanel->setSimulationPaused(paused);
             });
 }
 
@@ -574,8 +670,9 @@ void MainWindow::initializeSubsystems() {
     m_ppiWidget->setCenter(baseAsset.position);
     m_ppiWidget->setDefendedAreaRadii(baseAsset.criticalRadiusM, baseAsset.warningRadiusM, 5000.0);
     
-    // Set reference position for track list range calculation
+    // Set reference position for track list and track detail panel
     m_trackListWidget->setReferencePosition(baseAsset.position);
+    m_trackDetailPanel->setReferencePosition(baseAsset.position);
 }
 
 void MainWindow::setupVideoSimulation() {
@@ -679,11 +776,20 @@ void MainWindow::startSimulation() {
         m_primaryVideoWidget->setSource(cameras.first().cameraId);
     }
     
-    // Update sensor status
+    // Update sensor status panels
     m_sensorStatusPanel->updateSensorStatus("SIM-RADAR-001", "ONLINE");
     m_sensorStatusPanel->updateSensorStatus("SIM-RF-001", "ONLINE");
     m_sensorStatusPanel->updateSensorStatus("SIM-DAY-001", "ONLINE");
     m_sensorStatusPanel->updateSensorStatus("SIM-NIGHT-001", "ONLINE");
+    
+    // Update system status widget
+    m_systemStatusWidget->setSensorStatus("RADAR", "ONLINE", 1.0);
+    m_systemStatusWidget->setSensorStatus("RF", "ONLINE", 1.0);
+    m_systemStatusWidget->setSensorStatus("CAM", "ONLINE", 1.0);
+    m_systemStatusWidget->setEffectorStatus("JAMMER", "READY", true);
+    m_systemStatusWidget->setEffectorStatus("KINETIC", "READY", true);
+    m_systemStatusWidget->setEffectorStatus("DE", "READY", true);
+    m_systemStatusWidget->setVideoStreamCount(2, 2);
     
     // Start PPI sweep animation
     m_ppiWidget->startSweep();
@@ -709,11 +815,20 @@ void MainWindow::stopSimulation() {
     m_trackManager->stop();
     m_threatAssessor->stop();
     
-    // Update sensor status
+    // Update sensor status panels
     m_sensorStatusPanel->updateSensorStatus("SIM-RADAR-001", "OFFLINE");
     m_sensorStatusPanel->updateSensorStatus("SIM-RF-001", "OFFLINE");
     m_sensorStatusPanel->updateSensorStatus("SIM-DAY-001", "OFFLINE");
     m_sensorStatusPanel->updateSensorStatus("SIM-NIGHT-001", "OFFLINE");
+    
+    // Update system status widget
+    m_systemStatusWidget->setSensorStatus("RADAR", "OFFLINE", 0.0);
+    m_systemStatusWidget->setSensorStatus("RF", "OFFLINE", 0.0);
+    m_systemStatusWidget->setSensorStatus("CAM", "OFFLINE", 0.0);
+    m_systemStatusWidget->setEffectorStatus("JAMMER", "OFFLINE", false);
+    m_systemStatusWidget->setEffectorStatus("KINETIC", "OFFLINE", false);
+    m_systemStatusWidget->setEffectorStatus("DE", "OFFLINE", false);
+    m_systemStatusWidget->setVideoStreamCount(0, 2);
     
     // Stop PPI sweep animation
     m_ppiWidget->stopSweep();
@@ -974,6 +1089,8 @@ void MainWindow::onRestoreLayout() {
 
 void MainWindow::onResetLayout() {
     // Reset to default layout
+    m_quickActionsDock->show();
+    m_systemStatusDock->show();
     m_trackListDock->show();
     m_trackDetailDock->show();
     m_sensorStatusDock->show();

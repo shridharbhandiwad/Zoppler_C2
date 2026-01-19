@@ -25,6 +25,8 @@ class SensorStatusPanel;
 class CameraStatusPanel;
 class EffectorControlPanel;
 class AlertQueue;
+class QuickActionsPanel;
+class SystemStatusWidget;
 class TrackManager;
 class ThreatAssessor;
 class EngagementManager;
@@ -131,6 +133,10 @@ private:
     EffectorControlPanel* m_effectorControlPanel;
     AlertQueue* m_alertQueue;
     
+    // Additional UI Widgets
+    QuickActionsPanel* m_quickActionsPanel;
+    SystemStatusWidget* m_systemStatusWidget;
+    
     // Dock widgets
     QDockWidget* m_trackListDock;
     QDockWidget* m_trackDetailDock;
@@ -140,6 +146,8 @@ private:
     QDockWidget* m_alertDock;
     QDockWidget* m_videoDock;
     QDockWidget* m_videoGridDock;
+    QDockWidget* m_quickActionsDock;
+    QDockWidget* m_systemStatusDock;
     
     // Toolbar and status
     QToolBar* m_mainToolBar;
