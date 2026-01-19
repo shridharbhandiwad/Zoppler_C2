@@ -34,6 +34,11 @@ private:
     void updateTrackRow(const QString& trackId);
     int findTrackRow(const QString& trackId);
     QString formatRange(double rangeMeters) const;
+    QString formatAzimuth(double azimuthDegrees) const;
+    QString formatElevation(double elevationDegrees) const;
+    QString formatVelocity(double velocityMps) const;
+    double calculateAzimuth(const GeoPosition& from, const GeoPosition& to) const;
+    double calculateElevation(const GeoPosition& from, const GeoPosition& to) const;
     
     TrackManager* m_trackManager;
     QTableView* m_tableView;

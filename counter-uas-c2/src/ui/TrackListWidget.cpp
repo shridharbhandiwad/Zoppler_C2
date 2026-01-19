@@ -5,6 +5,7 @@
 #include <QHeaderView>
 #include <QLabel>
 #include <QBrush>
+#include <QtMath>
 
 namespace CounterUAS {
 
@@ -35,7 +36,7 @@ TrackListWidget::TrackListWidget(TrackManager* trackManager, QWidget* parent)
     
     layout->addWidget(m_tableView);
     
-    m_model->setHorizontalHeaderLabels({"ID", "Class", "Threat", "Range", "Status"});
+    m_model->setHorizontalHeaderLabels({"ID", "Class", "Threat", "Range", "Azimuth", "Elevation", "Velocity", "Status"});
     m_tableView->setModel(m_model);
     m_tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     m_tableView->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -47,8 +48,11 @@ TrackListWidget::TrackListWidget(TrackManager* trackManager, QWidget* parent)
     header->setSectionResizeMode(0, QHeaderView::ResizeToContents);  // ID
     header->setSectionResizeMode(1, QHeaderView::ResizeToContents);  // Class
     header->setSectionResizeMode(2, QHeaderView::ResizeToContents);  // Threat
-    header->setSectionResizeMode(3, QHeaderView::Stretch);           // Range
-    header->setSectionResizeMode(4, QHeaderView::ResizeToContents);  // Status
+    header->setSectionResizeMode(3, QHeaderView::ResizeToContents);  // Range
+    header->setSectionResizeMode(4, QHeaderView::ResizeToContents);  // Azimuth
+    header->setSectionResizeMode(5, QHeaderView::ResizeToContents);  // Elevation
+    header->setSectionResizeMode(6, QHeaderView::ResizeToContents);  // Velocity
+    header->setSectionResizeMode(7, QHeaderView::Stretch);           // Status
     
     // Style the table
     m_tableView->setStyleSheet(
@@ -84,13 +88,18 @@ TrackListWidget::TrackListWidget(TrackManager* trackManager, QWidget* parent)
 void TrackListWidget::setReferencePosition(const GeoPosition& pos) {
     m_referencePosition = pos;
     
-    // Update range for all existing tracks
+    // Update range, azimuth, and elevation for all existing tracks
     for (int i = 0; i < m_model->rowCount(); ++i) {
         QString trackId = m_model->item(i, 0)->text();
         Track* track = m_trackManager->track(trackId);
         if (track) {
+            GeoPosition trackPos = track->position();
             double range = track->distanceTo(m_referencePosition);
+            double azimuth = calculateAzimuth(m_referencePosition, trackPos);
+            double elevation = calculateElevation(m_referencePosition, trackPos);
             m_model->item(i, 3)->setText(formatRange(range));
+            m_model->item(i, 4)->setText(formatAzimuth(azimuth));
+            m_model->item(i, 5)->setText(formatElevation(elevation));
         }
     }
 }
@@ -103,6 +112,63 @@ QString TrackListWidget::formatRange(double rangeMeters) const {
     }
 }
 
+QString TrackListWidget::formatAzimuth(double azimuthDegrees) const {
+    return QString("%1\u00B0").arg(azimuthDegrees, 0, 'f', 1);  // Unicode degree symbol
+}
+
+QString TrackListWidget::formatElevation(double elevationDegrees) const {
+    return QString("%1\u00B0").arg(elevationDegrees, 0, 'f', 1);  // Unicode degree symbol
+}
+
+QString TrackListWidget::formatVelocity(double velocityMps) const {
+    if (velocityMps < 1.0) {
+        return QString("%1 m/s").arg(velocityMps, 0, 'f', 2);
+    } else {
+        return QString("%1 m/s").arg(velocityMps, 0, 'f', 1);
+    }
+}
+
+double TrackListWidget::calculateAzimuth(const GeoPosition& from, const GeoPosition& to) const {
+    // Calculate bearing from reference position to track
+    double lat1 = qDegreesToRadians(from.latitude);
+    double lat2 = qDegreesToRadians(to.latitude);
+    double dLon = qDegreesToRadians(to.longitude - from.longitude);
+    
+    double y = std::sin(dLon) * std::cos(lat2);
+    double x = std::cos(lat1) * std::sin(lat2) -
+               std::sin(lat1) * std::cos(lat2) * std::cos(dLon);
+    
+    double bearing = qRadiansToDegrees(std::atan2(y, x));
+    if (bearing < 0) bearing += 360.0;
+    
+    return bearing;
+}
+
+double TrackListWidget::calculateElevation(const GeoPosition& from, const GeoPosition& to) const {
+    // Calculate horizontal distance using Haversine formula
+    const double R = 6371000.0; // Earth radius in meters
+    
+    double lat1 = qDegreesToRadians(from.latitude);
+    double lat2 = qDegreesToRadians(to.latitude);
+    double dLat = lat2 - lat1;
+    double dLon = qDegreesToRadians(to.longitude - from.longitude);
+    
+    double a = std::sin(dLat/2) * std::sin(dLat/2) +
+               std::cos(lat1) * std::cos(lat2) *
+               std::sin(dLon/2) * std::sin(dLon/2);
+    double c = 2 * std::atan2(std::sqrt(a), std::sqrt(1-a));
+    
+    double horizontalDist = R * c;
+    double verticalDist = to.altitude - from.altitude;
+    
+    // Calculate elevation angle (positive is above horizon, negative is below)
+    if (horizontalDist < 0.001) {  // Very close, avoid division by near-zero
+        return verticalDist > 0 ? 90.0 : (verticalDist < 0 ? -90.0 : 0.0);
+    }
+    
+    return qRadiansToDegrees(std::atan2(verticalDist, horizontalDist));
+}
+
 void TrackListWidget::onTrackCreated(const QString& trackId) {
     Track* track = m_trackManager->track(trackId);
     if (!track) {
@@ -111,8 +177,12 @@ void TrackListWidget::onTrackCreated(const QString& trackId) {
         return;
     }
     
-    // Calculate range from reference position
+    // Calculate range, azimuth, and elevation from reference position
+    GeoPosition trackPos = track->position();
     double range = track->distanceTo(m_referencePosition);
+    double azimuth = calculateAzimuth(m_referencePosition, trackPos);
+    double elevation = calculateElevation(m_referencePosition, trackPos);
+    double velocity = track->velocity().speed();
     
     QList<QStandardItem*> row;
     
@@ -156,6 +226,21 @@ void TrackListWidget::onTrackCreated(const QString& trackId) {
     rangeItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
     row << rangeItem;
     
+    // Azimuth column
+    QStandardItem* azimuthItem = new QStandardItem(formatAzimuth(azimuth));
+    azimuthItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    row << azimuthItem;
+    
+    // Elevation column
+    QStandardItem* elevationItem = new QStandardItem(formatElevation(elevation));
+    elevationItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    row << elevationItem;
+    
+    // Velocity column
+    QStandardItem* velocityItem = new QStandardItem(formatVelocity(velocity));
+    velocityItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    row << velocityItem;
+    
     // Status column with color coding
     QStandardItem* statusItem = new QStandardItem(track->stateString());
     TrackState state = track->state();
@@ -173,11 +258,14 @@ void TrackListWidget::onTrackCreated(const QString& trackId) {
     m_model->appendRow(row);
     
     Logger::instance().debug("TrackListWidget", 
-        QString("Added track %1 to list (Class: %2, Threat: %3, Range: %4)")
+        QString("Added track %1 to list (Class: %2, Threat: %3, Range: %4, Az: %5, El: %6, Vel: %7)")
             .arg(trackId)
             .arg(track->classificationString())
             .arg(threatLevel)
-            .arg(formatRange(range)));
+            .arg(formatRange(range))
+            .arg(formatAzimuth(azimuth))
+            .arg(formatElevation(elevation))
+            .arg(formatVelocity(velocity)));
 }
 
 void TrackListWidget::onTrackUpdated(const QString& trackId) {
@@ -206,8 +294,12 @@ void TrackListWidget::updateTrackRow(const QString& trackId) {
     Track* track = m_trackManager->track(trackId);
     if (!track) return;
     
-    // Calculate range from reference position
+    // Calculate range, azimuth, elevation, and velocity from reference position
+    GeoPosition trackPos = track->position();
     double range = track->distanceTo(m_referencePosition);
+    double azimuth = calculateAzimuth(m_referencePosition, trackPos);
+    double elevation = calculateElevation(m_referencePosition, trackPos);
+    double velocity = track->velocity().speed();
     
     // Update classification with color coding
     QStandardItem* classItem = m_model->item(row, 1);
@@ -244,8 +336,17 @@ void TrackListWidget::updateTrackRow(const QString& trackId) {
     // Update range
     m_model->item(row, 3)->setText(formatRange(range));
     
+    // Update azimuth
+    m_model->item(row, 4)->setText(formatAzimuth(azimuth));
+    
+    // Update elevation
+    m_model->item(row, 5)->setText(formatElevation(elevation));
+    
+    // Update velocity
+    m_model->item(row, 6)->setText(formatVelocity(velocity));
+    
     // Update status with color coding
-    QStandardItem* statusItem = m_model->item(row, 4);
+    QStandardItem* statusItem = m_model->item(row, 7);
     statusItem->setText(track->stateString());
     TrackState state = track->state();
     if (state == TrackState::Active) {
