@@ -20,6 +20,9 @@ PPIDisplayWidget::PPIDisplayWidget(QWidget* parent)
     setMinimumSize(400, 400);
     setMouseTracking(true);
     
+    // Enable focus policy for keyboard/mouse events
+    setFocusPolicy(Qt::StrongFocus);
+    
     // Default center: Bangalore, India
     m_center.latitude = 12.9716;
     m_center.longitude = 77.5946;
@@ -43,6 +46,9 @@ PPIDisplayWidget::PPIDisplayWidget(QWidget* parent)
     
     // Default map tile URL (OpenStreetMap)
     m_mapTileUrlTemplate = "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
+    
+    // Force initial paint
+    update();
 }
 
 PPIDisplayWidget::~PPIDisplayWidget() {
@@ -392,11 +398,15 @@ void PPIDisplayWidget::mousePressEvent(QMouseEvent* event) {
             m_lastPanPos = event->pos();
             setCursor(Qt::ClosedHandCursor);
         }
+        event->accept();
     } else if (event->button() == Qt::RightButton) {
         // Right-click emits map clicked for other actions
         QPointF ppiPos = event->pos() - screenCenter();
         GeoPosition clickPos = ppiToGeo(ppiPos);
         emit mapClicked(clickPos);
+        event->accept();
+    } else {
+        QWidget::mousePressEvent(event);
     }
 }
 
@@ -407,9 +417,16 @@ void PPIDisplayWidget::mouseMoveEvent(QMouseEvent* event) {
         m_lastPanPos = event->pos();
         
         // Convert pixel delta to meters, then to geo delta
-        double mPerPixel = m_rangeScaleM / ppiRadius();
-        double deltaM_E = -delta.x() * mPerPixel;  // East movement
-        double deltaM_N = delta.y() * mPerPixel;   // North movement
+        // Using ppiRadius() to get the display radius in pixels
+        double radius = ppiRadius();
+        if (radius <= 0) radius = 1.0;  // Prevent division by zero
+        double mPerPixel = m_rangeScaleM / radius;
+        
+        // When dragging left (negative delta.x), we want to see what's to the left
+        // which means moving the center to the left (west, decreasing longitude)
+        // Standard map panning: drag in direction = map moves in direction = center moves opposite
+        double deltaM_E = delta.x() * mPerPixel;   // East movement (positive = drag right = move center east)
+        double deltaM_N = -delta.y() * mPerPixel;  // North movement (positive = drag up = move center north)
         
         // Convert meters to degrees
         double dLat = deltaM_N / CoordinateUtils::DEG_TO_M_LAT;
@@ -430,6 +447,9 @@ void PPIDisplayWidget::mouseMoveEvent(QMouseEvent* event) {
         m_backgroundDirty = true;
         updateVisibleTiles();
         update();
+        event->accept();
+    } else {
+        QWidget::mouseMoveEvent(event);
     }
 }
 
@@ -439,6 +459,9 @@ void PPIDisplayWidget::mouseReleaseEvent(QMouseEvent* event) {
             m_isPanning = false;
             setCursor(Qt::ArrowCursor);
         }
+        event->accept();
+    } else {
+        QWidget::mouseReleaseEvent(event);
     }
 }
 
@@ -455,6 +478,7 @@ void PPIDisplayWidget::wheelEvent(QWheelEvent* event) {
     double delta = event->angleDelta().y() / 120.0;
     double scaleFactor = (delta > 0) ? 0.8 : 1.25;
     setRangeScale(m_rangeScaleM * scaleFactor);
+    event->accept();
 }
 
 void PPIDisplayWidget::resizeEvent(QResizeEvent* event) {
