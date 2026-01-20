@@ -651,6 +651,17 @@ void TacticalMapPage::setupMapSection() {
     m_mapWidget->setStyleSheet("border: none;");
     mapContainerLayout->addWidget(m_mapWidget, 0, 0, 2, 2);
     
+    // Connect map signals for coordinate updates
+    connect(m_mapWidget, &MapWidget::centerChanged,
+            this, &TacticalMapPage::onMapCenterChanged);
+    connect(m_mapWidget, &MapWidget::zoomChanged,
+            this, &TacticalMapPage::onMapZoomChanged);
+    
+    // Initialize coordinate display with default center (Bangalore)
+    updateCoordinates(m_mapWidget->center().latitude, 
+                      m_mapWidget->center().longitude,
+                      static_cast<int>(m_mapWidget->zoom()));
+    
     // Camera video windows (overlaid on map)
     setupCameraWindows();
     
@@ -989,6 +1000,21 @@ void TacticalMapPage::onTiffMapCleared() {
     m_mapStatusLabel->setText("No map loaded");
     m_mapStatusLabel->setStyleSheet("font-size: 9px; color: #667788;");
     m_loadMapBtn->setText("LOAD TIFF MAP");
+}
+
+void TacticalMapPage::onMapCenterChanged(const GeoPosition& pos) {
+    if (m_mapWidget) {
+        updateCoordinates(pos.latitude, pos.longitude, 
+                          static_cast<int>(m_mapWidget->zoom()));
+    }
+}
+
+void TacticalMapPage::onMapZoomChanged(double zoom) {
+    if (m_mapWidget) {
+        updateCoordinates(m_mapWidget->center().latitude,
+                          m_mapWidget->center().longitude,
+                          static_cast<int>(zoom));
+    }
 }
 
 } // namespace CounterUAS

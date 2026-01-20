@@ -10,6 +10,7 @@
 #include <QMap>
 #include <QTimer>
 #include <QPushButton>
+#include "core/Track.h"
 
 namespace CounterUAS {
 
@@ -149,6 +150,8 @@ private slots:
     void onMapTrackUpdated(const QString& trackId);
     void onTiffMapLoaded(const QString& filePath);
     void onTiffMapCleared();
+    void onMapCenterChanged(const GeoPosition& pos);
+    void onMapZoomChanged(double zoom);
     
 private:
     void setupUI();
