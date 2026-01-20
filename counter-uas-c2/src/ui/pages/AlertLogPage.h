@@ -9,6 +9,7 @@
 #include <QPushButton>
 #include <QDateTime>
 #include <QList>
+#include <QMap>
 
 namespace CounterUAS {
 

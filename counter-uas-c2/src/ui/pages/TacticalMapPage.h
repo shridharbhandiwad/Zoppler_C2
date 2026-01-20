@@ -7,6 +7,7 @@
 #include <QLabel>
 #include <QScrollArea>
 #include <QFrame>
+#include <QMap>
 
 namespace CounterUAS {
 
