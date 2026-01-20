@@ -32,8 +32,8 @@
         "reconnectIntervalMs": 5000
     },
     "map": {
-        "defaultCenterLat": 34.0522,
-        "defaultCenterLon": -118.2437,
+        "defaultCenterLat": 12.9716,
+        "defaultCenterLon": 77.5946,
         "defaultZoom": 15,
         "updateRateHz": 10
     },

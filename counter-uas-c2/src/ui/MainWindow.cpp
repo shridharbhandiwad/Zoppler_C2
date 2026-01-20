@@ -405,8 +405,8 @@ void MainWindow::setupToolBar() {
     QAction* centerAction = viewMenu->addAction("Center on Base");
     connect(centerAction, &QAction::triggered, this, [this]() { 
         GeoPosition basePos;
-        basePos.latitude = 34.0522;
-        basePos.longitude = -118.2437;
+        basePos.latitude = 12.9716;
+        basePos.longitude = 77.5946;
         basePos.altitude = 100.0;
         m_mapWidget->setCenter(basePos); 
     });
@@ -543,10 +543,10 @@ void MainWindow::setupPPIToolBar() {
     
     QMenu* optionsMenu = new QMenu(displayOptionsBtn);
     
-    // Sweep control
+    // Sweep control - enabled by default for PPI visibility
     m_ppiSweepAction = optionsMenu->addAction("Radar Sweep");
     m_ppiSweepAction->setCheckable(true);
-    m_ppiSweepAction->setChecked(false);
+    m_ppiSweepAction->setChecked(true);
     m_ppiSweepAction->setToolTip("Toggle radar sweep animation");
     connect(m_ppiSweepAction, &QAction::triggered, this, &MainWindow::onPPISweepToggle);
     
@@ -712,8 +712,8 @@ void MainWindow::setupConnections() {
     connect(m_quickActionsPanel, &QuickActionsPanel::centerView,
             this, [this]() { 
                 GeoPosition basePos;
-                basePos.latitude = 34.0522;
-                basePos.longitude = -118.2437;
+                basePos.latitude = 12.9716;
+                basePos.longitude = 77.5946;
                 basePos.altitude = 100.0;
                 m_mapWidget->setCenter(basePos);
                 m_ppiWidget->setCenter(basePos);
@@ -769,8 +769,8 @@ void MainWindow::initializeSubsystems() {
     DefendedAsset baseAsset;
     baseAsset.id = "BASE-01";
     baseAsset.name = "Main Installation";
-    baseAsset.position.latitude = 34.0522;
-    baseAsset.position.longitude = -118.2437;
+    baseAsset.position.latitude = 12.9716;
+    baseAsset.position.longitude = 77.5946;
     baseAsset.position.altitude = 100.0;
     baseAsset.criticalRadiusM = 500.0;
     baseAsset.warningRadiusM = 1500.0;
@@ -825,10 +825,10 @@ void MainWindow::setupPPIDisplay() {
     // Configure PPI display
     m_ppiWidget->setTrackManager(m_trackManager);
     
-    // Set initial center to match map widget
+    // Set initial center to match map widget (Bangalore, India)
     GeoPosition basePos;
-    basePos.latitude = 34.0522;
-    basePos.longitude = -118.2437;
+    basePos.latitude = 12.9716;
+    basePos.longitude = 77.5946;
     basePos.altitude = 100.0;
     m_ppiWidget->setCenter(basePos);
     
@@ -842,6 +842,11 @@ void MainWindow::setupPPIDisplay() {
     // Enable track history
     m_ppiWidget->setShowTrackHistory(true);
     m_ppiWidget->setTrackHistoryLength(30);  // 30 seconds of history
+    
+    // Start PPI sweep by default so the display is visible
+    m_ppiWidget->startSweep();
+    m_ppiSweepAction->setChecked(true);
+    m_ppiSweepAction->setText("Stop Sweep");
     
     // Connect PPI signals
     connect(m_ppiWidget, &PPIDisplayWidget::trackSelected,
@@ -857,7 +862,10 @@ void MainWindow::setupPPIDisplay() {
     connect(m_trackManager, &TrackManager::trackDropped,
             m_ppiWidget, &PPIDisplayWidget::removeTrack);
     
-    Logger::instance().info("MainWindow", "PPI display configured");
+    // Force initial refresh to ensure PPI is visible
+    m_ppiWidget->refresh();
+    
+    Logger::instance().info("MainWindow", "PPI display configured with sweep enabled");
 }
 
 void MainWindow::onSimulationVideoFrame(const QImage& frame, qint64 timestamp) {
