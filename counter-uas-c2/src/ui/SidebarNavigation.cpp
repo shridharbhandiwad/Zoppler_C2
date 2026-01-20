@@ -4,6 +4,7 @@
 #include <QHBoxLayout>
 #include <QSpacerItem>
 #include <QFrame>
+#include <QVariant>
 
 namespace CounterUAS {
 
