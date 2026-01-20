@@ -175,6 +175,7 @@ signals:
     void trackSelected(const QString& trackId);
     void trackDoubleClicked(const QString& trackId);
     void mapClicked(const GeoPosition& pos);
+    void centerChanged(const GeoPosition& pos);
     void rangeScaleChanged(double rangeM);
     void sweepAngleChanged(double angle);
     void displayModeChanged(PPIDisplayMode mode);
@@ -182,6 +183,8 @@ signals:
 protected:
     void paintEvent(QPaintEvent* event) override;
     void mousePressEvent(QMouseEvent* event) override;
+    void mouseMoveEvent(QMouseEvent* event) override;
+    void mouseReleaseEvent(QMouseEvent* event) override;
     void mouseDoubleClickEvent(QMouseEvent* event) override;
     void wheelEvent(QWheelEvent* event) override;
     void resizeEvent(QResizeEvent* event) override;
@@ -293,6 +296,10 @@ private:
     // Sweep trail (persistence effect)
     static constexpr int SWEEP_TRAIL_LENGTH = 60;
     QVector<double> m_sweepTrail;
+    
+    // Pan/drag state
+    bool m_isPanning = false;
+    QPoint m_lastPanPos;
 };
 
 } // namespace CounterUAS

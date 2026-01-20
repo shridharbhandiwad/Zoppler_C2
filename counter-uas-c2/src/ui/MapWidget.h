@@ -85,6 +85,7 @@ signals:
     void trackSelected(const QString& trackId);
     void mapClicked(const GeoPosition& pos);
     void zoomChanged(double zoom);
+    void centerChanged(const GeoPosition& pos);
     void tiffMapLoaded(const QString& filePath);
     void tiffMapLoadError(const QString& error);
     void tiffMapCleared();
@@ -92,6 +93,8 @@ signals:
 protected:
     void paintEvent(QPaintEvent* event) override;
     void mousePressEvent(QMouseEvent* event) override;
+    void mouseMoveEvent(QMouseEvent* event) override;
+    void mouseReleaseEvent(QMouseEvent* event) override;
     void wheelEvent(QWheelEvent* event) override;
     void resizeEvent(QResizeEvent* event) override;
     
@@ -125,6 +128,10 @@ private:
     double m_tiffOpacity = 1.0;
     QSize m_lastWidgetSize;
     double m_lastZoom = 0.0;
+    
+    // Pan/drag state
+    bool m_isPanning = false;
+    QPoint m_lastPanPos;
 };
 
 } // namespace CounterUAS

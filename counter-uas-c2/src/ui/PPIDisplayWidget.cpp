@@ -20,9 +20,9 @@ PPIDisplayWidget::PPIDisplayWidget(QWidget* parent)
     setMinimumSize(400, 400);
     setMouseTracking(true);
     
-    // Default center (Los Angeles area)
-    m_center.latitude = 34.0522;
-    m_center.longitude = -118.2437;
+    // Default center: Bangalore, India
+    m_center.latitude = 12.9716;
+    m_center.longitude = 77.5946;
     m_center.altitude = 0;
     
     // Initialize sweep trail
@@ -387,10 +387,57 @@ void PPIDisplayWidget::mousePressEvent(QMouseEvent* event) {
             emit trackSelected(trackId);
             update();
         } else {
-            // Convert to geo position
-            QPointF ppiPos = event->pos() - screenCenter();
-            GeoPosition clickPos = ppiToGeo(ppiPos);
-            emit mapClicked(clickPos);
+            // Start panning
+            m_isPanning = true;
+            m_lastPanPos = event->pos();
+            setCursor(Qt::ClosedHandCursor);
+        }
+    } else if (event->button() == Qt::RightButton) {
+        // Right-click emits map clicked for other actions
+        QPointF ppiPos = event->pos() - screenCenter();
+        GeoPosition clickPos = ppiToGeo(ppiPos);
+        emit mapClicked(clickPos);
+    }
+}
+
+void PPIDisplayWidget::mouseMoveEvent(QMouseEvent* event) {
+    if (m_isPanning) {
+        // Calculate pan delta in PPI coordinates
+        QPoint delta = event->pos() - m_lastPanPos;
+        m_lastPanPos = event->pos();
+        
+        // Convert pixel delta to meters, then to geo delta
+        double mPerPixel = m_rangeScaleM / ppiRadius();
+        double deltaM_E = -delta.x() * mPerPixel;  // East movement
+        double deltaM_N = delta.y() * mPerPixel;   // North movement
+        
+        // Convert meters to degrees
+        double dLat = deltaM_N / CoordinateUtils::DEG_TO_M_LAT;
+        double dLon = deltaM_E / CoordinateUtils::degToMeterLon(m_center.latitude);
+        
+        // Update center position
+        m_center.latitude += dLat;
+        m_center.longitude += dLon;
+        
+        // Clamp latitude to valid range
+        m_center.latitude = qBound(-85.0, m_center.latitude, 85.0);
+        
+        // Wrap longitude
+        while (m_center.longitude > 180.0) m_center.longitude -= 360.0;
+        while (m_center.longitude < -180.0) m_center.longitude += 360.0;
+        
+        emit centerChanged(m_center);
+        m_backgroundDirty = true;
+        updateVisibleTiles();
+        update();
+    }
+}
+
+void PPIDisplayWidget::mouseReleaseEvent(QMouseEvent* event) {
+    if (event->button() == Qt::LeftButton) {
+        if (m_isPanning) {
+            m_isPanning = false;
+            setCursor(Qt::ArrowCursor);
         }
     }
 }

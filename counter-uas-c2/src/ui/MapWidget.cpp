@@ -18,8 +18,9 @@ MapWidget::MapWidget(QWidget* parent) : QWidget(parent) {
     setMinimumSize(400, 300);
     setMouseTracking(true);
     
-    m_center.latitude = 34.0522;
-    m_center.longitude = -118.2437;
+    // Default center: Bangalore, India
+    m_center.latitude = 12.9716;
+    m_center.longitude = 77.5946;
     m_center.altitude = 0;
 }
 
@@ -400,8 +401,57 @@ void MapWidget::paintEvent(QPaintEvent* event) {
 
 void MapWidget::mousePressEvent(QMouseEvent* event) {
     if (event->button() == Qt::LeftButton) {
+        // Start panning
+        m_isPanning = true;
+        m_lastPanPos = event->pos();
+        setCursor(Qt::ClosedHandCursor);
+    } else if (event->button() == Qt::RightButton) {
+        // Right-click emits map clicked for other actions
         GeoPosition clickPos = screenToGeo(event->pos());
         emit mapClicked(clickPos);
+    }
+}
+
+void MapWidget::mouseMoveEvent(QMouseEvent* event) {
+    if (m_isPanning) {
+        // Calculate pan delta
+        QPoint delta = event->pos() - m_lastPanPos;
+        m_lastPanPos = event->pos();
+        
+        // Convert pixel delta to geo delta
+        double scale = m_zoom * 5000.0;  // pixels per degree at this zoom
+        double dLon = -delta.x() / scale;
+        double dLat = delta.y() / scale;
+        
+        // Update center position
+        m_center.longitude += dLon;
+        m_center.latitude += dLat;
+        
+        // Clamp latitude to valid range
+        m_center.latitude = qBound(-85.0, m_center.latitude, 85.0);
+        
+        // Wrap longitude
+        while (m_center.longitude > 180.0) m_center.longitude -= 360.0;
+        while (m_center.longitude < -180.0) m_center.longitude += 360.0;
+        
+        emit centerChanged(m_center);
+        update();
+    }
+}
+
+void MapWidget::mouseReleaseEvent(QMouseEvent* event) {
+    if (event->button() == Qt::LeftButton) {
+        if (m_isPanning) {
+            m_isPanning = false;
+            setCursor(Qt::ArrowCursor);
+            
+            // If it was just a click (no significant movement), emit mapClicked
+            QPoint delta = event->pos() - m_lastPanPos;
+            if (delta.manhattanLength() < 5) {
+                GeoPosition clickPos = screenToGeo(event->pos());
+                emit mapClicked(clickPos);
+            }
+        }
     }
 }
 
