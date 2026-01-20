@@ -94,7 +94,19 @@ SOURCES += \
     src/ui/AlertQueue.cpp \
     src/ui/EngagementDialog.cpp \
     src/ui/QuickActionsPanel.cpp \
-    src/ui/SystemStatusWidget.cpp
+    src/ui/SystemStatusWidget.cpp \
+    src/ui/SkyGuardMainWindow.cpp \
+    src/ui/SkyGuardTheme.cpp \
+    src/ui/SidebarNavigation.cpp \
+    src/ui/HeaderBar.cpp
+
+# UI pages sources
+SOURCES += \
+    src/ui/pages/TacticalMapPage.cpp \
+    src/ui/pages/ThreatDatabasePage.cpp \
+    src/ui/pages/SensorNetworkPage.cpp \
+    src/ui/pages/AlertLogPage.cpp \
+    src/ui/pages/SystemHealthPage.cpp
 
 # Config module sources
 SOURCES += \
@@ -183,7 +195,19 @@ HEADERS += \
     src/ui/AlertQueue.h \
     src/ui/EngagementDialog.h \
     src/ui/QuickActionsPanel.h \
-    src/ui/SystemStatusWidget.h
+    src/ui/SystemStatusWidget.h \
+    src/ui/SkyGuardMainWindow.h \
+    src/ui/SkyGuardTheme.h \
+    src/ui/SidebarNavigation.h \
+    src/ui/HeaderBar.h
+
+# UI pages headers
+HEADERS += \
+    src/ui/pages/TacticalMapPage.h \
+    src/ui/pages/ThreatDatabasePage.h \
+    src/ui/pages/SensorNetworkPage.h \
+    src/ui/pages/AlertLogPage.h \
+    src/ui/pages/SystemHealthPage.h
 
 # Config module headers
 HEADERS += \
