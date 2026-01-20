@@ -205,6 +205,7 @@ set(DIALOG_SOURCES
     src/ui/dialogs/SimulationSettingsDialog.cpp
     src/ui/dialogs/RulesOfEngagementDialog.cpp
     src/ui/dialogs/RecordingSettingsDialog.cpp
+    src/ui/dialogs/TiffMapSettingsDialog.cpp
 )
 
 # Header files
@@ -305,6 +306,7 @@ set(DIALOG_HEADERS
     src/ui/dialogs/SimulationSettingsDialog.h
     src/ui/dialogs/RulesOfEngagementDialog.h
     src/ui/dialogs/RecordingSettingsDialog.h
+    src/ui/dialogs/TiffMapSettingsDialog.h
 )
 
 # Resources

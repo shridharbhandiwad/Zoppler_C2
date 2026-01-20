@@ -6,6 +6,11 @@
 #include <QtMath>
 #include <QRandomGenerator>
 #include <QLinearGradient>
+#include <QImageReader>
+#include <QFileInfo>
+#include <QFile>
+#include <QTextStream>
+#include <QDir>
 
 namespace CounterUAS {
 
@@ -16,6 +21,273 @@ MapWidget::MapWidget(QWidget* parent) : QWidget(parent) {
     m_center.latitude = 34.0522;
     m_center.longitude = -118.2437;
     m_center.altitude = 0;
+}
+
+// ==================== TIFF Map Support ====================
+
+bool MapWidget::loadTiffMap(const QString& filePath) {
+    // Try to load with automatic bounds detection first
+    TiffMapBounds bounds;
+    if (tryParseGeoTiffBounds(filePath, bounds)) {
+        return loadTiffMap(filePath, bounds);
+    }
+    
+    // If no bounds found, use a default area centered on current view
+    // The user can adjust bounds later via the settings dialog
+    double defaultSize = 0.05;  // Roughly 5km at mid-latitudes
+    bounds.northLat = m_center.latitude + defaultSize;
+    bounds.southLat = m_center.latitude - defaultSize;
+    bounds.eastLon = m_center.longitude + defaultSize;
+    bounds.westLon = m_center.longitude - defaultSize;
+    
+    return loadTiffMap(filePath, bounds);
+}
+
+bool MapWidget::loadTiffMap(const QString& filePath, const TiffMapBounds& bounds) {
+    // Check if file exists
+    QFileInfo fileInfo(filePath);
+    if (!fileInfo.exists()) {
+        emit tiffMapLoadError(QString("File not found: %1").arg(filePath));
+        return false;
+    }
+    
+    // Check supported formats
+    QImageReader reader(filePath);
+    if (!reader.canRead()) {
+        emit tiffMapLoadError(QString("Cannot read image file: %1\nFormat: %2")
+                             .arg(filePath)
+                             .arg(QString(reader.format())));
+        return false;
+    }
+    
+    // Load the image
+    QImage image = reader.read();
+    if (image.isNull()) {
+        emit tiffMapLoadError(QString("Failed to load image: %1\nError: %2")
+                             .arg(filePath)
+                             .arg(reader.errorString()));
+        return false;
+    }
+    
+    // Validate bounds
+    if (!bounds.isValid()) {
+        emit tiffMapLoadError("Invalid map bounds specified");
+        return false;
+    }
+    
+    // Store the loaded map data
+    m_tiffMapImage = image;
+    m_tiffMapPath = filePath;
+    m_tiffBounds = bounds;
+    m_hasTiffMap = true;
+    m_showTiffMap = true;
+    
+    // Clear cached scaled version
+    m_scaledTiffCache = QPixmap();
+    m_lastWidgetSize = QSize();
+    m_lastZoom = 0.0;
+    
+    // Notify listeners
+    emit tiffMapLoaded(filePath);
+    
+    // Trigger repaint
+    update();
+    
+    return true;
+}
+
+void MapWidget::clearTiffMap() {
+    m_hasTiffMap = false;
+    m_showTiffMap = true;
+    m_tiffMapPath.clear();
+    m_tiffMapImage = QImage();
+    m_scaledTiffCache = QPixmap();
+    m_tiffBounds = TiffMapBounds();
+    
+    emit tiffMapCleared();
+    update();
+}
+
+void MapWidget::setTiffMapBounds(const TiffMapBounds& bounds) {
+    if (bounds.isValid()) {
+        m_tiffBounds = bounds;
+        // Clear cache to force re-render with new bounds
+        m_scaledTiffCache = QPixmap();
+        update();
+    }
+}
+
+void MapWidget::setTiffMapOpacity(double opacity) {
+    m_tiffOpacity = qBound(0.0, opacity, 1.0);
+    update();
+}
+
+void MapWidget::setShowTiffMap(bool show) {
+    m_showTiffMap = show;
+    update();
+}
+
+void MapWidget::centerOnTiffMap() {
+    if (m_hasTiffMap && m_tiffBounds.isValid()) {
+        GeoPosition center = m_tiffBounds.center();
+        setCenter(center);
+        
+        // Calculate appropriate zoom level based on map bounds
+        double latSpan = m_tiffBounds.height();
+        double lonSpan = m_tiffBounds.width();
+        double maxSpan = qMax(latSpan, lonSpan);
+        
+        // Approximate zoom calculation
+        double targetZoom = 10.0 / maxSpan;
+        targetZoom = qBound(1.0, targetZoom, 20.0);
+        setZoom(targetZoom);
+    }
+}
+
+bool MapWidget::tryParseGeoTiffBounds(const QString& filePath, TiffMapBounds& bounds) {
+    // Try to find and parse a world file (.tfw, .tifw, .wld)
+    QFileInfo fileInfo(filePath);
+    QString basePath = fileInfo.absolutePath() + "/" + fileInfo.completeBaseName();
+    
+    QStringList worldFileExtensions = {".tfw", ".tifw", ".wld", ".jgw", ".pgw"};
+    
+    for (const QString& ext : worldFileExtensions) {
+        QString worldFilePath = basePath + ext;
+        QFile worldFile(worldFilePath);
+        
+        if (worldFile.exists() && worldFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            QTextStream in(&worldFile);
+            QStringList lines;
+            
+            while (!in.atEnd()) {
+                QString line = in.readLine().trimmed();
+                if (!line.isEmpty()) {
+                    lines.append(line);
+                }
+            }
+            worldFile.close();
+            
+            // World file format:
+            // Line 1: pixel size in x direction (m per pixel)
+            // Line 2: rotation about y axis (usually 0)
+            // Line 3: rotation about x axis (usually 0)
+            // Line 4: pixel size in y direction (m per pixel, usually negative)
+            // Line 5: x coordinate of center of upper left pixel
+            // Line 6: y coordinate of center of upper left pixel
+            
+            if (lines.size() >= 6) {
+                bool ok;
+                double pixelSizeX = lines[0].toDouble(&ok);
+                if (!ok) continue;
+                double pixelSizeY = lines[3].toDouble(&ok);
+                if (!ok) continue;
+                double upperLeftX = lines[4].toDouble(&ok);
+                if (!ok) continue;
+                double upperLeftY = lines[5].toDouble(&ok);
+                if (!ok) continue;
+                
+                // Get image dimensions
+                QImageReader reader(filePath);
+                QSize imageSize = reader.size();
+                if (imageSize.isEmpty()) {
+                    QImage img(filePath);
+                    imageSize = img.size();
+                }
+                
+                if (!imageSize.isEmpty()) {
+                    // Calculate bounds
+                    bounds.westLon = upperLeftX;
+                    bounds.northLat = upperLeftY;
+                    bounds.eastLon = upperLeftX + (imageSize.width() * pixelSizeX);
+                    bounds.southLat = upperLeftY + (imageSize.height() * pixelSizeY);
+                    
+                    // Ensure north > south (pixelSizeY is typically negative)
+                    if (bounds.southLat > bounds.northLat) {
+                        std::swap(bounds.southLat, bounds.northLat);
+                    }
+                    
+                    return bounds.isValid();
+                }
+            }
+        }
+    }
+    
+    // Try to read EXIF/metadata from the image itself (basic approach)
+    // Note: Full GeoTIFF support would require additional libraries like GDAL
+    
+    return false;
+}
+
+void MapWidget::drawTiffMapBackground(QPainter& painter) {
+    if (!m_hasTiffMap || !m_showTiffMap || m_tiffMapImage.isNull()) {
+        return;
+    }
+    
+    // Calculate screen coordinates for the TIFF bounds
+    GeoPosition topLeft, bottomRight;
+    topLeft.latitude = m_tiffBounds.northLat;
+    topLeft.longitude = m_tiffBounds.westLon;
+    bottomRight.latitude = m_tiffBounds.southLat;
+    bottomRight.longitude = m_tiffBounds.eastLon;
+    
+    QPointF screenTopLeft = geoToScreen(topLeft);
+    QPointF screenBottomRight = geoToScreen(bottomRight);
+    
+    QRectF targetRect(screenTopLeft, screenBottomRight);
+    
+    // Only draw if visible in viewport
+    QRectF viewportRect(0, 0, width(), height());
+    if (!targetRect.intersects(viewportRect)) {
+        return;
+    }
+    
+    // Apply opacity
+    painter.setOpacity(m_tiffOpacity);
+    
+    // Draw the TIFF image scaled to the target rectangle
+    // Use high-quality transformation for better appearance
+    painter.setRenderHint(QPainter::SmoothPixmapTransform);
+    painter.drawImage(targetRect, m_tiffMapImage);
+    
+    // Reset opacity
+    painter.setOpacity(1.0);
+}
+
+void MapWidget::drawTiffMapInfo(QPainter& painter) {
+    if (!m_hasTiffMap) {
+        return;
+    }
+    
+    // Draw TIFF map info indicator in top-left corner
+    painter.setFont(QFont("Arial", 9));
+    
+    QString mapInfo = QString("MAP: %1").arg(QFileInfo(m_tiffMapPath).fileName());
+    
+    QFontMetrics fm(painter.font());
+    QRect textRect = fm.boundingRect(mapInfo);
+    textRect.moveTo(10, 10);
+    textRect.adjust(-5, -2, 10, 4);
+    
+    // Background
+    painter.fillRect(textRect, QColor(0, 100, 50, 180));
+    painter.setPen(QPen(QColor(0, 200, 100), 1));
+    painter.drawRect(textRect);
+    
+    // Text
+    painter.setPen(Qt::white);
+    painter.drawText(10, 22, mapInfo);
+    
+    // Draw visibility toggle hint
+    if (!m_showTiffMap) {
+        QString hiddenText = "(HIDDEN)";
+        QRect hiddenRect = fm.boundingRect(hiddenText);
+        hiddenRect.moveTo(textRect.right() + 10, 10);
+        hiddenRect.adjust(-3, -2, 6, 4);
+        
+        painter.fillRect(hiddenRect, QColor(100, 100, 0, 180));
+        painter.setPen(Qt::yellow);
+        painter.drawText(hiddenRect.left() + 3, 22, hiddenText);
+    }
 }
 
 void MapWidget::setCenter(const GeoPosition& pos) {
@@ -71,8 +343,16 @@ void MapWidget::paintEvent(QPaintEvent* event) {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
     
-    // Draw satellite-style map background
-    drawSatelliteBackground(painter);
+    // Draw background - use TIFF map if available, otherwise satellite-style
+    if (m_hasTiffMap && m_showTiffMap) {
+        // Draw a dark base background first
+        painter.fillRect(rect(), QColor(15, 25, 35));
+        // Draw the TIFF map
+        drawTiffMapBackground(painter);
+    } else {
+        // Draw satellite-style map background
+        drawSatelliteBackground(painter);
+    }
     
     // Draw grid overlay
     drawGrid(painter);
@@ -97,6 +377,9 @@ void MapWidget::paintEvent(QPaintEvent* event) {
     
     // Draw compass
     drawCompass(painter);
+    
+    // Draw TIFF map info if loaded
+    drawTiffMapInfo(painter);
     
     // Draw coordinates overlay
     painter.setPen(Qt::white);
@@ -454,6 +737,12 @@ QColor MapWidget::colorForClassification(TrackClassification cls) const {
         case TrackClassification::Neutral: return Qt::gray;
         default: return Qt::green;
     }
+}
+
+void MapWidget::updateScaledTiffCache() {
+    // This method is reserved for future optimization
+    // Currently, we draw the TIFF directly using drawImage which handles scaling
+    // For better performance with very large TIFFs, we could cache pre-scaled versions
 }
 
 } // namespace CounterUAS

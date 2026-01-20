@@ -136,7 +136,8 @@ SOURCES += \
     src/ui/dialogs/EffectorStatusDialog.cpp \
     src/ui/dialogs/SimulationSettingsDialog.cpp \
     src/ui/dialogs/RulesOfEngagementDialog.cpp \
-    src/ui/dialogs/RecordingSettingsDialog.cpp
+    src/ui/dialogs/RecordingSettingsDialog.cpp \
+    src/ui/dialogs/TiffMapSettingsDialog.cpp
 
 # Core module headers
 HEADERS += \
@@ -237,7 +238,8 @@ HEADERS += \
     src/ui/dialogs/EffectorStatusDialog.h \
     src/ui/dialogs/SimulationSettingsDialog.h \
     src/ui/dialogs/RulesOfEngagementDialog.h \
-    src/ui/dialogs/RecordingSettingsDialog.h
+    src/ui/dialogs/RecordingSettingsDialog.h \
+    src/ui/dialogs/TiffMapSettingsDialog.h
 
 # Resources
 RESOURCES += \
