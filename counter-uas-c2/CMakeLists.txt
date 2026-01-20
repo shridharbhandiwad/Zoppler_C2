@@ -165,6 +165,16 @@ set(UI_SOURCES
     src/ui/EngagementDialog.cpp
     src/ui/QuickActionsPanel.cpp
     src/ui/SystemStatusWidget.cpp
+    # SkyGuard redesign components
+    src/ui/SkyGuardTheme.cpp
+    src/ui/SkyGuardMainWindow.cpp
+    src/ui/SidebarNavigation.cpp
+    src/ui/HeaderBar.cpp
+    src/ui/pages/TacticalMapPage.cpp
+    src/ui/pages/ThreatDatabasePage.cpp
+    src/ui/pages/SensorNetworkPage.cpp
+    src/ui/pages/AlertLogPage.cpp
+    src/ui/pages/SystemHealthPage.cpp
 )
 
 set(CONFIG_SOURCES
@@ -255,6 +265,16 @@ set(UI_HEADERS
     src/ui/EngagementDialog.h
     src/ui/QuickActionsPanel.h
     src/ui/SystemStatusWidget.h
+    # SkyGuard redesign components
+    src/ui/SkyGuardTheme.h
+    src/ui/SkyGuardMainWindow.h
+    src/ui/SidebarNavigation.h
+    src/ui/HeaderBar.h
+    src/ui/pages/TacticalMapPage.h
+    src/ui/pages/ThreatDatabasePage.h
+    src/ui/pages/SensorNetworkPage.h
+    src/ui/pages/AlertLogPage.h
+    src/ui/pages/SystemHealthPage.h
 )
 
 set(CONFIG_HEADERS

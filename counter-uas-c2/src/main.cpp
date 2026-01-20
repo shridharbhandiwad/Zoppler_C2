@@ -1,5 +1,5 @@
 /**
- * Counter-UAS Command & Control System
+ * SKYGUARD - Counter-UAS Command & Control System
  * 
  * A real-time command and control application for Counter-UAS system
  * protecting military installations.
@@ -10,13 +10,14 @@
  * - Threat assessment and prioritization
  * - Video feed management with overlays
  * - Effector control (RF Jammer, Kinetic, Directed Energy)
- * - Modern Qt-based tactical interface
+ * - Modern tactical interface with SKYGUARD theme
  */
 
 #include <QApplication>
 #include <QStyleFactory>
 #include <QSurfaceFormat>
-#include "ui/MainWindow.h"
+#include "ui/SkyGuardMainWindow.h"
+#include "ui/SkyGuardTheme.h"
 #include "config/ConfigManager.h"
 #include "config/DatabaseManager.h"
 #include "utils/Logger.h"
@@ -35,33 +36,34 @@ int main(int argc, char *argv[])
     QSurfaceFormat::setDefaultFormat(format);
     
     QApplication app(argc, argv);
-    app.setApplicationName("Counter-UAS C2");
-    app.setApplicationVersion("1.0.0");
+    app.setApplicationName("SKYGUARD C-UAS Command System");
+    app.setApplicationVersion("2.4.1-ALPHA");
     app.setOrganizationName("Defense Systems");
     
-    // Set dark fusion style
+    // Set dark fusion style as base
     app.setStyle(QStyleFactory::create("Fusion"));
     
+    // Apply SkyGuard dark palette
     QPalette darkPalette;
-    darkPalette.setColor(QPalette::Window, QColor(53, 53, 53));
-    darkPalette.setColor(QPalette::WindowText, Qt::white);
-    darkPalette.setColor(QPalette::Base, QColor(25, 25, 25));
-    darkPalette.setColor(QPalette::AlternateBase, QColor(53, 53, 53));
-    darkPalette.setColor(QPalette::ToolTipBase, Qt::white);
-    darkPalette.setColor(QPalette::ToolTipText, Qt::white);
-    darkPalette.setColor(QPalette::Text, Qt::white);
-    darkPalette.setColor(QPalette::Button, QColor(53, 53, 53));
-    darkPalette.setColor(QPalette::ButtonText, Qt::white);
-    darkPalette.setColor(QPalette::BrightText, Qt::red);
-    darkPalette.setColor(QPalette::Link, QColor(42, 130, 218));
-    darkPalette.setColor(QPalette::Highlight, QColor(42, 130, 218));
-    darkPalette.setColor(QPalette::HighlightedText, Qt::black);
+    darkPalette.setColor(QPalette::Window, QColor(10, 22, 40));         // #0a1628
+    darkPalette.setColor(QPalette::WindowText, QColor(255, 255, 255));  // #ffffff
+    darkPalette.setColor(QPalette::Base, QColor(13, 26, 45));           // #0d1a2d
+    darkPalette.setColor(QPalette::AlternateBase, QColor(17, 29, 46));  // #111d2e
+    darkPalette.setColor(QPalette::ToolTipBase, QColor(26, 45, 68));    // #1a2d44
+    darkPalette.setColor(QPalette::ToolTipText, QColor(255, 255, 255));
+    darkPalette.setColor(QPalette::Text, QColor(255, 255, 255));
+    darkPalette.setColor(QPalette::Button, QColor(26, 45, 68));         // #1a2d44
+    darkPalette.setColor(QPalette::ButtonText, QColor(255, 255, 255));
+    darkPalette.setColor(QPalette::BrightText, QColor(0, 212, 255));    // #00d4ff
+    darkPalette.setColor(QPalette::Link, QColor(0, 212, 255));          // #00d4ff
+    darkPalette.setColor(QPalette::Highlight, QColor(0, 212, 255));     // #00d4ff
+    darkPalette.setColor(QPalette::HighlightedText, QColor(10, 22, 40));
     app.setPalette(darkPalette);
     
     // Initialize logger
     Logger::instance().setLogLevel(LogLevel::Debug);
     Logger::instance().setLogToConsole(true);
-    Logger::instance().info("Main", "Counter-UAS C2 System starting...");
+    Logger::instance().info("Main", "SKYGUARD C-UAS Command System starting...");
     
     // Load configuration
     ConfigManager::instance().loadDefaults();
@@ -69,8 +71,8 @@ int main(int argc, char *argv[])
     // Initialize database
     DatabaseManager::instance().initialize("data/counter_uas.db");
     
-    // Create and show main window
-    MainWindow mainWindow;
+    // Create and show SkyGuard main window
+    SkyGuardMainWindow mainWindow;
     mainWindow.show();
     
     // Create track simulator for testing
@@ -80,7 +82,7 @@ int main(int argc, char *argv[])
     // Start simulation automatically for demo
     mainWindow.startSimulation();
     
-    Logger::instance().info("Main", "System initialized successfully");
+    Logger::instance().info("Main", "SKYGUARD system initialized successfully");
     
     int result = app.exec();
     
@@ -88,7 +90,7 @@ int main(int argc, char *argv[])
     simulator.stop();
     DatabaseManager::instance().close();
     
-    Logger::instance().info("Main", "System shutdown complete");
+    Logger::instance().info("Main", "SKYGUARD system shutdown complete");
     
     return result;
 }
