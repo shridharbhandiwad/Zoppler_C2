@@ -9,6 +9,7 @@
 #include <QFrame>
 #include <QMap>
 #include <QTimer>
+#include <QPushButton>
 
 namespace CounterUAS {
 
@@ -16,6 +17,7 @@ class MapWidget;
 class TrackManager;
 class ThreatAssessor;
 class Track;
+class TiffMapSettingsDialog;
 
 /**
  * CameraVideoWindow - Small video display widget for Day/Night cameras
@@ -133,6 +135,7 @@ public slots:
     void refreshAlerts();
     void updateStatusCards();
     void updateCoordinates(double lat, double lng, int zoom);
+    void openTiffMapSettings();
     
 signals:
     void trackSelected(const QString& trackId);
@@ -144,17 +147,21 @@ private slots:
     void onTrackDropped(const QString& trackId);
     void onMapTrackCreated(const QString& trackId);
     void onMapTrackUpdated(const QString& trackId);
+    void onTiffMapLoaded(const QString& filePath);
+    void onTiffMapCleared();
     
 private:
     void setupUI();
     void setupMapSection();
     void setupRightPanel();
     void setupCameraWindows();
+    void setupMapControls();
     ThreatCard* createThreatCard(Track* track);
     
     MapWidget* m_mapWidget;
     TrackManager* m_trackManager;
     ThreatAssessor* m_threatAssessor;
+    TiffMapSettingsDialog* m_tiffMapDialog;
     
     // Status cards
     QLabel* m_activeThreatsValue;
@@ -174,6 +181,10 @@ private:
     // Camera video windows
     CameraVideoWindow* m_dayCameraWindow;
     CameraVideoWindow* m_nightCameraWindow;
+    
+    // Map controls
+    QPushButton* m_loadMapBtn;
+    QLabel* m_mapStatusLabel;
 };
 
 } // namespace CounterUAS

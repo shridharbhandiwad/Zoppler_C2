@@ -1,6 +1,7 @@
 #include "ui/pages/TacticalMapPage.h"
 #include "ui/MapWidget.h"
 #include "ui/SkyGuardTheme.h"
+#include "ui/dialogs/TiffMapSettingsDialog.h"
 #include "core/TrackManager.h"
 #include "core/ThreatAssessor.h"
 #include "core/Track.h"
@@ -18,6 +19,7 @@
 #include <QTimerEvent>
 #include <QDateTime>
 #include <QtMath>
+#include <QFileDialog>
 
 namespace CounterUAS {
 
@@ -471,8 +473,11 @@ TacticalMapPage::TacticalMapPage(QWidget* parent)
     , m_mapWidget(nullptr)
     , m_trackManager(nullptr)
     , m_threatAssessor(nullptr)
+    , m_tiffMapDialog(nullptr)
     , m_dayCameraWindow(nullptr)
     , m_nightCameraWindow(nullptr)
+    , m_loadMapBtn(nullptr)
+    , m_mapStatusLabel(nullptr)
 {
     setupUI();
 }
@@ -589,6 +594,47 @@ void TacticalMapPage::setupMapSection() {
     coordCardLayout->addLayout(zoomRow);
     
     cardsLayout->addWidget(coordCard);
+    
+    // Map Controls card
+    QFrame* mapCtrlCard = new QFrame(this);
+    mapCtrlCard->setStyleSheet(
+        "QFrame { background-color: #111d2e; border: 1px solid #1a3344; border-radius: 8px; }"
+    );
+    QVBoxLayout* mapCtrlLayout = new QVBoxLayout(mapCtrlCard);
+    mapCtrlLayout->setContentsMargins(12, 8, 12, 8);
+    mapCtrlLayout->setSpacing(4);
+    
+    // Load Map button
+    m_loadMapBtn = new QPushButton("LOAD TIFF MAP", this);
+    m_loadMapBtn->setStyleSheet(
+        "QPushButton {"
+        "   background-color: #1a4466;"
+        "   color: #00d4ff;"
+        "   border: 1px solid #00d4ff;"
+        "   border-radius: 4px;"
+        "   font-size: 10px;"
+        "   font-weight: bold;"
+        "   padding: 6px 12px;"
+        "   letter-spacing: 1px;"
+        "}"
+        "QPushButton:hover {"
+        "   background-color: #2a5577;"
+        "}"
+        "QPushButton:pressed {"
+        "   background-color: #0a3344;"
+        "}"
+    );
+    m_loadMapBtn->setCursor(Qt::PointingHandCursor);
+    connect(m_loadMapBtn, &QPushButton::clicked, this, &TacticalMapPage::openTiffMapSettings);
+    mapCtrlLayout->addWidget(m_loadMapBtn);
+    
+    // Map status label
+    m_mapStatusLabel = new QLabel("No map loaded", this);
+    m_mapStatusLabel->setStyleSheet("font-size: 9px; color: #667788;");
+    m_mapStatusLabel->setAlignment(Qt::AlignCenter);
+    mapCtrlLayout->addWidget(m_mapStatusLabel);
+    
+    cardsLayout->addWidget(mapCtrlCard);
     cardsLayout->addStretch();
     
     mapLayout->addWidget(statusCardsWidget);
@@ -914,6 +960,35 @@ void TacticalMapPage::onMapTrackUpdated(const QString& trackId) {
     if (track) {
         m_mapWidget->setTrackData(trackId, track);
     }
+}
+
+void TacticalMapPage::openTiffMapSettings() {
+    if (!m_tiffMapDialog) {
+        m_tiffMapDialog = new TiffMapSettingsDialog(m_mapWidget, this);
+        
+        // Connect signals
+        connect(m_mapWidget, &MapWidget::tiffMapLoaded,
+                this, &TacticalMapPage::onTiffMapLoaded);
+        connect(m_mapWidget, &MapWidget::tiffMapCleared,
+                this, &TacticalMapPage::onTiffMapCleared);
+    }
+    
+    m_tiffMapDialog->show();
+    m_tiffMapDialog->raise();
+    m_tiffMapDialog->activateWindow();
+}
+
+void TacticalMapPage::onTiffMapLoaded(const QString& filePath) {
+    QFileInfo fileInfo(filePath);
+    m_mapStatusLabel->setText(QString("Map: %1").arg(fileInfo.fileName()));
+    m_mapStatusLabel->setStyleSheet("font-size: 9px; color: #00ff88;");
+    m_loadMapBtn->setText("MAP SETTINGS");
+}
+
+void TacticalMapPage::onTiffMapCleared() {
+    m_mapStatusLabel->setText("No map loaded");
+    m_mapStatusLabel->setStyleSheet("font-size: 9px; color: #667788;");
+    m_loadMapBtn->setText("LOAD TIFF MAP");
 }
 
 } // namespace CounterUAS
