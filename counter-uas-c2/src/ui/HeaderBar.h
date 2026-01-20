@@ -10,7 +10,7 @@
 namespace CounterUAS {
 
 /**
- * HeaderBar - Top status bar for SKYGUARD interface
+ * HeaderBar - Top status bar for ZOPPLER interface
  * 
  * Displays:
  * - System Status (OPERATIONAL/DEGRADED/OFFLINE)

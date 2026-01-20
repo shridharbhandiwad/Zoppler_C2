@@ -23,7 +23,7 @@ class VideoSimulator;
 class SystemSimulationManager;
 
 /**
- * SkyGuardMainWindow - Redesigned main window for SKYGUARD C-UAS Command System
+ * SkyGuardMainWindow - Redesigned main window for ZOPPLER C-UAS Command System
  * 
  * Features a modern tactical interface with:
  * - Left sidebar navigation

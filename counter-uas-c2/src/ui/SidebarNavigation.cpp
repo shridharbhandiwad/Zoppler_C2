@@ -64,7 +64,7 @@ void SidebarNavigation::setupUI() {
     logoRow->addWidget(iconLabel);
     
     // Logo text
-    m_logoLabel = new QLabel("SKYGUARD", this);
+    m_logoLabel = new QLabel("ZOPPLER", this);
     m_logoLabel->setObjectName("logoLabel");
     m_logoLabel->setStyleSheet(
         "font-size: 22px; "
@@ -82,7 +82,7 @@ void SidebarNavigation::setupUI() {
     m_subtitleLabel->setObjectName("subtitleLabel");
     m_subtitleLabel->setStyleSheet(
         "font-size: 10px; "
-        "color: #667788; "
+        "color: #aabbcc; "
         "letter-spacing: 1px;"
     );
     logoLayout->addWidget(m_subtitleLabel);
@@ -134,7 +134,7 @@ void SidebarNavigation::setupUI() {
     m_statusLabel = new QLabel("STATUS:", this);
     m_statusLabel->setStyleSheet(
         "font-size: 12px; "
-        "color: #667788; "
+        "color: #ffffff; "
         "font-weight: bold;"
     );
     statusRow->addWidget(m_statusLabel);
@@ -156,7 +156,7 @@ void SidebarNavigation::setupUI() {
     m_versionLabel->setObjectName("versionLabel");
     m_versionLabel->setStyleSheet(
         "font-size: 10px; "
-        "color: #556677;"
+        "color: #8899aa;"
     );
     statusLayout->addWidget(m_versionLabel);
     
@@ -222,18 +222,18 @@ QPushButton* SidebarNavigation::createNavButton(const NavItem& item) {
     btn->setStyleSheet(
         "QPushButton#navButton {"
         "   background-color: transparent;"
-        "   color: #8899aa;"
+        "   color: #ffffff;"
         "   border: none;"
         "   border-left: 3px solid transparent;"
         "   border-radius: 0px;"
         "   text-align: left;"
         "}"
         "QPushButton#navButton:hover {"
-        "   background-color: #1a2d44;"
-        "   color: #ffffff;"
+        "   background-color: #2a3d55;"
+        "   color: #00d4ff;"
         "}"
         "QPushButton#navButton:checked {"
-        "   background-color: rgba(0, 212, 255, 0.1);"
+        "   background-color: rgba(0, 212, 255, 0.15);"
         "   color: #00d4ff;"
         "   border-left: 3px solid #00d4ff;"
         "}"

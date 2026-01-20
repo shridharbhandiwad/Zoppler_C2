@@ -8,6 +8,7 @@
 #include <QScrollArea>
 #include <QFrame>
 #include <QMap>
+#include <QTimer>
 
 namespace CounterUAS {
 
@@ -15,6 +16,34 @@ class MapWidget;
 class TrackManager;
 class ThreatAssessor;
 class Track;
+
+/**
+ * CameraVideoWindow - Small video display widget for Day/Night cameras
+ */
+class CameraVideoWindow : public QFrame {
+    Q_OBJECT
+    
+public:
+    enum CameraType { Day, Night };
+    
+    explicit CameraVideoWindow(CameraType type, QWidget* parent = nullptr);
+    void setTitle(const QString& title);
+    void setStatus(const QString& status);
+    
+protected:
+    void paintEvent(QPaintEvent* event) override;
+    void timerEvent(QTimerEvent* event) override;
+    
+private:
+    void setupUI();
+    
+    CameraType m_type;
+    QLabel* m_titleLabel;
+    QLabel* m_statusLabel;
+    QLabel* m_videoFrame;
+    int m_frameCounter;
+    int m_timerId;
+};
 
 /**
  * ThreatCard - Widget displaying a single threat/track summary
@@ -113,11 +142,14 @@ private slots:
     void onThreatCardClicked(const QString& trackId);
     void onTrackCreated(const QString& trackId);
     void onTrackDropped(const QString& trackId);
+    void onMapTrackCreated(const QString& trackId);
+    void onMapTrackUpdated(const QString& trackId);
     
 private:
     void setupUI();
     void setupMapSection();
     void setupRightPanel();
+    void setupCameraWindows();
     ThreatCard* createThreatCard(Track* track);
     
     MapWidget* m_mapWidget;
@@ -138,6 +170,10 @@ private:
     
     // Alerts container
     QVBoxLayout* m_alertsLayout;
+    
+    // Camera video windows
+    CameraVideoWindow* m_dayCameraWindow;
+    CameraVideoWindow* m_nightCameraWindow;
 };
 
 } // namespace CounterUAS

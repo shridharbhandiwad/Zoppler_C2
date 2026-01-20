@@ -20,7 +20,7 @@ struct NavItem {
 };
 
 /**
- * SidebarNavigation - Left navigation panel for SKYGUARD interface
+ * SidebarNavigation - Left navigation panel for ZOPPLER interface
  * 
  * Provides navigation between main application pages:
  * - Tactical Map

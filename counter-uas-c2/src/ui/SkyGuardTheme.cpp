@@ -237,36 +237,40 @@ QString SkyGuardTheme::getStyleSheet() {
         
         /* ===== MENUS ===== */
         QMenuBar {
-            background-color: #0a1628;
-            color: #8899aa;
-            border-bottom: 1px solid #1a3344;
+            background-color: #1a2d44;
+            color: #ffffff;
+            border-bottom: 1px solid #2a4455;
             padding: 4px;
         }
         QMenuBar::item {
             padding: 6px 12px;
             border-radius: 4px;
+            color: #ffffff;
         }
         QMenuBar::item:selected {
-            background-color: #1a2d44;
-            color: #ffffff;
+            background-color: #2a3d55;
+            color: #00d4ff;
         }
         
         QMenu {
-            background-color: #0d1a2d;
-            border: 1px solid #1a3344;
+            background-color: #1a2d44;
+            color: #ffffff;
+            border: 1px solid #2a4455;
             border-radius: 4px;
             padding: 4px;
         }
         QMenu::item {
             padding: 8px 24px;
             border-radius: 4px;
+            color: #ffffff;
         }
         QMenu::item:selected {
-            background-color: rgba(0, 212, 255, 0.2);
+            background-color: rgba(0, 212, 255, 0.3);
+            color: #00d4ff;
         }
         QMenu::separator {
             height: 1px;
-            background-color: #1a3344;
+            background-color: #2a4455;
             margin: 4px 8px;
         }
         
@@ -319,13 +323,13 @@ QString SkyGuardTheme::getStyleSheet() {
 QString SkyGuardTheme::getSidebarStyleSheet() {
     return QString(R"(
         QWidget#sidebar {
-            background-color: #0d1a2d;
-            border-right: 1px solid #1a3344;
+            background-color: #1a2d44;
+            border-right: 1px solid #2a4455;
         }
         
         QPushButton#navButton {
             background-color: transparent;
-            color: #8899aa;
+            color: #ffffff;
             border: none;
             border-left: 3px solid transparent;
             border-radius: 0px;
@@ -335,11 +339,11 @@ QString SkyGuardTheme::getSidebarStyleSheet() {
             font-weight: 500;
         }
         QPushButton#navButton:hover {
-            background-color: #1a2d44;
-            color: #ffffff;
+            background-color: #2a3d55;
+            color: #00d4ff;
         }
         QPushButton#navButton:checked {
-            background-color: rgba(0, 212, 255, 0.1);
+            background-color: rgba(0, 212, 255, 0.15);
             color: #00d4ff;
             border-left: 3px solid #00d4ff;
         }
@@ -353,7 +357,7 @@ QString SkyGuardTheme::getSidebarStyleSheet() {
         
         QLabel#subtitleLabel {
             font-size: 11px;
-            color: #667788;
+            color: #aabbcc;
             padding: 0 20px 20px 20px;
             letter-spacing: 1px;
         }
@@ -365,7 +369,7 @@ QString SkyGuardTheme::getSidebarStyleSheet() {
         
         QLabel#versionLabel {
             font-size: 10px;
-            color: #556677;
+            color: #8899aa;
         }
     )");
 }

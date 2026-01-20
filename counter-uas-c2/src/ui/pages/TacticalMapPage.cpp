@@ -6,12 +6,18 @@
 #include "core/Track.h"
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QGridLayout>
 #include <QScrollArea>
 #include <QFrame>
 #include <QLabel>
 #include <QPushButton>
 #include <QMouseEvent>
 #include <QTimer>
+#include <QPainter>
+#include <QRandomGenerator>
+#include <QTimerEvent>
+#include <QDateTime>
+#include <QtMath>
 
 namespace CounterUAS {
 
@@ -277,6 +283,187 @@ void AlertItem::setMessage(const QString& message) {
     m_messageLabel->setText(message);
 }
 
+// ==================== CameraVideoWindow Implementation ====================
+
+CameraVideoWindow::CameraVideoWindow(CameraType type, QWidget* parent)
+    : QFrame(parent)
+    , m_type(type)
+    , m_frameCounter(0)
+    , m_timerId(0)
+{
+    setupUI();
+    m_timerId = startTimer(100);  // Update at 10 FPS for simulated video
+}
+
+void CameraVideoWindow::setupUI() {
+    setObjectName("cameraWindow");
+    setFixedSize(200, 150);
+    setFrameStyle(QFrame::Box);
+    
+    QString borderColor = (m_type == Day) ? "#00d4ff" : "#ff8800";
+    setStyleSheet(QString(
+        "QFrame#cameraWindow {"
+        "   background-color: #0d1a2d;"
+        "   border: 2px solid %1;"
+        "   border-radius: 4px;"
+        "}"
+    ).arg(borderColor));
+    
+    QVBoxLayout* layout = new QVBoxLayout(this);
+    layout->setContentsMargins(4, 4, 4, 4);
+    layout->setSpacing(2);
+    
+    // Header with title and status
+    QHBoxLayout* headerLayout = new QHBoxLayout();
+    headerLayout->setSpacing(4);
+    
+    m_titleLabel = new QLabel((m_type == Day) ? "DAY CAM" : "NIGHT CAM", this);
+    m_titleLabel->setStyleSheet(QString(
+        "font-size: 10px; font-weight: bold; color: %1; letter-spacing: 1px;"
+    ).arg((m_type == Day) ? "#00d4ff" : "#ff8800"));
+    headerLayout->addWidget(m_titleLabel);
+    
+    headerLayout->addStretch();
+    
+    // Recording indicator
+    QLabel* recIndicator = new QLabel("\xE2\x97\x89 REC", this);
+    recIndicator->setStyleSheet("font-size: 9px; color: #ff3344; font-weight: bold;");
+    headerLayout->addWidget(recIndicator);
+    
+    layout->addLayout(headerLayout);
+    
+    // Video frame area
+    m_videoFrame = new QLabel(this);
+    m_videoFrame->setMinimumHeight(100);
+    m_videoFrame->setStyleSheet(
+        "background-color: #111d2e; border: 1px solid #1a3344; border-radius: 2px;"
+    );
+    m_videoFrame->setAlignment(Qt::AlignCenter);
+    layout->addWidget(m_videoFrame, 1);
+    
+    // Status bar
+    QHBoxLayout* statusLayout = new QHBoxLayout();
+    statusLayout->setSpacing(8);
+    
+    m_statusLabel = new QLabel("ONLINE", this);
+    m_statusLabel->setStyleSheet("font-size: 9px; color: #00ff88; font-weight: bold;");
+    statusLayout->addWidget(m_statusLabel);
+    
+    statusLayout->addStretch();
+    
+    QLabel* zoomLabel = new QLabel("12x", this);
+    zoomLabel->setStyleSheet("font-size: 9px; color: #667788;");
+    statusLayout->addWidget(zoomLabel);
+    
+    layout->addLayout(statusLayout);
+}
+
+void CameraVideoWindow::setTitle(const QString& title) {
+    m_titleLabel->setText(title);
+}
+
+void CameraVideoWindow::setStatus(const QString& status) {
+    m_statusLabel->setText(status);
+    if (status == "ONLINE") {
+        m_statusLabel->setStyleSheet("font-size: 9px; color: #00ff88; font-weight: bold;");
+    } else {
+        m_statusLabel->setStyleSheet("font-size: 9px; color: #ff3344; font-weight: bold;");
+    }
+}
+
+void CameraVideoWindow::paintEvent(QPaintEvent* event) {
+    QFrame::paintEvent(event);
+}
+
+void CameraVideoWindow::timerEvent(QTimerEvent* event) {
+    if (event->timerId() == m_timerId) {
+        m_frameCounter++;
+        
+        // Create simulated video frame
+        QPixmap frame(m_videoFrame->width() - 2, m_videoFrame->height() - 2);
+        QPainter painter(&frame);
+        painter.setRenderHint(QPainter::Antialiasing);
+        
+        if (m_type == Day) {
+            // Day camera - brighter colors
+            QLinearGradient bg(0, 0, 0, frame.height());
+            bg.setColorAt(0, QColor(60, 80, 60));
+            bg.setColorAt(1, QColor(40, 55, 45));
+            painter.fillRect(frame.rect(), bg);
+            
+            // Draw horizon line
+            painter.setPen(QPen(QColor(100, 130, 100), 1));
+            int horizonY = frame.height() / 3;
+            painter.drawLine(0, horizonY, frame.width(), horizonY);
+            
+            // Draw some terrain features
+            painter.setBrush(QColor(50, 70, 50));
+            for (int i = 0; i < 5; ++i) {
+                int x = (m_frameCounter * 2 + i * 40) % frame.width();
+                int h = 20 + (i * 7) % 30;
+                painter.drawRect(x, horizonY, 30, h);
+            }
+            
+            // Draw crosshairs
+            painter.setPen(QPen(QColor(0, 255, 0), 1));
+            int cx = frame.width() / 2;
+            int cy = frame.height() / 2;
+            painter.drawLine(cx - 20, cy, cx - 5, cy);
+            painter.drawLine(cx + 5, cy, cx + 20, cy);
+            painter.drawLine(cx, cy - 20, cx, cy - 5);
+            painter.drawLine(cx, cy + 5, cx, cy + 20);
+            painter.drawEllipse(QPoint(cx, cy), 15, 15);
+            
+        } else {
+            // Night camera - thermal/IR style (green phosphor look)
+            frame.fill(QColor(5, 15, 5));
+            
+            // Draw thermal signatures
+            painter.setPen(Qt::NoPen);
+            
+            // Background noise
+            auto* gen = QRandomGenerator::global();
+            for (int i = 0; i < 100; ++i) {
+                int x = gen->bounded(frame.width());
+                int y = gen->bounded(frame.height());
+                int brightness = gen->bounded(30);
+                painter.setBrush(QColor(0, brightness, 0));
+                painter.drawRect(x, y, 2, 2);
+            }
+            
+            // Simulated heat signature (target)
+            int targetX = frame.width() / 2 + qSin(m_frameCounter * 0.1) * 30;
+            int targetY = frame.height() / 2 + qCos(m_frameCounter * 0.15) * 20;
+            
+            // Thermal glow
+            QRadialGradient thermal(targetX, targetY, 25);
+            thermal.setColorAt(0, QColor(200, 255, 200));
+            thermal.setColorAt(0.3, QColor(100, 200, 100));
+            thermal.setColorAt(0.7, QColor(50, 100, 50));
+            thermal.setColorAt(1, QColor(5, 15, 5));
+            painter.setBrush(thermal);
+            painter.drawEllipse(QPoint(targetX, targetY), 25, 18);
+            
+            // Draw crosshairs (green for night vision)
+            painter.setPen(QPen(QColor(0, 255, 0, 150), 1));
+            int cx = frame.width() / 2;
+            int cy = frame.height() / 2;
+            painter.drawLine(cx - 25, cy, cx - 5, cy);
+            painter.drawLine(cx + 5, cy, cx + 25, cy);
+            painter.drawLine(cx, cy - 25, cx, cy - 5);
+            painter.drawLine(cx, cy + 5, cx, cy + 25);
+        }
+        
+        // Draw timestamp
+        painter.setPen(Qt::white);
+        painter.setFont(QFont("Consolas", 8));
+        QString timestamp = QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
+        painter.drawText(5, frame.height() - 5, timestamp);
+        
+        m_videoFrame->setPixmap(frame);
+    }
+}
+
 // ==================== TacticalMapPage Implementation ====================
 
 TacticalMapPage::TacticalMapPage(QWidget* parent)
@@ -284,6 +471,8 @@ TacticalMapPage::TacticalMapPage(QWidget* parent)
     , m_mapWidget(nullptr)
     , m_trackManager(nullptr)
     , m_threatAssessor(nullptr)
+    , m_dayCameraWindow(nullptr)
+    , m_nightCameraWindow(nullptr)
 {
     setupUI();
 }
@@ -404,12 +593,51 @@ void TacticalMapPage::setupMapSection() {
     
     mapLayout->addWidget(statusCardsWidget);
     
+    // Map widget container with camera overlays
+    QWidget* mapContainer = new QWidget(this);
+    mapContainer->setStyleSheet("background-color: transparent;");
+    QGridLayout* mapContainerLayout = new QGridLayout(mapContainer);
+    mapContainerLayout->setContentsMargins(0, 0, 0, 0);
+    mapContainerLayout->setSpacing(0);
+    
     // Map widget
     m_mapWidget = new MapWidget(this);
     m_mapWidget->setStyleSheet("border: none;");
-    mapLayout->addWidget(m_mapWidget, 1);
+    mapContainerLayout->addWidget(m_mapWidget, 0, 0, 2, 2);
+    
+    // Camera video windows (overlaid on map)
+    setupCameraWindows();
+    
+    // Position camera windows in bottom-left corner
+    QWidget* cameraOverlay = new QWidget(mapContainer);
+    cameraOverlay->setAttribute(Qt::WA_TransparentForMouseEvents, false);
+    cameraOverlay->setStyleSheet("background-color: transparent;");
+    QVBoxLayout* cameraLayout = new QVBoxLayout(cameraOverlay);
+    cameraLayout->setContentsMargins(10, 10, 10, 10);
+    cameraLayout->setSpacing(8);
+    cameraLayout->addStretch();
+    
+    // Add camera windows
+    cameraLayout->addWidget(m_dayCameraWindow);
+    cameraLayout->addWidget(m_nightCameraWindow);
+    
+    mapContainerLayout->addWidget(cameraOverlay, 0, 0, 2, 1, Qt::AlignLeft | Qt::AlignBottom);
+    
+    mapLayout->addWidget(mapContainer, 1);
     
     static_cast<QHBoxLayout*>(layout())->addWidget(mapSection, 1);
+}
+
+void TacticalMapPage::setupCameraWindows() {
+    // Create Day camera window
+    m_dayCameraWindow = new CameraVideoWindow(CameraVideoWindow::Day, this);
+    m_dayCameraWindow->setTitle("DAY CAM - PTZ-01");
+    m_dayCameraWindow->setStatus("ONLINE");
+    
+    // Create Night camera window
+    m_nightCameraWindow = new CameraVideoWindow(CameraVideoWindow::Night, this);
+    m_nightCameraWindow->setTitle("IR CAM - FLIR-01");
+    m_nightCameraWindow->setStatus("ONLINE");
 }
 
 void TacticalMapPage::setupRightPanel() {
@@ -516,6 +744,7 @@ void TacticalMapPage::setupRightPanel() {
 void TacticalMapPage::setTrackManager(TrackManager* manager) {
     if (m_trackManager) {
         disconnect(m_trackManager, nullptr, this, nullptr);
+        disconnect(m_trackManager, nullptr, m_mapWidget, nullptr);
     }
     
     m_trackManager = manager;
@@ -527,6 +756,16 @@ void TacticalMapPage::setTrackManager(TrackManager* manager) {
                 this, &TacticalMapPage::onTrackDropped);
         connect(m_trackManager, &TrackManager::trackUpdated,
                 this, &TacticalMapPage::refreshThreatCards);
+        
+        // Connect track updates to map widget for drone display
+        if (m_mapWidget) {
+            connect(m_trackManager, &TrackManager::trackCreated,
+                    this, &TacticalMapPage::onMapTrackCreated);
+            connect(m_trackManager, &TrackManager::trackDropped,
+                    m_mapWidget, &MapWidget::removeTrack);
+            connect(m_trackManager, &TrackManager::trackUpdated,
+                    this, &TacticalMapPage::onMapTrackUpdated);
+        }
     }
 }
 
@@ -657,6 +896,24 @@ ThreatCard* TacticalMapPage::createThreatCard(Track* track) {
             this, &TacticalMapPage::onThreatCardClicked);
     
     return card;
+}
+
+void TacticalMapPage::onMapTrackCreated(const QString& trackId) {
+    if (!m_trackManager || !m_mapWidget) return;
+    
+    Track* track = m_trackManager->track(trackId);
+    if (track) {
+        m_mapWidget->setTrackData(trackId, track);
+    }
+}
+
+void TacticalMapPage::onMapTrackUpdated(const QString& trackId) {
+    if (!m_trackManager || !m_mapWidget) return;
+    
+    Track* track = m_trackManager->track(trackId);
+    if (track) {
+        m_mapWidget->setTrackData(trackId, track);
+    }
 }
 
 } // namespace CounterUAS

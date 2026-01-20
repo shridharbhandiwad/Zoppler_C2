@@ -145,10 +145,39 @@ void TrackSimulator::spawnTarget() {
     auto* gen = QRandomGenerator::global();
     
     SimulatedTarget target;
-    target.id = QString("SIM-%1").arg(gen->bounded(10000));
     
-    // Spawn at edge of range
-    double range = 2000.0 + gen->generateDouble() * 1000.0;
+    // Generate different drone types with appropriate IDs
+    int droneType = gen->bounded(100);
+    QString dronePrefix;
+    double baseSpeed;
+    double baseAltitude;
+    
+    if (droneType < 40) {
+        // Consumer quadcopter (DJI-style)
+        dronePrefix = "DJI";
+        baseSpeed = 10.0 + gen->generateDouble() * 8.0;  // 10-18 m/s
+        baseAltitude = 50.0 + gen->generateDouble() * 150.0;  // 50-200m
+    } else if (droneType < 70) {
+        // Racing/FPV drone
+        dronePrefix = "FPV";
+        baseSpeed = 15.0 + gen->generateDouble() * 20.0;  // 15-35 m/s
+        baseAltitude = 20.0 + gen->generateDouble() * 80.0;  // 20-100m
+    } else if (droneType < 90) {
+        // Fixed wing drone
+        dronePrefix = "FXW";
+        baseSpeed = 20.0 + gen->generateDouble() * 15.0;  // 20-35 m/s
+        baseAltitude = 100.0 + gen->generateDouble() * 300.0;  // 100-400m
+    } else {
+        // Unknown/custom drone
+        dronePrefix = "UNK";
+        baseSpeed = 8.0 + gen->generateDouble() * 12.0;  // 8-20 m/s
+        baseAltitude = 30.0 + gen->generateDouble() * 200.0;  // 30-230m
+    }
+    
+    target.id = QString("%1-%2").arg(dronePrefix).arg(gen->bounded(1000, 9999));
+    
+    // Spawn at edge of range (varied distances)
+    double range = 1500.0 + gen->generateDouble() * 2000.0;  // 1.5-3.5 km out
     double bearing = gen->generateDouble() * 360.0;
     double bearingRad = qDegreesToRadians(bearing);
     
@@ -156,18 +185,25 @@ void TrackSimulator::spawnTarget() {
     target.position.longitude = m_basePosition.longitude + 
                                  (range * std::sin(bearingRad)) / 
                                  (111000.0 * std::cos(qDegreesToRadians(m_basePosition.latitude)));
-    target.position.altitude = m_basePosition.altitude + 50.0 + gen->generateDouble() * 250.0;
+    target.position.altitude = m_basePosition.altitude + baseAltitude;
     
-    // Velocity toward base
-    double speed = 8.0 + gen->generateDouble() * 12.0;
-    double velBearing = bearing + 180.0 + (gen->generateDouble() * 40.0 - 20.0);
+    // Velocity toward base with some randomness
+    double speed = baseSpeed;
+    double velBearing = bearing + 180.0 + (gen->generateDouble() * 30.0 - 15.0);  // Heading toward base +/- 15 deg
     
     target.velocity.north = speed * std::cos(qDegreesToRadians(velBearing));
     target.velocity.east = speed * std::sin(qDegreesToRadians(velBearing));
-    target.velocity.down = gen->generateDouble() * 2.0 - 1.0;
+    target.velocity.down = gen->generateDouble() * 3.0 - 1.5;  // Slight altitude changes
     
-    target.classification = gen->bounded(100) < 70 ? 
-                            TrackClassification::Hostile : TrackClassification::Pending;
+    // Classification based on behavior
+    if (dronePrefix == "UNK" || gen->bounded(100) < 60) {
+        target.classification = TrackClassification::Hostile;
+    } else if (gen->bounded(100) < 30) {
+        target.classification = TrackClassification::Pending;
+    } else {
+        target.classification = TrackClassification::Friendly;
+    }
+    
     target.active = true;
     
     m_targets.append(target);

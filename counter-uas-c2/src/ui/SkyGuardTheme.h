@@ -7,7 +7,7 @@
 namespace CounterUAS {
 
 /**
- * SkyGuard C-UAS Command System Theme
+ * Zoppler C-UAS Command System Theme
  * 
  * Dark tactical theme with cyan/teal accents matching the reference design.
  */
