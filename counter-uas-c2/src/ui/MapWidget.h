@@ -28,6 +28,7 @@ public slots:
     void updateTrack(const QString& trackId);
     void removeTrack(const QString& trackId);
     void clearTracks();
+    void setTrackData(const QString& trackId, Track* track);
     
 signals:
     void trackSelected(const QString& trackId);
@@ -43,9 +44,12 @@ protected:
 private:
     QPointF geoToScreen(const GeoPosition& pos) const;
     GeoPosition screenToGeo(const QPointF& screen) const;
+    void drawSatelliteBackground(QPainter& painter);
     void drawGrid(QPainter& painter);
     void drawTracks(QPainter& painter);
     void drawDefendedArea(QPainter& painter);
+    void drawScaleBar(QPainter& painter);
+    void drawCompass(QPainter& painter);
     QColor colorForClassification(TrackClassification cls) const;
     
     GeoPosition m_center;

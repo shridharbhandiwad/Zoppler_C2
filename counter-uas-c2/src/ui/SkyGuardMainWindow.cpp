@@ -35,7 +35,7 @@ SkyGuardMainWindow::SkyGuardMainWindow(QWidget* parent)
     , m_simulationRunning(false)
     , m_simulationPaused(false)
 {
-    setWindowTitle("SKYGUARD - C-UAS Command System");
+    setWindowTitle("ZOPPLER - C-UAS Command System");
     setMinimumSize(1280, 720);
     resize(1920, 1080);
     
