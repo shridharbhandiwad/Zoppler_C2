@@ -21,13 +21,14 @@ SystemStatusWidget::SystemStatusWidget(QWidget* parent)
 
 void SystemStatusWidget::setupUI() {
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
-    mainLayout->setContentsMargins(4, 4, 4, 4);
-    mainLayout->setSpacing(6);
+    mainLayout->setContentsMargins(8, 8, 8, 8);
+    mainLayout->setSpacing(8);
     
-    // Panel title
+    // Panel title with consistent styling
     QLabel* titleLabel = new QLabel("SYSTEM STATUS", this);
-    titleLabel->setStyleSheet("QLabel { font-weight: bold; font-size: 11px; color: #aaa; "
-                             "padding: 4px; background-color: #2a2a2a; border-radius: 3px; }");
+    titleLabel->setStyleSheet("QLabel { font-weight: bold; font-size: 11px; color: #00d4ff; "
+                             "padding: 6px; background-color: #1a2a35; border-radius: 4px; "
+                             "border: 1px solid #2a4a5a; }");
     titleLabel->setAlignment(Qt::AlignCenter);
     mainLayout->addWidget(titleLabel);
     
@@ -46,13 +47,14 @@ void SystemStatusWidget::setupUI() {
 void SystemStatusWidget::createOverviewGroup() {
     m_overviewGroup = new QGroupBox("Overview", this);
     m_overviewGroup->setStyleSheet(
-        "QGroupBox { font-weight: bold; border: 1px solid #444; border-radius: 4px; "
-        "margin-top: 6px; padding-top: 6px; }"
-        "QGroupBox::title { subcontrol-origin: margin; left: 8px; padding: 0 4px; color: #8cf; }");
+        "QGroupBox { font-weight: bold; border: 1px solid #2a4a5a; border-radius: 6px; "
+        "background-color: #0d1a20; margin-top: 10px; padding: 12px 8px 8px 8px; }"
+        "QGroupBox::title { subcontrol-origin: margin; left: 10px; padding: 2px 8px; "
+        "color: #00d4ff; background-color: #0d1a20; }");
     
     QGridLayout* layout = new QGridLayout(m_overviewGroup);
-    layout->setSpacing(4);
-    layout->setContentsMargins(8, 8, 8, 8);
+    layout->setSpacing(6);
+    layout->setContentsMargins(10, 14, 10, 10);
     
     // Track count
     layout->addWidget(new QLabel("Tracks:", this), 0, 0);
@@ -88,13 +90,14 @@ void SystemStatusWidget::createOverviewGroup() {
 void SystemStatusWidget::createSensorGroup() {
     m_sensorGroup = new QGroupBox("Sensors", this);
     m_sensorGroup->setStyleSheet(
-        "QGroupBox { font-weight: bold; border: 1px solid #444; border-radius: 4px; "
-        "margin-top: 6px; padding-top: 6px; }"
-        "QGroupBox::title { subcontrol-origin: margin; left: 8px; padding: 0 4px; color: #8cf; }");
+        "QGroupBox { font-weight: bold; border: 1px solid #2a4a5a; border-radius: 6px; "
+        "background-color: #0d1a20; margin-top: 10px; padding: 12px 8px 8px 8px; }"
+        "QGroupBox::title { subcontrol-origin: margin; left: 10px; padding: 2px 8px; "
+        "color: #00d4ff; background-color: #0d1a20; }");
     
     QVBoxLayout* layout = new QVBoxLayout(m_sensorGroup);
-    layout->setSpacing(3);
-    layout->setContentsMargins(8, 8, 8, 8);
+    layout->setSpacing(4);
+    layout->setContentsMargins(10, 14, 10, 10);
     
     // Radar status
     QHBoxLayout* radarLayout = new QHBoxLayout();
@@ -124,13 +127,14 @@ void SystemStatusWidget::createSensorGroup() {
 void SystemStatusWidget::createEffectorGroup() {
     m_effectorGroup = new QGroupBox("Effectors", this);
     m_effectorGroup->setStyleSheet(
-        "QGroupBox { font-weight: bold; border: 1px solid #444; border-radius: 4px; "
-        "margin-top: 6px; padding-top: 6px; }"
-        "QGroupBox::title { subcontrol-origin: margin; left: 8px; padding: 0 4px; color: #f88; }");
+        "QGroupBox { font-weight: bold; border: 1px solid #4a2a2a; border-radius: 6px; "
+        "background-color: #0d1a20; margin-top: 10px; padding: 12px 8px 8px 8px; }"
+        "QGroupBox::title { subcontrol-origin: margin; left: 10px; padding: 2px 8px; "
+        "color: #ff6666; background-color: #0d1a20; }");
     
     QVBoxLayout* layout = new QVBoxLayout(m_effectorGroup);
-    layout->setSpacing(3);
-    layout->setContentsMargins(8, 8, 8, 8);
+    layout->setSpacing(4);
+    layout->setContentsMargins(10, 14, 10, 10);
     
     // Jammer status
     QHBoxLayout* jamLayout = new QHBoxLayout();
@@ -160,13 +164,14 @@ void SystemStatusWidget::createEffectorGroup() {
 void SystemStatusWidget::createVideoGroup() {
     m_videoGroup = new QGroupBox("Video", this);
     m_videoGroup->setStyleSheet(
-        "QGroupBox { font-weight: bold; border: 1px solid #444; border-radius: 4px; "
-        "margin-top: 6px; padding-top: 6px; }"
-        "QGroupBox::title { subcontrol-origin: margin; left: 8px; padding: 0 4px; color: #8cf; }");
+        "QGroupBox { font-weight: bold; border: 1px solid #2a4a5a; border-radius: 6px; "
+        "background-color: #0d1a20; margin-top: 10px; padding: 12px 8px 8px 8px; }"
+        "QGroupBox::title { subcontrol-origin: margin; left: 10px; padding: 2px 8px; "
+        "color: #00d4ff; background-color: #0d1a20; }");
     
     QVBoxLayout* layout = new QVBoxLayout(m_videoGroup);
-    layout->setSpacing(3);
-    layout->setContentsMargins(8, 8, 8, 8);
+    layout->setSpacing(4);
+    layout->setContentsMargins(10, 14, 10, 10);
     
     // Stream count
     QHBoxLayout* streamLayout = new QHBoxLayout();

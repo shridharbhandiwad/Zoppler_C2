@@ -4,6 +4,7 @@
 #include <QHBoxLayout>
 #include <QGroupBox>
 #include <QMessageBox>
+#include <QLabel>
 
 namespace CounterUAS {
 
@@ -23,14 +24,50 @@ EffectorControlPanel::EffectorControlPanel(EngagementManager* manager, QWidget* 
 
 void EffectorControlPanel::setupUI() {
     QVBoxLayout* layout = new QVBoxLayout(this);
-    layout->setContentsMargins(5, 5, 5, 5);
+    layout->setContentsMargins(8, 8, 8, 8);
+    layout->setSpacing(8);
+    
+    // Panel title with consistent styling
+    QLabel* titleLabel = new QLabel("EFFECTOR CONTROL", this);
+    titleLabel->setStyleSheet("QLabel { font-weight: bold; font-size: 11px; color: #00d4ff; "
+                             "padding: 6px; background-color: #1a2a35; border-radius: 4px; "
+                             "border: 1px solid #2a4a5a; }");
+    titleLabel->setAlignment(Qt::AlignCenter);
+    layout->addWidget(titleLabel);
     
     // Effector list
     QGroupBox* listGroup = new QGroupBox("Available Effectors", this);
+    listGroup->setStyleSheet(
+        "QGroupBox { font-weight: bold; border: 1px solid #2a4a5a; border-radius: 6px; "
+        "background-color: #0d1a20; margin-top: 10px; padding: 12px 8px 8px 8px; }"
+        "QGroupBox::title { subcontrol-origin: margin; left: 10px; padding: 2px 8px; "
+        "color: #00d4ff; background-color: #0d1a20; }");
     QVBoxLayout* listLayout = new QVBoxLayout(listGroup);
+    listLayout->setContentsMargins(10, 14, 10, 10);
     
     m_effectorList = new QListWidget(this);
     m_effectorList->setMinimumHeight(150);
+    m_effectorList->setStyleSheet(
+        "QListWidget { "
+        "   background-color: #0d1a20; "
+        "   border: 1px solid #2a4a5a; "
+        "   border-radius: 4px; "
+        "   padding: 4px; "
+        "   color: #ddd; "
+        "} "
+        "QListWidget::item { "
+        "   padding: 8px; "
+        "   margin: 2px 0px; "
+        "   border-radius: 3px; "
+        "} "
+        "QListWidget::item:selected { "
+        "   background-color: #1a3a4a; "
+        "   border-left: 3px solid #00d4ff; "
+        "} "
+        "QListWidget::item:hover { "
+        "   background-color: #15252f; "
+        "} "
+    );
     connect(m_effectorList, &QListWidget::itemClicked, 
             this, &EffectorControlPanel::onEffectorItemClicked);
     listLayout->addWidget(m_effectorList);
@@ -39,7 +76,13 @@ void EffectorControlPanel::setupUI() {
     
     // Status display
     QGroupBox* statusGroup = new QGroupBox("Selected Effector", this);
+    statusGroup->setStyleSheet(
+        "QGroupBox { font-weight: bold; border: 1px solid #2a4a5a; border-radius: 6px; "
+        "background-color: #0d1a20; margin-top: 10px; padding: 12px 8px 8px 8px; }"
+        "QGroupBox::title { subcontrol-origin: margin; left: 10px; padding: 2px 8px; "
+        "color: #00d4ff; background-color: #0d1a20; }");
     QVBoxLayout* statusLayout = new QVBoxLayout(statusGroup);
+    statusLayout->setContentsMargins(10, 14, 10, 10);
     
     m_selectedEffectorLabel = new QLabel("None selected", this);
     m_selectedEffectorLabel->setStyleSheet("font-weight: bold;");
@@ -63,13 +106,21 @@ void EffectorControlPanel::setupUI() {
     
     // Control buttons
     QGroupBox* controlGroup = new QGroupBox("Engagement Control", this);
+    controlGroup->setStyleSheet(
+        "QGroupBox { font-weight: bold; border: 1px solid #4a2a2a; border-radius: 6px; "
+        "background-color: #0d1a20; margin-top: 10px; padding: 12px 8px 8px 8px; }"
+        "QGroupBox::title { subcontrol-origin: margin; left: 10px; padding: 2px 8px; "
+        "color: #ff6666; background-color: #0d1a20; }");
     QVBoxLayout* controlLayout = new QVBoxLayout(controlGroup);
+    controlLayout->setContentsMargins(10, 14, 10, 10);
+    controlLayout->setSpacing(8);
     
     m_engageBtn = new QPushButton("ENGAGE TARGET", this);
     m_engageBtn->setStyleSheet(
-        "QPushButton { background-color: #cc0000; color: white; font-weight: bold; font-size: 14px; }"
-        "QPushButton:disabled { background-color: #666666; }"
-        "QPushButton:hover:enabled { background-color: #ff0000; }");
+        "QPushButton { background-color: #8a2222; color: white; font-weight: bold; font-size: 14px; "
+        "padding: 12px; border-radius: 6px; border: 1px solid #aa3333; }"
+        "QPushButton:disabled { background-color: #333; color: #666; border: 1px solid #444; }"
+        "QPushButton:hover:enabled { background-color: #aa3333; }");
     m_engageBtn->setMinimumHeight(50);
     m_engageBtn->setEnabled(false);
     connect(m_engageBtn, &QPushButton::clicked, this, &EffectorControlPanel::onEngageClicked);
@@ -77,8 +128,10 @@ void EffectorControlPanel::setupUI() {
     
     m_disengageBtn = new QPushButton("DISENGAGE", this);
     m_disengageBtn->setStyleSheet(
-        "QPushButton { background-color: #cc6600; color: white; font-weight: bold; }"
-        "QPushButton:disabled { background-color: #666666; }");
+        "QPushButton { background-color: #6a5a2a; color: white; font-weight: bold; "
+        "padding: 8px; border-radius: 4px; border: 1px solid #8a7a3a; }"
+        "QPushButton:disabled { background-color: #333; color: #666; border: 1px solid #444; }"
+        "QPushButton:hover:enabled { background-color: #8a7a3a; }");
     m_disengageBtn->setMinimumHeight(35);
     m_disengageBtn->setEnabled(false);
     connect(m_disengageBtn, &QPushButton::clicked, this, &EffectorControlPanel::onDisengageClicked);

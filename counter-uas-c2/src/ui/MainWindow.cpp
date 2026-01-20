@@ -52,6 +52,117 @@ MainWindow::MainWindow(QWidget* parent)
     setMinimumSize(1280, 720);
     resize(1920, 1080);
     
+    // Apply global stylesheet for consistent dark theme with clear panel distinction
+    setStyleSheet(
+        // Main window background
+        "QMainWindow { background-color: #0a1015; }"
+        
+        // Dock widgets with clear borders and separation
+        "QDockWidget { "
+        "   background-color: #0d1520; "
+        "   border: 1px solid #1a3040; "
+        "   titlebar-close-icon: url(close.png); "
+        "   titlebar-normal-icon: url(undock.png); "
+        "} "
+        "QDockWidget::title { "
+        "   background-color: #1a2a35; "
+        "   color: #00d4ff; "
+        "   font-weight: bold; "
+        "   padding: 8px; "
+        "   border-bottom: 2px solid #00d4ff; "
+        "} "
+        "QDockWidget::close-button, QDockWidget::float-button { "
+        "   background-color: #2a3a45; "
+        "   border: none; "
+        "   padding: 2px; "
+        "} "
+        "QDockWidget::close-button:hover, QDockWidget::float-button:hover { "
+        "   background-color: #3a4a55; "
+        "} "
+        
+        // Splitters for panel separation
+        "QSplitter::handle { "
+        "   background-color: #1a3040; "
+        "   width: 4px; "
+        "   height: 4px; "
+        "} "
+        "QSplitter::handle:hover { "
+        "   background-color: #00d4ff; "
+        "} "
+        
+        // Status bar styling
+        "QStatusBar { "
+        "   background-color: #0d1520; "
+        "   color: #888; "
+        "   border-top: 1px solid #1a3040; "
+        "} "
+        
+        // Menu bar styling
+        "QMenuBar { "
+        "   background-color: #0d1520; "
+        "   color: #ccc; "
+        "   border-bottom: 1px solid #1a3040; "
+        "} "
+        "QMenuBar::item:selected { "
+        "   background-color: #1a3040; "
+        "} "
+        "QMenu { "
+        "   background-color: #0d1520; "
+        "   color: #ccc; "
+        "   border: 1px solid #1a3040; "
+        "} "
+        "QMenu::item:selected { "
+        "   background-color: #1a4060; "
+        "} "
+        
+        // Toolbar styling
+        "QToolBar { "
+        "   background-color: #0d1520; "
+        "   border-bottom: 1px solid #1a3040; "
+        "   spacing: 6px; "
+        "   padding: 4px; "
+        "} "
+        "QToolButton { "
+        "   background-color: #1a2a35; "
+        "   color: #ccc; "
+        "   border: 1px solid #2a4a5a; "
+        "   border-radius: 4px; "
+        "   padding: 4px 8px; "
+        "} "
+        "QToolButton:hover { "
+        "   background-color: #2a3a45; "
+        "   border-color: #00d4ff; "
+        "} "
+        "QToolButton:pressed { "
+        "   background-color: #1a4060; "
+        "} "
+        
+        // General label styling
+        "QLabel { color: #ccc; }"
+        
+        // ComboBox styling
+        "QComboBox { "
+        "   background-color: #1a2a35; "
+        "   color: #ccc; "
+        "   border: 1px solid #2a4a5a; "
+        "   border-radius: 4px; "
+        "   padding: 4px 8px; "
+        "} "
+        "QComboBox:hover { "
+        "   border-color: #00d4ff; "
+        "} "
+        "QComboBox::drop-down { "
+        "   border: none; "
+        "   padding-right: 8px; "
+        "} "
+        "QComboBox QAbstractItemView { "
+        "   background-color: #0d1520; "
+        "   color: #ccc; "
+        "   border: 1px solid #2a4a5a; "
+        "   selection-background-color: #1a4060; "
+        "} "
+    );
+    
     setupUI();
     setupMenuBar();
     setupToolBar();
@@ -97,27 +208,31 @@ void MainWindow::setupUI() {
     
     // Simplified Video panel with Day/Night cameras only
     QWidget* videoPanel = new QWidget(this);
-    videoPanel->setStyleSheet("background-color: #1a1a1a;");
+    videoPanel->setStyleSheet("background-color: #0a1015; border-left: 1px solid #1a3040;");
     QVBoxLayout* videoLayout = new QVBoxLayout(videoPanel);
-    videoLayout->setContentsMargins(4, 4, 4, 4);
-    videoLayout->setSpacing(4);
+    videoLayout->setContentsMargins(8, 8, 8, 8);
+    videoLayout->setSpacing(8);
     
-    // Video panel header
+    // Video panel header with consistent styling
     QLabel* videoPanelLabel = new QLabel("CAMERA FEEDS", videoPanel);
-    videoPanelLabel->setStyleSheet("QLabel { color: #aaa; font-weight: bold; font-size: 12px; "
-                                   "padding: 4px; background-color: #2a2a2a; border-radius: 3px; }");
+    videoPanelLabel->setStyleSheet("QLabel { font-weight: bold; font-size: 11px; color: #00d4ff; "
+                                   "padding: 6px; background-color: #1a2a35; border-radius: 4px; "
+                                   "border: 1px solid #2a4a5a; }");
     videoPanelLabel->setAlignment(Qt::AlignCenter);
     videoLayout->addWidget(videoPanelLabel);
     
     // Primary video display (shows selected camera)
     m_primaryVideoWidget = new VideoDisplayWidget(this);
     m_primaryVideoWidget->setMinimumSize(400, 300);
-    m_primaryVideoWidget->setStyleSheet("border: 2px solid #444; border-radius: 4px;");
+    m_primaryVideoWidget->setStyleSheet("border: 2px solid #2a4a5a; border-radius: 6px; "
+                                        "background-color: #0d1520;");
     videoLayout->addWidget(m_primaryVideoWidget, 3);
     
     // Day/Night camera grid
     m_videoGridWidget = new VideoGridWidget(this);
     m_videoGridWidget->setMinimumHeight(150);
+    m_videoGridWidget->setStyleSheet("border: 1px solid #2a4a5a; border-radius: 4px; "
+                                     "background-color: #0d1520;");
     videoLayout->addWidget(m_videoGridWidget, 2);
     
     mainSplitter->addWidget(videoPanel);

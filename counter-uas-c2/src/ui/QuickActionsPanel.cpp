@@ -13,13 +13,14 @@ QuickActionsPanel::QuickActionsPanel(QWidget* parent)
 
 void QuickActionsPanel::setupUI() {
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
-    mainLayout->setContentsMargins(4, 4, 4, 4);
+    mainLayout->setContentsMargins(8, 8, 8, 8);
     mainLayout->setSpacing(8);
     
-    // Panel title
+    // Panel title with consistent styling
     QLabel* titleLabel = new QLabel("QUICK ACTIONS", this);
-    titleLabel->setStyleSheet("QLabel { font-weight: bold; font-size: 11px; color: #aaa; "
-                             "padding: 4px; background-color: #2a2a2a; border-radius: 3px; }");
+    titleLabel->setStyleSheet("QLabel { font-weight: bold; font-size: 11px; color: #00d4ff; "
+                             "padding: 6px; background-color: #1a2a35; border-radius: 4px; "
+                             "border: 1px solid #2a4a5a; }");
     titleLabel->setAlignment(Qt::AlignCenter);
     mainLayout->addWidget(titleLabel);
     
@@ -39,12 +40,14 @@ void QuickActionsPanel::setupUI() {
 void QuickActionsPanel::createSimulationGroup() {
     m_simGroup = new QGroupBox("Simulation", this);
     m_simGroup->setStyleSheet(
-        "QGroupBox { font-weight: bold; border: 1px solid #444; border-radius: 4px; "
-        "margin-top: 8px; padding-top: 8px; }"
-        "QGroupBox::title { subcontrol-origin: margin; left: 8px; padding: 0 4px; color: #8af; }");
+        "QGroupBox { font-weight: bold; border: 1px solid #2a4a5a; border-radius: 6px; "
+        "background-color: #0d1a20; margin-top: 10px; padding: 12px 8px 8px 8px; }"
+        "QGroupBox::title { subcontrol-origin: margin; left: 10px; padding: 2px 8px; "
+        "color: #00d4ff; background-color: #0d1a20; }");
     
     QVBoxLayout* layout = new QVBoxLayout(m_simGroup);
-    layout->setSpacing(4);
+    layout->setSpacing(6);
+    layout->setContentsMargins(10, 14, 10, 10);
     
     // Status label
     m_simStatusLabel = new QLabel("Status: STOPPED", this);
@@ -99,12 +102,14 @@ void QuickActionsPanel::createSimulationGroup() {
 void QuickActionsPanel::createDisplayGroup() {
     m_displayGroup = new QGroupBox("Display", this);
     m_displayGroup->setStyleSheet(
-        "QGroupBox { font-weight: bold; border: 1px solid #444; border-radius: 4px; "
-        "margin-top: 8px; padding-top: 8px; }"
-        "QGroupBox::title { subcontrol-origin: margin; left: 8px; padding: 0 4px; color: #8af; }");
+        "QGroupBox { font-weight: bold; border: 1px solid #2a4a5a; border-radius: 6px; "
+        "background-color: #0d1a20; margin-top: 10px; padding: 12px 8px 8px 8px; }"
+        "QGroupBox::title { subcontrol-origin: margin; left: 10px; padding: 2px 8px; "
+        "color: #00d4ff; background-color: #0d1a20; }");
     
     QVBoxLayout* layout = new QVBoxLayout(m_displayGroup);
-    layout->setSpacing(4);
+    layout->setSpacing(6);
+    layout->setContentsMargins(10, 14, 10, 10);
     
     // Display mode selector
     QHBoxLayout* modeLayout = new QHBoxLayout();
@@ -163,12 +168,14 @@ void QuickActionsPanel::createDisplayGroup() {
 void QuickActionsPanel::createRecordingGroup() {
     m_recordGroup = new QGroupBox("Recording", this);
     m_recordGroup->setStyleSheet(
-        "QGroupBox { font-weight: bold; border: 1px solid #444; border-radius: 4px; "
-        "margin-top: 8px; padding-top: 8px; }"
-        "QGroupBox::title { subcontrol-origin: margin; left: 8px; padding: 0 4px; color: #8af; }");
+        "QGroupBox { font-weight: bold; border: 1px solid #2a4a5a; border-radius: 6px; "
+        "background-color: #0d1a20; margin-top: 10px; padding: 12px 8px 8px 8px; }"
+        "QGroupBox::title { subcontrol-origin: margin; left: 10px; padding: 2px 8px; "
+        "color: #00d4ff; background-color: #0d1a20; }");
     
     QVBoxLayout* layout = new QVBoxLayout(m_recordGroup);
-    layout->setSpacing(4);
+    layout->setSpacing(6);
+    layout->setContentsMargins(10, 14, 10, 10);
     
     // Status label
     m_recordStatusLabel = new QLabel("Not Recording", this);
@@ -210,12 +217,14 @@ void QuickActionsPanel::createRecordingGroup() {
 void QuickActionsPanel::createEngagementGroup() {
     m_engageGroup = new QGroupBox("Engagement", this);
     m_engageGroup->setStyleSheet(
-        "QGroupBox { font-weight: bold; border: 1px solid #444; border-radius: 4px; "
-        "margin-top: 8px; padding-top: 8px; }"
-        "QGroupBox::title { subcontrol-origin: margin; left: 8px; padding: 0 4px; color: #f88; }");
+        "QGroupBox { font-weight: bold; border: 1px solid #4a2a2a; border-radius: 6px; "
+        "background-color: #0d1a20; margin-top: 10px; padding: 12px 8px 8px 8px; }"
+        "QGroupBox::title { subcontrol-origin: margin; left: 10px; padding: 2px 8px; "
+        "color: #ff6666; background-color: #0d1a20; }");
     
     QVBoxLayout* layout = new QVBoxLayout(m_engageGroup);
-    layout->setSpacing(4);
+    layout->setSpacing(6);
+    layout->setContentsMargins(10, 14, 10, 10);
     
     // Engage button (large, prominent)
     m_engageBtn = new QPushButton("ENGAGE TARGET", this);
