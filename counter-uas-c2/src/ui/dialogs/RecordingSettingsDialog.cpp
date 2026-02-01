@@ -4,6 +4,7 @@
  */
 
 #include "ui/dialogs/RecordingSettingsDialog.h"
+#include "ui/SkyGuardTheme.h"
 #include "video/VideoStreamManager.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -20,7 +21,11 @@ RecordingSettingsDialog::RecordingSettingsDialog(VideoStreamManager* manager, QW
     , m_manager(manager)
 {
     setWindowTitle("Recording Settings");
-    setMinimumSize(500, 600);
+    setMinimumSize(550, 650);
+    
+    // Apply SkyGuard theme
+    setStyleSheet(SkyGuardTheme::getStyleSheet() + SkyGuardTheme::getDialogStyleSheet() + 
+                  SkyGuardTheme::getInputStyleSheet());
     
     setupUI();
 }
@@ -122,17 +127,21 @@ void RecordingSettingsDialog::setupUI() {
     QGroupBox* actionsGroup = new QGroupBox("Quick Actions", this);
     QHBoxLayout* actionsLayout = new QHBoxLayout(actionsGroup);
     
-    QPushButton* startAllBtn = new QPushButton("Start All Recording", this);
-    startAllBtn->setStyleSheet("background-color: green; color: white;");
+    QPushButton* startAllBtn = new QPushButton("START ALL RECORDING", this);
+    startAllBtn->setObjectName("successButton");
+    startAllBtn->setCursor(Qt::PointingHandCursor);
     connect(startAllBtn, &QPushButton::clicked, this, &RecordingSettingsDialog::onStartAll);
     actionsLayout->addWidget(startAllBtn);
     
-    QPushButton* stopAllBtn = new QPushButton("Stop All Recording", this);
-    stopAllBtn->setStyleSheet("background-color: red; color: white;");
+    QPushButton* stopAllBtn = new QPushButton("STOP ALL RECORDING", this);
+    stopAllBtn->setObjectName("dangerButton");
+    stopAllBtn->setCursor(Qt::PointingHandCursor);
     connect(stopAllBtn, &QPushButton::clicked, this, &RecordingSettingsDialog::onStopAll);
     actionsLayout->addWidget(stopAllBtn);
     
-    QPushButton* snapshotBtn = new QPushButton("Take Snapshot", this);
+    QPushButton* snapshotBtn = new QPushButton("TAKE SNAPSHOT", this);
+    snapshotBtn->setObjectName("primaryButton");
+    snapshotBtn->setCursor(Qt::PointingHandCursor);
     connect(snapshotBtn, &QPushButton::clicked, this, &RecordingSettingsDialog::onTakeSnapshot);
     actionsLayout->addWidget(snapshotBtn);
     

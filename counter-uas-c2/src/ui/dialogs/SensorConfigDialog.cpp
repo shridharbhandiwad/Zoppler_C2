@@ -4,6 +4,7 @@
  */
 
 #include "ui/dialogs/SensorConfigDialog.h"
+#include "ui/SkyGuardTheme.h"
 #include "simulators/SensorSimulator.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -20,7 +21,11 @@ SensorConfigDialog::SensorConfigDialog(SensorSimulator* simulator, QWidget* pare
     , m_simulator(simulator)
 {
     setWindowTitle("Sensor Configuration");
-    setMinimumSize(700, 500);
+    setMinimumSize(750, 550);
+    
+    // Apply SkyGuard theme
+    setStyleSheet(SkyGuardTheme::getStyleSheet() + SkyGuardTheme::getDialogStyleSheet() + 
+                  SkyGuardTheme::getTabWidgetStyleSheet() + SkyGuardTheme::getInputStyleSheet());
     
     setupUI();
     refreshSensorList();

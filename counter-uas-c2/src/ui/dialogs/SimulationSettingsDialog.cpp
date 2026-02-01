@@ -4,6 +4,7 @@
  */
 
 #include "ui/dialogs/SimulationSettingsDialog.h"
+#include "ui/SkyGuardTheme.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QFormLayout>
@@ -20,7 +21,11 @@ SimulationSettingsDialog::SimulationSettingsDialog(SystemSimulationManager* simM
     , m_simManager(simManager)
 {
     setWindowTitle("Simulation Settings");
-    setMinimumSize(650, 750);
+    setMinimumSize(700, 800);
+    
+    // Apply SkyGuard theme
+    setStyleSheet(SkyGuardTheme::getStyleSheet() + SkyGuardTheme::getDialogStyleSheet() + 
+                  SkyGuardTheme::getTabWidgetStyleSheet() + SkyGuardTheme::getInputStyleSheet());
     
     setupUI();
     
@@ -274,9 +279,9 @@ void SimulationSettingsDialog::setupTargetControlTab(QWidget* tab) {
     
     // Inject button
     QHBoxLayout* injectBtnLayout = new QHBoxLayout();
-    m_injectTargetBtn = new QPushButton("Inject Target", tab);
-    m_injectTargetBtn->setStyleSheet("QPushButton { background-color: #4CAF50; color: white; "
-                                      "font-weight: bold; padding: 8px 16px; }");
+    m_injectTargetBtn = new QPushButton("+ INJECT TARGET", tab);
+    m_injectTargetBtn->setObjectName("accentButton");
+    m_injectTargetBtn->setCursor(Qt::PointingHandCursor);
     connect(m_injectTargetBtn, &QPushButton::clicked, this, &SimulationSettingsDialog::onInjectTarget);
     injectBtnLayout->addWidget(m_injectTargetBtn);
     manualLayout->addRow("", injectBtnLayout);
@@ -295,8 +300,9 @@ void SimulationSettingsDialog::setupTargetControlTab(QWidget* tab) {
     m_activeTargetsList->setMaximumHeight(100);
     activeLayout->addWidget(m_activeTargetsList);
     
-    m_clearTargetsBtn = new QPushButton("Clear All Targets", tab);
-    m_clearTargetsBtn->setStyleSheet("QPushButton { background-color: #f44336; color: white; }");
+    m_clearTargetsBtn = new QPushButton("CLEAR ALL TARGETS", tab);
+    m_clearTargetsBtn->setObjectName("dangerButton");
+    m_clearTargetsBtn->setCursor(Qt::PointingHandCursor);
     connect(m_clearTargetsBtn, &QPushButton::clicked, this, &SimulationSettingsDialog::onClearTargets);
     activeLayout->addWidget(m_clearTargetsBtn);
     

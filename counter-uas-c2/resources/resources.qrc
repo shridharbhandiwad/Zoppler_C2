@@ -1,20 +1,41 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource prefix="/">
-        <!-- Resource file for Counter-UAS C2 application -->
-        <!-- Add icon and config resources here as needed -->
-        <!-- Example: <file>icons/app.png</file> -->
+        <!-- SkyGuard Theme Icons -->
+        <file>icons/tactical-map.svg</file>
+        <file>icons/target.svg</file>
+        <file>icons/radar.svg</file>
+        <file>icons/alert.svg</file>
+        <file>icons/system-health.svg</file>
+        <file>icons/gallery.svg</file>
+        <file>icons/drone.svg</file>
+        <file>icons/camera.svg</file>
+        <file>icons/signal.svg</file>
+        <file>icons/shield.svg</file>
+        <file>icons/settings.svg</file>
+        
+        <!-- UI Control Icons -->
+        <file>icons/chevron-down.svg</file>
+        <file>icons/chevron-up.svg</file>
+        <file>icons/check.svg</file>
+        <file>icons/close.svg</file>
+        <file>icons/plus.svg</file>
+        <file>icons/play.svg</file>
+        <file>icons/pause.svg</file>
+        <file>icons/stop.svg</file>
+        <file>icons/refresh.svg</file>
+        
+        <!-- Status Indicators -->
+        <file>icons/status-online.svg</file>
+        <file>icons/status-offline.svg</file>
+        <file>icons/status-warning.svg</file>
+        
+        <!-- Branding -->
+        <file>icons/zoppler-logo.svg</file>
     </qresource>
     <qresource prefix="/simulation">
         <!-- Simulation video assets -->
         <!-- Add simulation frame images here for image sequence playback -->
         <!-- Supported formats: PNG, JPG, BMP -->
-        <!-- Example: <file>assets/frame_001.png</file> -->
-        <!-- 
-            To use image sequence simulation:
-            1. Add your frame images to resources/simulation_assets/
-            2. List them here
-            3. Set VideoSimulator to use ImageSequence or Resources mode
-        -->
     </qresource>
 </RCC>
