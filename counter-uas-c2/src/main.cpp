@@ -40,25 +40,14 @@ int main(int argc, char *argv[])
     app.setApplicationVersion("2.4.1-ALPHA");
     app.setOrganizationName("Defense Systems");
     
-    // Set dark fusion style as base
-    app.setStyle(QStyleFactory::create("Fusion"));
+    // Enable HiDPI scaling for modern displays
+    app.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
     
-    // Apply Zoppler dark palette
-    QPalette darkPalette;
-    darkPalette.setColor(QPalette::Window, QColor(10, 22, 40));         // #0a1628
-    darkPalette.setColor(QPalette::WindowText, QColor(255, 255, 255));  // #ffffff
-    darkPalette.setColor(QPalette::Base, QColor(13, 26, 45));           // #0d1a2d
-    darkPalette.setColor(QPalette::AlternateBase, QColor(17, 29, 46));  // #111d2e
-    darkPalette.setColor(QPalette::ToolTipBase, QColor(26, 45, 68));    // #1a2d44
-    darkPalette.setColor(QPalette::ToolTipText, QColor(255, 255, 255));
-    darkPalette.setColor(QPalette::Text, QColor(255, 255, 255));
-    darkPalette.setColor(QPalette::Button, QColor(26, 45, 68));         // #1a2d44
-    darkPalette.setColor(QPalette::ButtonText, QColor(255, 255, 255));
-    darkPalette.setColor(QPalette::BrightText, QColor(0, 212, 255));    // #00d4ff
-    darkPalette.setColor(QPalette::Link, QColor(0, 212, 255));          // #00d4ff
-    darkPalette.setColor(QPalette::Highlight, QColor(0, 212, 255));     // #00d4ff
-    darkPalette.setColor(QPalette::HighlightedText, QColor(10, 22, 40));
-    app.setPalette(darkPalette);
+    // Apply the SkyGuard theme (sets Fusion style and dark palette)
+    SkyGuardTheme::applyTheme(&amp;app);
+    
+    // Apply global stylesheet for consistent theming
+    app.setStyleSheet(SkyGuardTheme::getStyleSheet());
     
     // Initialize logger
     Logger::instance().setLogLevel(LogLevel::Debug);

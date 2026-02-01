@@ -1,10 +1,13 @@
 #include "ui/SidebarNavigation.h"
 #include "ui/SkyGuardTheme.h"
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QSpacerItem>
-#include <QFrame>
-#include <QVariant>
+#include &lt;QVBoxLayout&gt;
+#include &lt;QHBoxLayout&gt;
+#include &lt;QSpacerItem&gt;
+#include &lt;QFrame&gt;
+#include &lt;QVariant&gt;
+#include &lt;QSvgWidget&gt;
+#include &lt;QPainter&gt;
+#include &lt;QIcon&gt;
 
 namespace CounterUAS {
 
@@ -18,14 +21,14 @@ SidebarNavigation::SidebarNavigation(QWidget* parent)
     setFixedWidth(260);
     setStyleSheet(SkyGuardTheme::getSidebarStyleSheet());
     
-    // Define navigation items with Unicode icons
+    // Define navigation items with SVG icon paths
     m_navItems = {
-        {"tactical_map", "TACTICAL MAP", "\xF0\x9F\x93\x8A"},      // Chart icon
-        {"threat_list", "THREAT LIST", "\xF0\x9F\x8E\xAF"},        // Target icon
-        {"sensor_net", "SENSOR NET", "\xF0\x9F\x93\xA1"},          // Antenna icon
-        {"alert_log", "ALERT LOG", "\xE2\x9A\xA0"},                // Warning icon
-        {"system_health", "SYSTEM HEALTH", "\xF0\x9F\x93\x88"},    // Chart icon
-        {"gallery", "GALLERY / REF", "\xF0\x9F\x96\xBC"}           // Picture icon
+        {"tactical_map", "TACTICAL MAP", ":/icons/tactical-map.svg"},
+        {"threat_list", "THREAT LIST", ":/icons/target.svg"},
+        {"sensor_net", "SENSOR NET", ":/icons/radar.svg"},
+        {"alert_log", "ALERT LOG", ":/icons/alert.svg"},
+        {"system_health", "SYSTEM HEALTH", ":/icons/system-health.svg"},
+        {"gallery", "GALLERY / REF", ":/icons/gallery.svg"}
     };
     
     setupUI();
@@ -34,225 +37,216 @@ SidebarNavigation::SidebarNavigation(QWidget* parent)
     setCurrentPage("tactical_map");
     
     // Connect button group
-    connect(m_buttonGroup, &QButtonGroup::idClicked,
-            this, &SidebarNavigation::onNavButtonClicked);
+    connect(m_buttonGroup, &amp;QButtonGroup::idClicked,
+            this, &amp;SidebarNavigation::onNavButtonClicked);
 }
 
 void SidebarNavigation::setupUI() {
-    m_layout->setContentsMargins(0, 0, 0, 0);
-    m_layout->setSpacing(0);
+    m_layout-&gt;setContentsMargins(0, 0, 0, 0);
+    m_layout-&gt;setSpacing(0);
     
     // === Logo Section ===
     QWidget* logoSection = new QWidget(this);
-    logoSection->setStyleSheet("background-color: transparent;");
+    logoSection-&gt;setStyleSheet("background-color: transparent;");
     QVBoxLayout* logoLayout = new QVBoxLayout(logoSection);
-    logoLayout->setContentsMargins(20, 24, 20, 8);
-    logoLayout->setSpacing(4);
+    logoLayout-&gt;setContentsMargins(20, 24, 20, 8);
+    logoLayout-&gt;setSpacing(4);
     
     // Logo with icon
     QHBoxLayout* logoRow = new QHBoxLayout();
-    logoRow->setSpacing(12);
+    logoRow-&gt;setSpacing(12);
     
-    // Radar/target icon (using styled label)
+    // Logo icon (using SVG)
     QLabel* iconLabel = new QLabel(this);
-    iconLabel->setText("\xE2\x97\x89");  // Circle target
-    iconLabel->setStyleSheet(
-        "font-size: 28px; "
-        "color: #00d4ff; "
-        "font-weight: bold;"
-    );
-    logoRow->addWidget(iconLabel);
+    QIcon logoIcon(":/icons/zoppler-logo.svg");
+    iconLabel-&gt;setPixmap(logoIcon.pixmap(32, 32));
+    iconLabel-&gt;setFixedSize(32, 32);
+    logoRow-&gt;addWidget(iconLabel);
     
     // Logo text
     m_logoLabel = new QLabel("ZOPPLER", this);
-    m_logoLabel->setObjectName("logoLabel");
-    m_logoLabel->setStyleSheet(
+    m_logoLabel-&gt;setObjectName("logoLabel");
+    m_logoLabel-&gt;setStyleSheet(
         "font-size: 22px; "
-        "font-weight: bold; "
+        "font-weight: 700; "
         "color: #00d4ff; "
-        "letter-spacing: 2px;"
+        "letter-spacing: 3px;"
     );
-    logoRow->addWidget(m_logoLabel);
-    logoRow->addStretch();
+    logoRow-&gt;addWidget(m_logoLabel);
+    logoRow-&gt;addStretch();
     
-    logoLayout->addLayout(logoRow);
+    logoLayout-&gt;addLayout(logoRow);
     
     // Subtitle
     m_subtitleLabel = new QLabel("C-UAS COMMAND SYSTEM", this);
-    m_subtitleLabel->setObjectName("subtitleLabel");
-    m_subtitleLabel->setStyleSheet(
+    m_subtitleLabel-&gt;setObjectName("subtitleLabel");
+    m_subtitleLabel-&gt;setStyleSheet(
         "font-size: 10px; "
-        "color: #aabbcc; "
-        "letter-spacing: 1px;"
+        "color: #889aab; "
+        "letter-spacing: 1.5px;"
     );
-    logoLayout->addWidget(m_subtitleLabel);
+    logoLayout-&gt;addWidget(m_subtitleLabel);
     
-    m_layout->addWidget(logoSection);
+    m_layout-&gt;addWidget(logoSection);
     
-    // Divider line
+    // Divider line with gradient
     QFrame* divider = new QFrame(this);
-    divider->setFrameShape(QFrame::HLine);
-    divider->setStyleSheet("background-color: #1a3344; max-height: 1px; margin: 12px 16px;");
-    m_layout->addWidget(divider);
+    divider-&gt;setObjectName("sidebarDivider");
+    divider-&gt;setFrameShape(QFrame::HLine);
+    divider-&gt;setFixedHeight(1);
+    divider-&gt;setStyleSheet(
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0,"
+        "    stop:0 transparent, stop:0.5 #2a4455, stop:1 transparent);"
+        "margin: 12px 16px;"
+    );
+    m_layout-&gt;addWidget(divider);
     
     // === Navigation Buttons ===
     QWidget* navSection = new QWidget(this);
     QVBoxLayout* navLayout = new QVBoxLayout(navSection);
-    navLayout->setContentsMargins(8, 8, 8, 8);
-    navLayout->setSpacing(4);
+    navLayout-&gt;setContentsMargins(8, 8, 8, 8);
+    navLayout-&gt;setSpacing(4);
     
     int buttonId = 0;
-    for (const NavItem& item : m_navItems) {
+    for (const NavItem&amp; item : m_navItems) {
         QPushButton* btn = createNavButton(item);
-        m_buttonGroup->addButton(btn, buttonId++);
-        navLayout->addWidget(btn);
+        m_buttonGroup-&gt;addButton(btn, buttonId++);
+        navLayout-&gt;addWidget(btn);
     }
     
-    m_layout->addWidget(navSection);
+    m_layout-&gt;addWidget(navSection);
     
     // Spacer to push status to bottom
-    m_layout->addStretch();
+    m_layout-&gt;addStretch();
     
     // === Bottom Status Section ===
     QWidget* statusSection = new QWidget(this);
-    statusSection->setStyleSheet("background-color: transparent;");
+    statusSection-&gt;setStyleSheet("background-color: transparent;");
     QVBoxLayout* statusLayout = new QVBoxLayout(statusSection);
-    statusLayout->setContentsMargins(20, 16, 20, 20);
-    statusLayout->setSpacing(4);
+    statusLayout-&gt;setContentsMargins(20, 16, 20, 20);
+    statusLayout-&gt;setSpacing(4);
     
     // Divider
     QFrame* statusDivider = new QFrame(this);
-    statusDivider->setFrameShape(QFrame::HLine);
-    statusDivider->setStyleSheet("background-color: #1a3344; max-height: 1px;");
-    statusLayout->addWidget(statusDivider);
-    statusLayout->addSpacing(12);
+    statusDivider-&gt;setFrameShape(QFrame::HLine);
+    statusDivider-&gt;setFixedHeight(1);
+    statusDivider-&gt;setStyleSheet(
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0,"
+        "    stop:0 transparent, stop:0.5 #2a4455, stop:1 transparent);"
+    );
+    statusLayout-&gt;addWidget(statusDivider);
+    statusLayout-&gt;addSpacing(12);
     
     // Status row
     QHBoxLayout* statusRow = new QHBoxLayout();
-    statusRow->setSpacing(8);
+    statusRow-&gt;setSpacing(8);
     
     m_statusLabel = new QLabel("STATUS:", this);
-    m_statusLabel->setStyleSheet(
+    m_statusLabel-&gt;setStyleSheet(
         "font-size: 12px; "
         "color: #ffffff; "
-        "font-weight: bold;"
+        "font-weight: 600;"
     );
-    statusRow->addWidget(m_statusLabel);
+    statusRow-&gt;addWidget(m_statusLabel);
     
     m_statusValue = new QLabel("ONLINE", this);
-    m_statusValue->setObjectName("statusIndicator");
-    m_statusValue->setStyleSheet(
+    m_statusValue-&gt;setObjectName("statusIndicator");
+    m_statusValue-&gt;setStyleSheet(
         "font-size: 12px; "
         "color: #00ff88; "
-        "font-weight: bold;"
+        "font-weight: 700;"
     );
-    statusRow->addWidget(m_statusValue);
-    statusRow->addStretch();
+    statusRow-&gt;addWidget(m_statusValue);
+    statusRow-&gt;addStretch();
     
-    statusLayout->addLayout(statusRow);
+    statusLayout-&gt;addLayout(statusRow);
     
     // Version info
     m_versionLabel = new QLabel("V.2.4.1-ALPHA // SECURE", this);
-    m_versionLabel->setObjectName("versionLabel");
-    m_versionLabel->setStyleSheet(
+    m_versionLabel-&gt;setObjectName("versionLabel");
+    m_versionLabel-&gt;setStyleSheet(
         "font-size: 10px; "
-        "color: #8899aa;"
+        "color: #667788;"
     );
-    statusLayout->addWidget(m_versionLabel);
+    statusLayout-&gt;addWidget(m_versionLabel);
     
-    m_layout->addWidget(statusSection);
+    m_layout-&gt;addWidget(statusSection);
 }
 
-QPushButton* SidebarNavigation::createNavButton(const NavItem& item) {
+QPushButton* SidebarNavigation::createNavButton(const NavItem&amp; item) {
     QPushButton* btn = new QPushButton(this);
-    btn->setObjectName("navButton");
-    btn->setCheckable(true);
-    btn->setCursor(Qt::PointingHandCursor);
+    btn-&gt;setObjectName("navButton");
+    btn-&gt;setCheckable(true);
+    btn-&gt;setCursor(Qt::PointingHandCursor);
     
     // Create icon + text layout
     QWidget* content = new QWidget(btn);
     QHBoxLayout* layout = new QHBoxLayout(content);
-    layout->setContentsMargins(12, 8, 12, 8);
-    layout->setSpacing(16);
+    layout-&gt;setContentsMargins(12, 10, 12, 10);
+    layout-&gt;setSpacing(14);
     
-    // Icon label (using simple text representations)
+    // Icon label (using SVG)
     QLabel* iconLabel = new QLabel(content);
-    QString iconChar;
-    
-    // Map nav items to appropriate icons
-    if (item.id == "tactical_map") {
-        iconChar = "\xE2\x8C\xA0";  // Place of interest symbol
-    } else if (item.id == "threat_list") {
-        iconChar = "\xE2\x97\x89";  // Circled dot
-    } else if (item.id == "sensor_net") {
-        iconChar = "\xC2\xB7";      // Middle dot (signal)
-    } else if (item.id == "alert_log") {
-        iconChar = "\xE2\x9A\xA0";  // Warning
-    } else if (item.id == "system_health") {
-        iconChar = "\xE2\x86\x97";  // Arrow
-    } else if (item.id == "gallery") {
-        iconChar = "\xE2\x96\xA1";  // Square
-    }
-    
-    iconLabel->setText(iconChar);
-    iconLabel->setStyleSheet(
-        "font-size: 18px; "
-        "color: inherit; "
-        "min-width: 24px; "
-        "qproperty-alignment: AlignCenter;"
-    );
-    layout->addWidget(iconLabel);
+    QIcon icon(item.icon);
+    iconLabel-&gt;setPixmap(icon.pixmap(20, 20));
+    iconLabel-&gt;setFixedSize(24, 24);
+    iconLabel-&gt;setAlignment(Qt::AlignCenter);
+    iconLabel-&gt;setStyleSheet("background: transparent;");
+    layout-&gt;addWidget(iconLabel);
     
     // Text label
     QLabel* textLabel = new QLabel(item.label, content);
-    textLabel->setStyleSheet(
-        "font-size: 13px; "
-        "font-weight: 500; "
+    textLabel-&gt;setStyleSheet(
+        "font-size: 12px; "
+        "font-weight: 600; "
         "color: inherit; "
-        "letter-spacing: 1px;"
+        "letter-spacing: 1px; "
+        "background: transparent;"
     );
-    layout->addWidget(textLabel);
-    layout->addStretch();
+    layout-&gt;addWidget(textLabel);
+    layout-&gt;addStretch();
     
-    btn->setLayout(new QVBoxLayout());
-    btn->layout()->setContentsMargins(0, 0, 0, 0);
-    btn->layout()->addWidget(content);
+    btn-&gt;setLayout(new QVBoxLayout());
+    btn-&gt;layout()-&gt;setContentsMargins(0, 0, 0, 0);
+    btn-&gt;layout()-&gt;addWidget(content);
     
-    btn->setMinimumHeight(52);
-    btn->setStyleSheet(
+    btn-&gt;setMinimumHeight(48);
+    btn-&gt;setStyleSheet(
         "QPushButton#navButton {"
-        "   background-color: transparent;"
-        "   color: #ffffff;"
+        "   background: transparent;"
+        "   color: #a8b8c8;"
         "   border: none;"
         "   border-left: 3px solid transparent;"
         "   border-radius: 0px;"
         "   text-align: left;"
         "}"
         "QPushButton#navButton:hover {"
-        "   background-color: #2a3d55;"
+        "   background: qlineargradient(x1:0, y1:0, x2:1, y2:0,"
+        "       stop:0 rgba(0, 212, 255, 0.15), stop:1 rgba(0, 212, 255, 0.05));"
         "   color: #00d4ff;"
         "}"
         "QPushButton#navButton:checked {"
-        "   background-color: rgba(0, 212, 255, 0.15);"
+        "   background: qlineargradient(x1:0, y1:0, x2:1, y2:0,"
+        "       stop:0 rgba(0, 212, 255, 0.2), stop:1 rgba(0, 212, 255, 0.05));"
         "   color: #00d4ff;"
         "   border-left: 3px solid #00d4ff;"
         "}"
     );
     
-    btn->setProperty("navId", item.id);
+    btn-&gt;setProperty("navId", item.id);
     
     return btn;
 }
 
-void SidebarNavigation::setCurrentPage(const QString& pageId) {
+void SidebarNavigation::setCurrentPage(const QString&amp; pageId) {
     m_currentPage = pageId;
     
     // Update button states
-    for (int i = 0; i < m_navItems.size(); ++i) {
+    for (int i = 0; i &lt; m_navItems.size(); ++i) {
         if (m_navItems[i].id == pageId) {
-            QAbstractButton* btn = m_buttonGroup->button(i);
+            QAbstractButton* btn = m_buttonGroup-&gt;button(i);
             if (btn) {
-                btn->setChecked(true);
+                btn-&gt;setChecked(true);
             }
             break;
         }
@@ -261,24 +255,24 @@ void SidebarNavigation::setCurrentPage(const QString& pageId) {
 
 void SidebarNavigation::setOnlineStatus(bool online) {
     if (online) {
-        m_statusValue->setText("ONLINE");
-        m_statusValue->setStyleSheet(
+        m_statusValue-&gt;setText("ONLINE");
+        m_statusValue-&gt;setStyleSheet(
             "font-size: 12px; "
             "color: #00ff88; "
-            "font-weight: bold;"
+            "font-weight: 700;"
         );
     } else {
-        m_statusValue->setText("OFFLINE");
-        m_statusValue->setStyleSheet(
+        m_statusValue-&gt;setText("OFFLINE");
+        m_statusValue-&gt;setStyleSheet(
             "font-size: 12px; "
             "color: #ff3344; "
-            "font-weight: bold;"
+            "font-weight: 700;"
         );
     }
 }
 
 void SidebarNavigation::onNavButtonClicked(int index) {
-    if (index >= 0 && index < m_navItems.size()) {
+    if (index &gt;= 0 &amp;&amp; index &lt; m_navItems.size()) {
         m_currentPage = m_navItems[index].id;
         emit pageSelected(m_currentPage);
     }

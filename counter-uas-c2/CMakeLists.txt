@@ -170,6 +170,7 @@ set(UI_SOURCES
     src/ui/SkyGuardMainWindow.cpp
     src/ui/SidebarNavigation.cpp
     src/ui/HeaderBar.cpp
+    src/ui/ModernComponents.cpp
     src/ui/pages/TacticalMapPage.cpp
     src/ui/pages/ThreatDatabasePage.cpp
     src/ui/pages/SensorNetworkPage.cpp
@@ -271,6 +272,7 @@ set(UI_HEADERS
     src/ui/SkyGuardMainWindow.h
     src/ui/SidebarNavigation.h
     src/ui/HeaderBar.h
+    src/ui/ModernComponents.h
     src/ui/pages/TacticalMapPage.h
     src/ui/pages/ThreatDatabasePage.h
     src/ui/pages/SensorNetworkPage.h

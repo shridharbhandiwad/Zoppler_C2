@@ -1,4 +1,5 @@
 #include "ui/dialogs/TiffMapSettingsDialog.h"
+#include "ui/SkyGuardTheme.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QGridLayout>
@@ -15,7 +16,7 @@ TiffMapSettingsDialog::TiffMapSettingsDialog(MapWidget* mapWidget, QWidget* pare
     , m_mapWidget(mapWidget)
 {
     setWindowTitle("TIFF Map Settings");
-    setMinimumSize(500, 550);
+    setMinimumSize(550, 600);
     setModal(false);  // Allow interaction with map while dialog is open
     
     setupUI();
@@ -192,95 +193,9 @@ void TiffMapSettingsDialog::setupUI() {
 }
 
 void TiffMapSettingsDialog::applyDarkTheme() {
-    setStyleSheet(R"(
-        QDialog {
-            background-color: #0d1a2d;
-            color: #ffffff;
-        }
-        QGroupBox {
-            font-weight: bold;
-            color: #00d4ff;
-            border: 1px solid #1a3344;
-            border-radius: 6px;
-            margin-top: 12px;
-            padding-top: 10px;
-        }
-        QGroupBox::title {
-            subcontrol-origin: margin;
-            subcontrol-position: top left;
-            padding: 0 8px;
-            background-color: #0d1a2d;
-        }
-        QLineEdit {
-            background-color: #111d2e;
-            border: 1px solid #1a3344;
-            border-radius: 4px;
-            padding: 6px 10px;
-            color: #ffffff;
-        }
-        QLineEdit:focus {
-            border-color: #00d4ff;
-        }
-        QDoubleSpinBox {
-            background-color: #111d2e;
-            border: 1px solid #1a3344;
-            border-radius: 4px;
-            padding: 4px 8px;
-            color: #ffffff;
-        }
-        QDoubleSpinBox:focus {
-            border-color: #00d4ff;
-        }
-        QPushButton {
-            background-color: #1a3344;
-            color: #ffffff;
-            border: 1px solid #2a4454;
-            border-radius: 4px;
-            padding: 6px 16px;
-            font-weight: bold;
-        }
-        QPushButton:hover {
-            background-color: #2a4454;
-            border-color: #00d4ff;
-        }
-        QPushButton:pressed {
-            background-color: #0a2030;
-        }
-        QSlider::groove:horizontal {
-            height: 6px;
-            background: #1a3344;
-            border-radius: 3px;
-        }
-        QSlider::handle:horizontal {
-            background: #00d4ff;
-            width: 16px;
-            height: 16px;
-            margin: -5px 0;
-            border-radius: 8px;
-        }
-        QSlider::sub-page:horizontal {
-            background: #00d4ff;
-            border-radius: 3px;
-        }
-        QCheckBox {
-            color: #ffffff;
-            spacing: 8px;
-        }
-        QCheckBox::indicator {
-            width: 18px;
-            height: 18px;
-            border: 1px solid #1a3344;
-            border-radius: 3px;
-            background-color: #111d2e;
-        }
-        QCheckBox::indicator:checked {
-            background-color: #00d4ff;
-            border-color: #00d4ff;
-        }
-        QLabel {
-            color: #ccddee;
-        }
-    )");
+    // Apply the unified SkyGuard theme for consistent UI
+    setStyleSheet(SkyGuardTheme::getStyleSheet() + SkyGuardTheme::getDialogStyleSheet() + 
+                  SkyGuardTheme::getInputStyleSheet());
 }
 
 void TiffMapSettingsDialog::setCurrentBounds(const TiffMapBounds& bounds) {

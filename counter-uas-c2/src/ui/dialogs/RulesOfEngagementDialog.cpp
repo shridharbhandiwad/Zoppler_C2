@@ -4,6 +4,7 @@
  */
 
 #include "ui/dialogs/RulesOfEngagementDialog.h"
+#include "ui/SkyGuardTheme.h"
 #include "core/EngagementManager.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -20,7 +21,11 @@ RulesOfEngagementDialog::RulesOfEngagementDialog(EngagementManager* manager, QWi
     , m_manager(manager)
 {
     setWindowTitle("Rules of Engagement");
-    setMinimumSize(500, 600);
+    setMinimumSize(550, 650);
+    
+    // Apply SkyGuard theme
+    setStyleSheet(SkyGuardTheme::getStyleSheet() + SkyGuardTheme::getDialogStyleSheet() + 
+                  SkyGuardTheme::getInputStyleSheet());
     
     setupUI();
 }

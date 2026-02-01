@@ -4,6 +4,7 @@
  */
 
 #include "ui/dialogs/EffectorStatusDialog.h"
+#include "ui/SkyGuardTheme.h"
 #include "core/EngagementManager.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -20,7 +21,11 @@ EffectorStatusDialog::EffectorStatusDialog(EngagementManager* manager, QWidget* 
     , m_refreshTimer(new QTimer(this))
 {
     setWindowTitle("Effector Status");
-    setMinimumSize(800, 500);
+    setMinimumSize(850, 550);
+    
+    // Apply SkyGuard theme
+    setStyleSheet(SkyGuardTheme::getStyleSheet() + SkyGuardTheme::getDialogStyleSheet() + 
+                  SkyGuardTheme::getInputStyleSheet() + SkyGuardTheme::getProgressBarStyleSheet());
     
     setupUI();
     
@@ -99,9 +104,10 @@ void EffectorStatusDialog::setupUI() {
     connect(m_resetBtn, &QPushButton::clicked, this, &EffectorStatusDialog::onReset);
     controlLayout->addWidget(m_resetBtn);
     
-    m_testBtn = new QPushButton("Test Engage", this);
+    m_testBtn = new QPushButton("TEST ENGAGE", this);
     m_testBtn->setEnabled(false);
-    m_testBtn->setStyleSheet("background-color: orange;");
+    m_testBtn->setObjectName("dangerButton");
+    m_testBtn->setCursor(Qt::PointingHandCursor);
     connect(m_testBtn, &QPushButton::clicked, this, &EffectorStatusDialog::onTestEngage);
     controlLayout->addWidget(m_testBtn);
     
