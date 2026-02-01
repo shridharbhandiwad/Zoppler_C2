@@ -1,10 +1,10 @@
 #ifndef SKYGUARDTHEME_H
 #define SKYGUARDTHEME_H
 
-#include &lt;QString&gt;
-#include &lt;QColor&gt;
-#include &lt;QFont&gt;
-#include &lt;QApplication&gt;
+#include <QString>
+#include <QColor>
+#include <QFont>
+#include <QApplication>
 
 namespace CounterUAS {
 
@@ -76,7 +76,7 @@ public:
     static const QColor ShadowLight;          // Light shadow rgba(0, 0, 0, 0.15)
     static const QColor ShadowGlow;           // Glow shadow rgba(0, 212, 255, 0.2)
     
-    // ===== SPACING &amp; SIZING =====
+    // ===== SPACING & SIZING =====
     static constexpr int SpacingXS = 4;
     static constexpr int SpacingS = 8;
     static constexpr int SpacingM = 12;
@@ -130,11 +130,11 @@ public:
     static void applyTheme(QApplication* app);
     
     // Get color as hex string
-    static QString toHex(const QColor&amp; color);
-    static QString toRgba(const QColor&amp; color);
+    static QString toHex(const QColor& color);
+    static QString toRgba(const QColor& color);
     
     // Get styled icon path
-    static QString iconPath(const QString&amp; iconName);
+    static QString iconPath(const QString& iconName);
     
 private:
     SkyGuardTheme() = default;

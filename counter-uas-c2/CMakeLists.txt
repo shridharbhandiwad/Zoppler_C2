@@ -70,6 +70,7 @@ find_package(Qt6 COMPONENTS
     OpenGLWidgets
     Concurrent
     SerialPort
+    Svg
     QUIET
 )
 
@@ -361,6 +362,7 @@ if(QT_VERSION_MAJOR EQUAL 6)
         Qt6::OpenGLWidgets
         Qt6::Concurrent
         Qt6::SerialPort
+        Qt6::Svg
     )
     
     # Add StateMachine if available

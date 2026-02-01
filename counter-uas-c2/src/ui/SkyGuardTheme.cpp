@@ -1,6 +1,6 @@
 #include "ui/SkyGuardTheme.h"
-#include &lt;QPalette&gt;
-#include &lt;QStyleFactory&gt;
+#include <QPalette>
+#include <QStyleFactory>
 
 namespace CounterUAS {
 
@@ -80,11 +80,11 @@ int SkyGuardTheme::fontSizeTitle() { return 28; }
 int SkyGuardTheme::fontSizeHuge()  { return 36; }
 
 // ===== UTILITY METHODS =====
-QString SkyGuardTheme::toHex(const QColor&amp; color) {
+QString SkyGuardTheme::toHex(const QColor& color) {
     return color.name(QColor::HexRgb);
 }
 
-QString SkyGuardTheme::toRgba(const QColor&amp; color) {
+QString SkyGuardTheme::toRgba(const QColor& color) {
     return QString("rgba(%1, %2, %3, %4)")
         .arg(color.red())
         .arg(color.green())
@@ -92,7 +92,7 @@ QString SkyGuardTheme::toRgba(const QColor&amp; color) {
         .arg(color.alpha() / 255.0, 0, 'f', 2);
 }
 
-QString SkyGuardTheme::iconPath(const QString&amp; iconName) {
+QString SkyGuardTheme::iconPath(const QString& iconName) {
     return QString(":/icons/%1.svg").arg(iconName);
 }
 
@@ -100,7 +100,7 @@ void SkyGuardTheme::applyTheme(QApplication* app) {
     if (!app) return;
     
     // Use Fusion style as base
-    app-&gt;setStyle(QStyleFactory::create("Fusion"));
+    app->setStyle(QStyleFactory::create("Fusion"));
     
     // Apply dark palette
     QPalette darkPalette;
@@ -119,7 +119,7 @@ void SkyGuardTheme::applyTheme(QApplication* app) {
     darkPalette.setColor(QPalette::HighlightedText, BackgroundDark);
     darkPalette.setColor(QPalette::Disabled, QPalette::Text, TextMuted);
     darkPalette.setColor(QPalette::Disabled, QPalette::ButtonText, TextMuted);
-    app-&gt;setPalette(darkPalette);
+    app->setPalette(darkPalette);
 }
 
 QString SkyGuardTheme::getStyleSheet() {
@@ -129,7 +129,7 @@ QString SkyGuardTheme::getStyleSheet() {
            Modern Defense-Grade UI with Cyan/Teal Accents
            ================================================================ */
         
-        /* ===== GLOBAL RESET &amp; BASE STYLES ===== */
+        /* ===== GLOBAL RESET & BASE STYLES ===== */
         * {
             outline: none;
         }

@@ -1,8 +1,8 @@
 #include "ui/ModernComponents.h"
 #include "ui/SkyGuardTheme.h"
-#include &lt;QPainterPath&gt;
-#include &lt;QSvgRenderer&gt;
-#include &lt;QtMath&gt;
+#include <QPainterPath>
+#include <QSvgRenderer>
+#include <QtMath>
 
 namespace CounterUAS {
 
@@ -20,17 +20,17 @@ GlowFrame::GlowFrame(QWidget* parent)
     setObjectName("glowFrame");
     
     // Setup shadow effect
-    m_shadowEffect-&gt;setBlurRadius(20);
-    m_shadowEffect-&gt;setOffset(0, 4);
-    m_shadowEffect-&gt;setColor(SkyGuardTheme::ShadowMedium);
+    m_shadowEffect->setBlurRadius(20);
+    m_shadowEffect->setOffset(0, 4);
+    m_shadowEffect->setColor(SkyGuardTheme::ShadowMedium);
     setGraphicsEffect(m_shadowEffect);
     
     // Setup animation
-    m_glowAnimation-&gt;setDuration(SkyGuardTheme::AnimationNormal);
-    m_glowAnimation-&gt;setEasingCurve(QEasingCurve::OutCubic);
+    m_glowAnimation->setDuration(SkyGuardTheme::AnimationNormal);
+    m_glowAnimation->setEasingCurve(QEasingCurve::OutCubic);
 }
 
-void GlowFrame::setGlowColor(const QColor&amp; color) {
+void GlowFrame::setGlowColor(const QColor& color) {
     m_glowColor = color;
     update();
 }
@@ -42,7 +42,7 @@ void GlowFrame::setGlowEnabled(bool enabled) {
     }
 }
 
-void GlowFrame::setBorderAccentColor(const QColor&amp; color) {
+void GlowFrame::setBorderAccentColor(const QColor& color) {
     m_borderAccentColor = color;
     update();
 }
@@ -51,14 +51,14 @@ void GlowFrame::setGlowOpacity(qreal opacity) {
     m_glowOpacity = qBound(0.0, opacity, 1.0);
     
     // Update shadow for glow effect
-    if (m_glowEnabled &amp;&amp; m_glowOpacity &gt; 0) {
+    if (m_glowEnabled && m_glowOpacity > 0) {
         QColor glowShadow = m_glowColor;
         glowShadow.setAlphaF(m_glowOpacity * 0.4);
-        m_shadowEffect-&gt;setColor(glowShadow);
-        m_shadowEffect-&gt;setBlurRadius(25 + m_glowOpacity * 15);
+        m_shadowEffect->setColor(glowShadow);
+        m_shadowEffect->setBlurRadius(25 + m_glowOpacity * 15);
     } else {
-        m_shadowEffect-&gt;setColor(SkyGuardTheme::ShadowMedium);
-        m_shadowEffect-&gt;setBlurRadius(20);
+        m_shadowEffect->setColor(SkyGuardTheme::ShadowMedium);
+        m_shadowEffect->setBlurRadius(20);
     }
     
     update();
@@ -66,20 +66,20 @@ void GlowFrame::setGlowOpacity(qreal opacity) {
 
 void GlowFrame::enterEvent(QEnterEvent* event) {
     if (m_glowEnabled) {
-        m_glowAnimation-&gt;stop();
-        m_glowAnimation-&gt;setStartValue(m_glowOpacity);
-        m_glowAnimation-&gt;setEndValue(1.0);
-        m_glowAnimation-&gt;start();
+        m_glowAnimation->stop();
+        m_glowAnimation->setStartValue(m_glowOpacity);
+        m_glowAnimation->setEndValue(1.0);
+        m_glowAnimation->start();
     }
     QFrame::enterEvent(event);
 }
 
 void GlowFrame::leaveEvent(QEvent* event) {
     if (m_glowEnabled) {
-        m_glowAnimation-&gt;stop();
-        m_glowAnimation-&gt;setStartValue(m_glowOpacity);
-        m_glowAnimation-&gt;setEndValue(0.0);
-        m_glowAnimation-&gt;start();
+        m_glowAnimation->stop();
+        m_glowAnimation->setStartValue(m_glowOpacity);
+        m_glowAnimation->setEndValue(0.0);
+        m_glowAnimation->start();
     }
     QFrame::leaveEvent(event);
 }
@@ -87,7 +87,7 @@ void GlowFrame::leaveEvent(QEvent* event) {
 void GlowFrame::paintEvent(QPaintEvent* event) {
     QFrame::paintEvent(event);
     
-    if (m_glowEnabled &amp;&amp; m_glowOpacity &gt; 0) {
+    if (m_glowEnabled && m_glowOpacity > 0) {
         QPainter painter(this);
         painter.setRenderHint(QPainter::Antialiasing);
         
@@ -141,15 +141,15 @@ void StatusIndicator::setPulseScale(qreal scale) {
 }
 
 void StatusIndicator::updateAnimation() {
-    m_pulseAnimation-&gt;stop();
+    m_pulseAnimation->stop();
     
-    if (m_pulseEnabled &amp;&amp; (m_status == Online || m_status == Processing)) {
-        m_pulseAnimation-&gt;setDuration(1500);
-        m_pulseAnimation-&gt;setStartValue(1.0);
-        m_pulseAnimation-&gt;setEndValue(1.5);
-        m_pulseAnimation-&gt;setEasingCurve(QEasingCurve::InOutQuad);
-        m_pulseAnimation-&gt;setLoopCount(-1);
-        m_pulseAnimation-&gt;start();
+    if (m_pulseEnabled && (m_status == Online || m_status == Processing)) {
+        m_pulseAnimation->setDuration(1500);
+        m_pulseAnimation->setStartValue(1.0);
+        m_pulseAnimation->setEndValue(1.5);
+        m_pulseAnimation->setEasingCurve(QEasingCurve::InOutQuad);
+        m_pulseAnimation->setLoopCount(-1);
+        m_pulseAnimation->start();
     } else {
         m_pulseScale = 1.0;
     }
@@ -174,7 +174,7 @@ void StatusIndicator::paintEvent(QPaintEvent*) {
     QPointF center(width() / 2.0, height() / 2.0);
     
     // Draw pulse ring
-    if (m_pulseEnabled &amp;&amp; m_pulseScale &gt; 1.0) {
+    if (m_pulseEnabled && m_pulseScale > 1.0) {
         QColor pulseColor = color;
         pulseColor.setAlphaF(0.3 * (2.0 - m_pulseScale));
         painter.setPen(Qt::NoPen);
@@ -197,27 +197,27 @@ void StatusIndicator::paintEvent(QPaintEvent*) {
 
 // ==================== ModernButton ====================
 
-ModernButton::ModernButton(const QString&amp; text, QWidget* parent)
+ModernButton::ModernButton(const QString& text, QWidget* parent)
     : QPushButton(text, parent)
     , m_buttonStyle(Primary)
     , m_hoverProgress(0)
     , m_hoverAnimation(new QPropertyAnimation(this, "hoverProgress", this))
 {
     setCursor(Qt::PointingHandCursor);
-    m_hoverAnimation-&gt;setDuration(SkyGuardTheme::AnimationNormal);
-    m_hoverAnimation-&gt;setEasingCurve(QEasingCurve::OutCubic);
+    m_hoverAnimation->setDuration(SkyGuardTheme::AnimationNormal);
+    m_hoverAnimation->setEasingCurve(QEasingCurve::OutCubic);
     setupStyle();
 }
 
-ModernButton::ModernButton(const QIcon&amp; icon, const QString&amp; text, QWidget* parent)
+ModernButton::ModernButton(const QIcon& icon, const QString& text, QWidget* parent)
     : QPushButton(icon, text, parent)
     , m_buttonStyle(Primary)
     , m_hoverProgress(0)
     , m_hoverAnimation(new QPropertyAnimation(this, "hoverProgress", this))
 {
     setCursor(Qt::PointingHandCursor);
-    m_hoverAnimation-&gt;setDuration(SkyGuardTheme::AnimationNormal);
-    m_hoverAnimation-&gt;setEasingCurve(QEasingCurve::OutCubic);
+    m_hoverAnimation->setDuration(SkyGuardTheme::AnimationNormal);
+    m_hoverAnimation->setEasingCurve(QEasingCurve::OutCubic);
     setupStyle();
 }
 
@@ -226,7 +226,7 @@ void ModernButton::setButtonStyle(ButtonStyle style) {
     setupStyle();
 }
 
-void ModernButton::setIconPath(const QString&amp; iconPath) {
+void ModernButton::setIconPath(const QString& iconPath) {
     setIcon(QIcon(iconPath));
 }
 
@@ -236,18 +236,18 @@ void ModernButton::setHoverProgress(qreal progress) {
 }
 
 void ModernButton::enterEvent(QEnterEvent* event) {
-    m_hoverAnimation-&gt;stop();
-    m_hoverAnimation-&gt;setStartValue(m_hoverProgress);
-    m_hoverAnimation-&gt;setEndValue(1.0);
-    m_hoverAnimation-&gt;start();
+    m_hoverAnimation->stop();
+    m_hoverAnimation->setStartValue(m_hoverProgress);
+    m_hoverAnimation->setEndValue(1.0);
+    m_hoverAnimation->start();
     QPushButton::enterEvent(event);
 }
 
 void ModernButton::leaveEvent(QEvent* event) {
-    m_hoverAnimation-&gt;stop();
-    m_hoverAnimation-&gt;setStartValue(m_hoverProgress);
-    m_hoverAnimation-&gt;setEndValue(0.0);
-    m_hoverAnimation-&gt;start();
+    m_hoverAnimation->stop();
+    m_hoverAnimation->setStartValue(m_hoverProgress);
+    m_hoverAnimation->setEndValue(0.0);
+    m_hoverAnimation->start();
     QPushButton::leaveEvent(event);
 }
 
@@ -256,8 +256,6 @@ void ModernButton::paintEvent(QPaintEvent* event) {
 }
 
 void ModernButton::setupStyle() {
-    QString style;
-    
     switch (m_buttonStyle) {
         case Primary:
             setObjectName("primaryButton");
@@ -323,48 +321,48 @@ void ModernStatCard::setupUI() {
     m_iconLabel->setStyleSheet("font-size: 16px;");
     headerRow->addWidget(m_iconLabel);
     
-    layout-&gt;addLayout(headerRow);
+    layout->addLayout(headerRow);
     
     // Value
     m_valueLabel = new QLabel(this);
     m_valueLabel->setStyleSheet(QString(
         "font-size: 28px; font-weight: 700; color: %1;"
     ).arg(SkyGuardTheme::toHex(SkyGuardTheme::AccentPrimary)));
-    layout-&gt;addWidget(m_valueLabel);
+    layout->addWidget(m_valueLabel);
     
     // Subtitle
     m_subtitleLabel = new QLabel(this);
     m_subtitleLabel->setStyleSheet(QString(
         "font-size: 11px; color: %1;"
     ).arg(SkyGuardTheme::toHex(SkyGuardTheme::TextMuted)));
-    layout-&gt;addWidget(m_subtitleLabel);
+    layout->addWidget(m_subtitleLabel);
 }
 
-void ModernStatCard::setTitle(const QString&amp; title) {
-    m_titleLabel-&gt;setText(title.toUpper());
+void ModernStatCard::setTitle(const QString& title) {
+    m_titleLabel->setText(title.toUpper());
 }
 
-void ModernStatCard::setValue(const QString&amp; value) {
-    m_valueLabel-&gt;setText(value);
+void ModernStatCard::setValue(const QString& value) {
+    m_valueLabel->setText(value);
 }
 
-void ModernStatCard::setSubtitle(const QString&amp; subtitle) {
-    m_subtitleLabel-&gt;setText(subtitle);
+void ModernStatCard::setSubtitle(const QString& subtitle) {
+    m_subtitleLabel->setText(subtitle);
 }
 
-void ModernStatCard::setIcon(const QIcon&amp; icon) {
-    m_iconLabel-&gt;setPixmap(icon.pixmap(16, 16));
+void ModernStatCard::setIcon(const QIcon& icon) {
+    m_iconLabel->setPixmap(icon.pixmap(16, 16));
 }
 
-void ModernStatCard::setAccentColor(const QColor&amp; color) {
+void ModernStatCard::setAccentColor(const QColor& color) {
     m_accentColor = color;
     setGlowColor(color);
     
-    m_titleLabel-&gt;setStyleSheet(QString(
+    m_titleLabel->setStyleSheet(QString(
         "font-size: 10px; font-weight: 700; color: %1; letter-spacing: 1px;"
     ).arg(SkyGuardTheme::toHex(color)));
     
-    m_valueLabel-&gt;setStyleSheet(QString(
+    m_valueLabel->setStyleSheet(QString(
         "font-size: 28px; font-weight: 700; color: %1;"
     ).arg(SkyGuardTheme::toHex(color)));
     
@@ -391,31 +389,31 @@ AnimatedProgressBar::AnimatedProgressBar(QWidget* parent)
     setMinimumHeight(12);
     setMaximumHeight(16);
     
-    m_animation-&gt;setDuration(SkyGuardTheme::AnimationSlow);
-    m_animation-&gt;setEasingCurve(QEasingCurve::OutCubic);
+    m_animation->setDuration(SkyGuardTheme::AnimationSlow);
+    m_animation->setEasingCurve(QEasingCurve::OutCubic);
 }
 
 void AnimatedProgressBar::setValue(int value) {
     m_targetValue = qBound(0, value, 100);
     
-    m_animation-&gt;stop();
-    m_animation-&gt;setStartValue(m_animatedValue);
-    m_animation-&gt;setEndValue(m_targetValue);
-    m_animation-&gt;start();
+    m_animation->stop();
+    m_animation->setStartValue(m_animatedValue);
+    m_animation->setEndValue(m_targetValue);
+    m_animation->start();
 }
 
-void AnimatedProgressBar::setBarColor(const QColor&amp; color) {
+void AnimatedProgressBar::setBarColor(const QColor& color) {
     m_barColor = color;
     update();
 }
 
-void AnimatedProgressBar::setBackgroundColor(const QColor&amp; color) {
+void AnimatedProgressBar::setBackgroundColor(const QColor& color) {
     m_backgroundColor = color;
     update();
 }
 
 void AnimatedProgressBar::setAnimationDuration(int msec) {
-    m_animation-&gt;setDuration(msec);
+    m_animation->setDuration(msec);
 }
 
 void AnimatedProgressBar::setAnimatedValue(int value) {
@@ -435,7 +433,7 @@ void AnimatedProgressBar::paintEvent(QPaintEvent*) {
     painter.drawRoundedRect(rect(), borderRadius, borderRadius);
     
     // Progress bar
-    if (m_animatedValue &gt; 0) {
+    if (m_animatedValue > 0) {
         int barWidth = (width() - 2) * m_animatedValue / 100;
         QRect barRect(1, 1, barWidth, height() - 2);
         
@@ -459,17 +457,17 @@ IconLabel::IconLabel(QWidget* parent)
     setAlignment(Qt::AlignCenter);
 }
 
-void IconLabel::setIconPath(const QString&amp; path) {
+void IconLabel::setIconPath(const QString& path) {
     m_iconPath = path;
     updateIcon();
 }
 
-void IconLabel::setIconSize(const QSize&amp; size) {
+void IconLabel::setIconSize(const QSize& size) {
     m_iconSize = size;
     updateIcon();
 }
 
-void IconLabel::setIconColor(const QColor&amp; color) {
+void IconLabel::setIconColor(const QColor& color) {
     m_iconColor = color;
     updateIcon();
 }
@@ -487,7 +485,7 @@ void IconLabel::updateIcon() {
 
 // ==================== BadgeLabel ====================
 
-BadgeLabel::BadgeLabel(const QString&amp; text, QWidget* parent)
+BadgeLabel::BadgeLabel(const QString& text, QWidget* parent)
     : QLabel(text, parent)
     , m_type(Info)
     , m_useCustomColors(false)
@@ -502,7 +500,7 @@ void BadgeLabel::setBadgeType(BadgeType type) {
     updateStyle();
 }
 
-void BadgeLabel::setCustomColors(const QColor&amp; background, const QColor&amp; text) {
+void BadgeLabel::setCustomColors(const QColor& background, const QColor& text) {
     m_customBackground = background;
     m_customText = text;
     m_useCustomColors = true;
@@ -560,7 +558,7 @@ void BadgeLabel::updateStyle() {
 
 // ==================== SectionHeader ====================
 
-SectionHeader::SectionHeader(const QString&amp; title, QWidget* parent)
+SectionHeader::SectionHeader(const QString& title, QWidget* parent)
     : QWidget(parent)
     , m_iconLabel(new QLabel(this))
     , m_titleLabel(new QLabel(title, this))
@@ -572,55 +570,55 @@ SectionHeader::SectionHeader(const QString&amp; title, QWidget* parent)
 
 void SectionHeader::setupUI() {
     QHBoxLayout* layout = new QHBoxLayout(this);
-    layout-&gt;setContentsMargins(0, 0, 0, 0);
-    layout-&gt;setSpacing(12);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(12);
     
-    m_iconLabel-&gt;setFixedSize(24, 24);
-    layout-&gt;addWidget(m_iconLabel);
+    m_iconLabel->setFixedSize(24, 24);
+    layout->addWidget(m_iconLabel);
     
     QVBoxLayout* textLayout = new QVBoxLayout();
-    textLayout-&gt;setSpacing(2);
+    textLayout->setSpacing(2);
     
-    m_titleLabel-&gt;setStyleSheet(QString(
+    m_titleLabel->setStyleSheet(QString(
         "font-size: 16px; font-weight: 700; color: %1; letter-spacing: 1px;"
     ).arg(SkyGuardTheme::toHex(SkyGuardTheme::TextPrimary)));
-    textLayout-&gt;addWidget(m_titleLabel);
+    textLayout->addWidget(m_titleLabel);
     
-    m_subtitleLabel-&gt;setStyleSheet(QString(
+    m_subtitleLabel->setStyleSheet(QString(
         "font-size: 12px; color: %1;"
     ).arg(SkyGuardTheme::toHex(SkyGuardTheme::TextMuted)));
-    m_subtitleLabel-&gt;hide();
-    textLayout-&gt;addWidget(m_subtitleLabel);
+    m_subtitleLabel->hide();
+    textLayout->addWidget(m_subtitleLabel);
     
-    layout-&gt;addLayout(textLayout);
-    layout-&gt;addStretch();
+    layout->addLayout(textLayout);
+    layout->addStretch();
 }
 
-void SectionHeader::setTitle(const QString&amp; title) {
-    m_titleLabel-&gt;setText(title);
+void SectionHeader::setTitle(const QString& title) {
+    m_titleLabel->setText(title);
 }
 
-void SectionHeader::setSubtitle(const QString&amp; subtitle) {
-    m_subtitleLabel-&gt;setText(subtitle);
-    m_subtitleLabel-&gt;setVisible(!subtitle.isEmpty());
+void SectionHeader::setSubtitle(const QString& subtitle) {
+    m_subtitleLabel->setText(subtitle);
+    m_subtitleLabel->setVisible(!subtitle.isEmpty());
 }
 
-void SectionHeader::setIcon(const QIcon&amp; icon) {
-    m_iconLabel-&gt;setPixmap(icon.pixmap(24, 24));
+void SectionHeader::setIcon(const QIcon& icon) {
+    m_iconLabel->setPixmap(icon.pixmap(24, 24));
 }
 
-void SectionHeader::setActionButton(const QString&amp; text, const QString&amp; iconPath) {
+void SectionHeader::setActionButton(const QString& text, const QString& iconPath) {
     if (!m_actionButton) {
         m_actionButton = new ModernButton(text, this);
-        m_actionButton-&gt;setButtonStyle(ModernButton::Primary);
-        connect(m_actionButton, &amp;QPushButton::clicked, this, &amp;SectionHeader::actionClicked);
-        static_cast&lt;QHBoxLayout*&gt;(layout())-&gt;addWidget(m_actionButton);
+        m_actionButton->setButtonStyle(ModernButton::Primary);
+        connect(m_actionButton, &QPushButton::clicked, this, &SectionHeader::actionClicked);
+        static_cast<QHBoxLayout*>(layout())->addWidget(m_actionButton);
     } else {
-        m_actionButton-&gt;setText(text);
+        m_actionButton->setText(text);
     }
     
     if (!iconPath.isEmpty()) {
-        m_actionButton-&gt;setIconPath(iconPath);
+        m_actionButton->setIconPath(iconPath);
     }
 }
 
@@ -637,28 +635,28 @@ LoadingSpinner::LoadingSpinner(QWidget* parent)
     setFixedSize(32, 32);
     setAttribute(Qt::WA_TranslucentBackground);
     
-    m_animation-&gt;setDuration(1000);
-    m_animation-&gt;setStartValue(0);
-    m_animation-&gt;setEndValue(360);
-    m_animation-&gt;setLoopCount(-1);
+    m_animation->setDuration(1000);
+    m_animation->setStartValue(0);
+    m_animation->setEndValue(360);
+    m_animation->setLoopCount(-1);
 }
 
 void LoadingSpinner::start() {
     m_spinning = true;
-    m_animation-&gt;start();
+    m_animation->start();
     show();
 }
 
 void LoadingSpinner::stop() {
     m_spinning = false;
-    m_animation-&gt;stop();
+    m_animation->stop();
 }
 
 bool LoadingSpinner::isSpinning() const {
     return m_spinning;
 }
 
-void LoadingSpinner::setColor(const QColor&amp; color) {
+void LoadingSpinner::setColor(const QColor& color) {
     m_color = color;
     update();
 }

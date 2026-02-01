@@ -1,17 +1,17 @@
 #ifndef MODERNCOMPONENTS_H
 #define MODERNCOMPONENTS_H
 
-#include &lt;QWidget&gt;
-#include &lt;QFrame&gt;
-#include &lt;QPushButton&gt;
-#include &lt;QLabel&gt;
-#include &lt;QVBoxLayout&gt;
-#include &lt;QHBoxLayout&gt;
-#include &lt;QPropertyAnimation&gt;
-#include &lt;QGraphicsDropShadowEffect&gt;
-#include &lt;QTimer&gt;
-#include &lt;QPainter&gt;
-#include &lt;QEnterEvent&gt;
+#include <QWidget>
+#include <QFrame>
+#include <QPushButton>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QPropertyAnimation>
+#include <QGraphicsDropShadowEffect>
+#include <QTimer>
+#include <QPainter>
+#include <QEnterEvent>
 
 namespace CounterUAS {
 
@@ -25,9 +25,9 @@ class GlowFrame : public QFrame {
 public:
     explicit GlowFrame(QWidget* parent = nullptr);
     
-    void setGlowColor(const QColor&amp; color);
+    void setGlowColor(const QColor& color);
     void setGlowEnabled(bool enabled);
-    void setBorderAccentColor(const QColor&amp; color);
+    void setBorderAccentColor(const QColor& color);
     
     qreal glowOpacity() const { return m_glowOpacity; }
     void setGlowOpacity(qreal opacity);
@@ -106,11 +106,11 @@ public:
     };
     Q_ENUM(ButtonStyle)
     
-    explicit ModernButton(const QString&amp; text = QString(), QWidget* parent = nullptr);
-    ModernButton(const QIcon&amp; icon, const QString&amp; text, QWidget* parent = nullptr);
+    explicit ModernButton(const QString& text = QString(), QWidget* parent = nullptr);
+    ModernButton(const QIcon& icon, const QString& text, QWidget* parent = nullptr);
     
     void setButtonStyle(ButtonStyle style);
-    void setIconPath(const QString&amp; iconPath);
+    void setIconPath(const QString& iconPath);
     
     qreal hoverProgress() const { return m_hoverProgress; }
     void setHoverProgress(qreal progress);
@@ -137,11 +137,11 @@ class ModernStatCard : public GlowFrame {
 public:
     explicit ModernStatCard(QWidget* parent = nullptr);
     
-    void setTitle(const QString&amp; title);
-    void setValue(const QString&amp; value);
-    void setSubtitle(const QString&amp; subtitle);
-    void setIcon(const QIcon&amp; icon);
-    void setAccentColor(const QColor&amp; color);
+    void setTitle(const QString& title);
+    void setValue(const QString& value);
+    void setSubtitle(const QString& subtitle);
+    void setIcon(const QIcon& icon);
+    void setAccentColor(const QColor& color);
     
 private:
     void setupUI();
@@ -164,8 +164,8 @@ public:
     explicit AnimatedProgressBar(QWidget* parent = nullptr);
     
     void setValue(int value);
-    void setBarColor(const QColor&amp; color);
-    void setBackgroundColor(const QColor&amp; color);
+    void setBarColor(const QColor& color);
+    void setBackgroundColor(const QColor& color);
     void setAnimationDuration(int msec);
     
     int animatedValue() const { return m_animatedValue; }
@@ -191,9 +191,9 @@ class IconLabel : public QLabel {
 public:
     explicit IconLabel(QWidget* parent = nullptr);
     
-    void setIconPath(const QString&amp; path);
-    void setIconSize(const QSize&amp; size);
-    void setIconColor(const QColor&amp; color);
+    void setIconPath(const QString& path);
+    void setIconSize(const QSize& size);
+    void setIconColor(const QColor& color);
     
 private:
     void updateIcon();
@@ -220,10 +220,10 @@ public:
     };
     Q_ENUM(BadgeType)
     
-    explicit BadgeLabel(const QString&amp; text = QString(), QWidget* parent = nullptr);
+    explicit BadgeLabel(const QString& text = QString(), QWidget* parent = nullptr);
     
     void setBadgeType(BadgeType type);
-    void setCustomColors(const QColor&amp; background, const QColor&amp; text);
+    void setCustomColors(const QColor& background, const QColor& text);
     
 private:
     void updateStyle();
@@ -241,12 +241,12 @@ class SectionHeader : public QWidget {
     Q_OBJECT
     
 public:
-    explicit SectionHeader(const QString&amp; title, QWidget* parent = nullptr);
+    explicit SectionHeader(const QString& title, QWidget* parent = nullptr);
     
-    void setTitle(const QString&amp; title);
-    void setSubtitle(const QString&amp; subtitle);
-    void setIcon(const QIcon&amp; icon);
-    void setActionButton(const QString&amp; text, const QString&amp; iconPath = QString());
+    void setTitle(const QString& title);
+    void setSubtitle(const QString& subtitle);
+    void setIcon(const QIcon& icon);
+    void setActionButton(const QString& text, const QString& iconPath = QString());
     
 signals:
     void actionClicked();
@@ -274,7 +274,7 @@ public:
     void stop();
     bool isSpinning() const;
     
-    void setColor(const QColor&amp; color);
+    void setColor(const QColor& color);
     void setLineWidth(int width);
     
     int rotation() const { return m_rotation; }

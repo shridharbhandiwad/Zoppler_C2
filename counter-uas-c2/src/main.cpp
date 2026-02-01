@@ -40,11 +40,8 @@ int main(int argc, char *argv[])
     app.setApplicationVersion("2.4.1-ALPHA");
     app.setOrganizationName("Defense Systems");
     
-    // Enable HiDPI scaling for modern displays
-    app.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
-    
     // Apply the SkyGuard theme (sets Fusion style and dark palette)
-    SkyGuardTheme::applyTheme(&amp;app);
+    SkyGuardTheme::applyTheme(&app);
     
     // Apply global stylesheet for consistent theming
     app.setStyleSheet(SkyGuardTheme::getStyleSheet());
